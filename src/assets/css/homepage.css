@@ -1,10 +1,11 @@
 .homepage-box {
-  height: calc(100vh - 56px);
+  height: calc(100vh - 86px);
   background-color: #0a0a0f;
 }
 
 .homepage-container {
   padding: 2rem;
+  height: 100%;
 }
 
 .card-bg {
