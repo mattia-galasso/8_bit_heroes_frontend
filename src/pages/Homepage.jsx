@@ -1,4 +1,36 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+import GameCard from "../components/GameCard";
+
 export default function Homepage() {
+  const [discountedProducts, setDiscountedProducts] = useState([]);
+  const [mostSoldProducts, setMostSoldProducts] = useState([]);
+
+  // PER OVERLAY
+  const [hovered, setHovered] = useState(false);
+
+  const handleOnMouseEnter = () => {
+    setHovered(true);
+  };
+  const handleOnMouseLeave = () => {
+    setHovered(false);
+  };
+
+  // CHIAMATA OFFERTE
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/products/discounted")
+      .then((res) => setDiscountedProducts(res.data.result));
+  }, []);
+
+  // CHIAMATA PIU' VENDUTI
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/products/sales")
+      .then((res) => setMostSoldProducts(res.data.result));
+  }, []);
+
   return (
     <section className="homepage-container">
       {/* HERO */}
@@ -18,12 +50,17 @@ export default function Homepage() {
       {/* OFFERTE */}
       <section className="card card-bg my-4">
         <h2 className="homepage-section-title h1 text-center text-warning my-1">OFFERTE EPICHE</h2>
-        <div className="card card-bg">
-          <ul>
-            <li>image</li>
-            <li>name</li>
-            <li>price discount</li>
-            <li>original price</li>
+        <div className="card card-bg p-4">
+          <ul className="row row-cols-2 row-cols-sm-4 g-3 mb-0 list-unstyled">
+            {discountedProducts.map((product) => (
+              <GameCard
+                className="col"
+                product={product}
+                key={product.id}
+                onMouseEnter={handleOnMouseEnter}
+                onMouseLeave={handleOnMouseLeave}
+              />
+            ))}
           </ul>
         </div>
       </section>
@@ -31,11 +68,17 @@ export default function Homepage() {
       {/* PIU' VENDUTI */}
       <section className="card card-bg">
         <h2 className="homepage-section-title h1 text-center text-warning my-1">I PIÙ VENDUTI</h2>
-        <div className="card card-bg">
-          <ul>
-            <li>image</li>
-            <li>name</li>
-            <li>price</li>
+        <div className="card card-bg p-4">
+          <ul className="row row-cols-2 row-cols-sm-4 g-3 mb-0 list-unstyled">
+            {mostSoldProducts.map((product) => (
+              <GameCard
+                className="col"
+                product={product}
+                key={product.id}
+                onMouseEnter={handleOnMouseEnter}
+                onMouseLeave={handleOnMouseLeave}
+              />
+            ))}
           </ul>
         </div>
       </section>

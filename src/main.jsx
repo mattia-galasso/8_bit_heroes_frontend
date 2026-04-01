@@ -6,9 +6,9 @@ import App from "./App.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap-icons/font/bootstrap-icons.min.css";
-// GENERAL CSS FILE
+// GENERAL CSS
 import "./assets/css/index.css";
-// HOMEPAGE CSS FILE
+// HOMEPAGE CSS
 import "./assets/css/homepage.css";
 
 createRoot(document.getElementById("root")).render(
