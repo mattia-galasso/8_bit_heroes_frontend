@@ -1,0 +1,43 @@
+.homepage-box {
+  height: calc(100vh - 56px);
+  background-color: #0a0a0f;
+}
+
+.homepage-container {
+  padding: 2rem;
+}
+
+.card-bg {
+  background-color: #0f0f1a;
+  color: white;
+  border-color: #1e1e30;
+}
+
+.header-homepage-slogan {
+  height: 20rem;
+  border: 1px solid #1e1e30;
+  border-radius: 10px;
+  position: relative;
+  text-shadow: 0px 0px 10px grey;
+}
+
+.homepage-header-text {
+  width: 30rem;
+  padding: 5rem;
+  z-index: 10;
+}
+
+.homepage-header-text > p {
+  margin-bottom: 0;
+}
+
+.homepage-header-image {
+  position: absolute;
+  translate: -50% -50%;
+  top: 46%;
+  left: 75%;
+  width: 20rem;
+  opacity: 0.1;
+  transform: rotate(10deg);
+  z-index: 0;
+}
