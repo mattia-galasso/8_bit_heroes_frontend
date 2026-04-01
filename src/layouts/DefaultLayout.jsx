@@ -1,4 +1,4 @@
-import { Outlet, NavLink } from "react-router";
+import { Outlet, NavLink, Link } from "react-router";
 
 export default function DefaultLayout() {
   return (
@@ -7,7 +7,7 @@ export default function DefaultLayout() {
       <header>
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid">
-            <h1 className="navbar-brand mb-0">Navbar</h1>
+            <Link to='/' className="navbar-brand mb-0"><img src="/8bit_heroes_logo.png" alt="8bit_heroes_logo" className="avatar"/></Link>
             <button
               className="navbar-toggler"
               type="button"
