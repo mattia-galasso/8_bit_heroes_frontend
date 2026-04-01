@@ -5,39 +5,50 @@ export default function DefaultLayout() {
     <>
       {/* HEADER */}
       <header>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
-          <div className="container-fluid">
-            <Link to='/' className="navbar-brand mb-0"><img src="/8bit_heroes_logo.png" alt="8bit_heroes_logo" className="avatar"/></Link>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarNav"
-              aria-controls="navbarNav"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
+        <nav
+          className="navbar navbar-expand-lg bg-body-tertiary"
+          data-bs-theme="dark"
+        >
+          <div className="container-fluid" id="container-navbar">
+            <div>
+              <Link to="/" className="navbar-brand mb-0">
+                <img
+                  src="/8bit_heroes_logo.png"
+                  alt="8bit_heroes_logo"
+                  className="avatar"
+                />
+              </Link>
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+            </div>
             <div className="collapse navbar-collapse" id="navbarNav">
-              <ul className="navbar-nav">
+              <ul className="navbar-nav mx-auto">
                 <li className="nav-item">
-                  <NavLink to="/" className="nav-link">
+                  <NavLink to="/" className="nav-link fs-5 fw-bold">
                     Home
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/games" className="nav-link">
+                  <NavLink to="/games" className="nav-link fs-5 fw-bold">
                     Videogames
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/wishlist" className="nav-link">
+                  <NavLink to="/wishlist" className="nav-link fs-5 fw-bold">
                     Wishlist
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/cart" className="nav-link">
+                  <NavLink to="/cart" className="nav-link fs-5 fw-bold">
                     Carrello
                   </NavLink>
                 </li>
