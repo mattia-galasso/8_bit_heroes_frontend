@@ -16,7 +16,7 @@ export default function Homepage() {
       </div>
 
       {/* OFFERTE */}
-      <div className="card card-bg my-4">
+      <section className="card card-bg my-4">
         <h2 className="homepage-section-title h1 text-center text-warning my-1">OFFERTE EPICHE</h2>
         <div className="card card-bg">
           <ul>
@@ -26,10 +26,10 @@ export default function Homepage() {
             <li>original price</li>
           </ul>
         </div>
-      </div>
+      </section>
 
       {/* PIU' VENDUTI */}
-      <div className="card card-bg">
+      <section className="card card-bg">
         <h2 className="homepage-section-title h1 text-center text-warning my-1">I PIÙ VENDUTI</h2>
         <div className="card card-bg">
           <ul>
@@ -38,7 +38,7 @@ export default function Homepage() {
             <li>price</li>
           </ul>
         </div>
-      </div>
+      </section>
     </section>
   );
 }
