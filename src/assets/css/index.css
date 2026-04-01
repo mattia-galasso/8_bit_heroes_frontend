@@ -5,6 +5,6 @@
 }
 
 .avatar {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  aspect-ratio: 1;
 }
