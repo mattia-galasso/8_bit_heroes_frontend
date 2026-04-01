@@ -1,4 +1,26 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+import GameCard from "../components/GameCard";
+
 export default function Homepage() {
+  const [discountedProducts, setDiscountedProducts] = useState([]);
+  const [mostSoldProducts, setMostSoldProducts] = useState([]);
+
+  // CHIAMATA OFFERTE
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/products/discounted")
+      .then((res) => setDiscountedProducts(res.data.result));
+  }, []);
+
+  // CHIAMATA PIU' VENDUTI
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/products/sales")
+      .then((res) => setMostSoldProducts(res.data.result));
+  }, []);
+
   return (
     <section className="homepage-container">
       {/* HERO */}
@@ -18,12 +40,11 @@ export default function Homepage() {
       {/* OFFERTE */}
       <section className="card card-bg my-4">
         <h2 className="homepage-section-title h1 text-center text-warning my-1">OFFERTE EPICHE</h2>
-        <div className="card card-bg">
-          <ul>
-            <li>image</li>
-            <li>name</li>
-            <li>price discount</li>
-            <li>original price</li>
+        <div className="card card-bg py-3">
+          <ul className="list-unstyled d-flex justify-content-evenly m-0">
+            {discountedProducts.map((product) => (
+              <GameCard product={product} key={product.id} />
+            ))}
           </ul>
         </div>
       </section>
@@ -31,11 +52,11 @@ export default function Homepage() {
       {/* PIU' VENDUTI */}
       <section className="card card-bg">
         <h2 className="homepage-section-title h1 text-center text-warning my-1">I PIÙ VENDUTI</h2>
-        <div className="card card-bg">
-          <ul>
-            <li>image</li>
-            <li>name</li>
-            <li>price</li>
+        <div className="card card-bg py-3">
+          <ul className="list-unstyled d-flex justify-content-evenly mb-0">
+            {mostSoldProducts.map((product) => (
+              <GameCard product={product} key={product.id} />
+            ))}
           </ul>
         </div>
       </section>
