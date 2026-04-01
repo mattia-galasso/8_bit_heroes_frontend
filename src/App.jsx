@@ -16,8 +16,8 @@ export default function App() {
             <Route path="/" element={<Homepage />} />
             <Route path="/games" element={<Games />} />
             <Route path="/games/:slug" element={<GameDetails />} />
-            <Route path="/cart" element={<Cart />} />
             <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/cart" element={<Cart />} />
           </Route>
         </Routes>
       </BrowserRouter>
