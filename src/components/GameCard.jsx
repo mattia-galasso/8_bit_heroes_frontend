@@ -1,4 +1,3 @@
-
-export default function GameCard(){
-    return
+export default function GameCard() {
+  return;
 }
