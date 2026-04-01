@@ -13,11 +13,13 @@ export default function Homepage() {
               <p>Giochi fisici e digitali per tutte le piattaforme.</p>
               <p>Spedizione rapida e prezzi competitivi.</p>
             </div>
-            <img
-              src="8bit_heroes_logo.png"
-              alt="Logo"
-              className="homepage-header-image"
-            />
+            <div className="homepage-header-image">
+              <img
+                src="8bit_heroes_logo.png"
+                alt="Logo"
+                className="img-fluid"
+              />
+            </div>
           </div>
 
           {/* OFFERTE EPICHE */}
