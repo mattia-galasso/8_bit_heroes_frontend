@@ -1,10 +1,11 @@
 export default function GameCard({ product }) {
   return (
-    <div className="card">
-      <ul className="list-unstyled">
-        <li>{product.name}</li>
-        <li>{product.price}€</li>
-      </ul>
+    <div className="game-card ">
+      <img
+        className="img-fluid rounded-2"
+        src={`http://localhost:3000/videogame_covers/${product.cover_image}`}
+        alt={product.name}
+      />
     </div>
   );
 }

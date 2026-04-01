@@ -7,6 +7,16 @@ export default function Homepage() {
   const [discountedProducts, setDiscountedProducts] = useState([]);
   const [mostSoldProducts, setMostSoldProducts] = useState([]);
 
+  // PER OVERLAY
+  const [hovered, setHovered] = useState(false);
+
+  const handleOnMouseEnter = () => {
+    setHovered(true);
+  };
+  const handleOnMouseLeave = () => {
+    setHovered(false);
+  };
+
   // CHIAMATA OFFERTE
   useEffect(() => {
     axios
@@ -40,10 +50,16 @@ export default function Homepage() {
       {/* OFFERTE */}
       <section className="card card-bg my-4">
         <h2 className="homepage-section-title h1 text-center text-warning my-1">OFFERTE EPICHE</h2>
-        <div className="card card-bg py-3">
-          <ul className="list-unstyled d-flex justify-content-evenly m-0">
+        <div className="card card-bg p-4">
+          <ul className="row row-cols-2 row-cols-sm-4 g-3 mb-0 list-unstyled">
             {discountedProducts.map((product) => (
-              <GameCard product={product} key={product.id} />
+              <GameCard
+                className="col"
+                product={product}
+                key={product.id}
+                onMouseEnter={handleOnMouseEnter}
+                onMouseLeave={handleOnMouseLeave}
+              />
             ))}
           </ul>
         </div>
@@ -52,10 +68,16 @@ export default function Homepage() {
       {/* PIU' VENDUTI */}
       <section className="card card-bg">
         <h2 className="homepage-section-title h1 text-center text-warning my-1">I PIÙ VENDUTI</h2>
-        <div className="card card-bg py-3">
-          <ul className="list-unstyled d-flex justify-content-evenly mb-0">
+        <div className="card card-bg p-4">
+          <ul className="row row-cols-2 row-cols-sm-4 g-3 mb-0 list-unstyled">
             {mostSoldProducts.map((product) => (
-              <GameCard product={product} key={product.id} />
+              <GameCard
+                className="col"
+                product={product}
+                key={product.id}
+                onMouseEnter={handleOnMouseEnter}
+                onMouseLeave={handleOnMouseLeave}
+              />
             ))}
           </ul>
         </div>

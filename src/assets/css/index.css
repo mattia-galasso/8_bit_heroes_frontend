@@ -13,3 +13,7 @@ header .navbar {
   width: 80px;
   aspect-ratio: 1;
 }
+
+.game-card img {
+  aspect-ratio: 9/13;
+}
