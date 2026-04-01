@@ -4,8 +4,11 @@ import { createRoot } from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap-icons/font/bootstrap-icons.min.css";
-// css
+// GENERAL CSS FILE
 import "./assets/css/index.css";
+
+// HOMEPAGE CSS FILE
+import "./assets/css/homepage.css";
 
 import App from "./App.jsx";
 
