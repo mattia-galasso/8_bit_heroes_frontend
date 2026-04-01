@@ -4,7 +4,12 @@
   box-sizing: border-box;
 }
 
+header .navbar {
+  background: #2b3035;
+  background: linear-gradient(180deg, rgba(43, 48, 53, 1) 0%, rgba(10, 10, 15, 1) 100%);
+}
+
 .avatar {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  aspect-ratio: 1;
 }

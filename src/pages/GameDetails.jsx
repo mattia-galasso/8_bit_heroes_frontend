@@ -28,7 +28,7 @@ export default function GameDetails() {
     : null
 
   return (
-    <div className="container my-5">
+    <div className="container my-5 text-light">
       <div className="row g-4">
         <div className="col-12">
           <img
@@ -51,11 +51,11 @@ export default function GameDetails() {
 
           <p>{product.description}</p>
 
-          <ul className="list-group mb-3">
-            <li className="list-group-item">
+          <ul className="list-group list-group list-group-flush mb-3">
+            <li className="list-group-item bg-dark text-light border-secondary">
               <strong>PEGI:</strong> {product.pegi}
             </li>
-            <li className="list-group-item">
+            <li className="list-group-item bg-dark text-light border-secondary">
               <strong>Copia digitale </strong> {product.digital_copy ? "Disponibile" : "Non Disponibile"}
             </li>
           </ul>
@@ -98,17 +98,17 @@ export default function GameDetails() {
       {product.requirements && (
         <div className="mt-5">
           <h3 className="mb-3">Requisiti minimi</h3>
-          <ul className="list-group">
-            <li className="list-group-item">
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item bg-dark text-light border-secondary">
               <strong>Sistema operativo:</strong> {product.requirements.os}
             </li>
-            <li className="list-group-item">
+            <li className="list-group-item bg-dark text-light border-secondary">
               <strong>GPU:</strong> {product.requirements.gpu}
             </li>
-            <li className="list-group-item">
+            <li className="list-group-item bg-dark text-light border-secondary">
               <strong>RAM:</strong> {product.requirements.ram}
             </li>
-            <li className="list-group-item">
+            <li className="list-group-item bg-dark text-light border-secondary">
               <strong>Storage:</strong> {product.requirements.storage}
             </li>
           </ul>
