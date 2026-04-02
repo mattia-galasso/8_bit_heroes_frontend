@@ -47,7 +47,7 @@ export default function GameDetails() {
         </div>
 
         <div className="col-md-8">
-          <h1 className="mb-3">{product.name}</h1>
+          <h1 className="mb-3 text-warning">{product.name}</h1>
 
           <p>{product.description}</p>
 
@@ -63,9 +63,9 @@ export default function GameDetails() {
 
           {product.price !== product.final_price ? (
             <div className="mb-3">
-              <p className="text-decoration-line-through text-muted mb-1">€ {product.price}</p>
-              <p className="fs-3 fw-bold mb-2">€ {product.final_price}</p>
-              <span className="badge bg-success">-{product.discount_percentage}%</span>
+              <p className="text-decoration-line-through text-danger mb-1">€ {product.price}</p>
+              <p className="fs-3 fw-bold text-success mb-2">€ {product.final_price}</p>
+              <span className="badge bg-warning">-{product.discount_percentage}%</span>
             </div>
           ) : (
             <p className="fs-3 fw-bold">€ {product.price}</p>
