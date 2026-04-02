@@ -10,6 +10,8 @@ import "bootstrap-icons/font/bootstrap-icons.min.css";
 import "./assets/css/index.css";
 // HOMEPAGE CSS
 import "./assets/css/homepage.css";
+// CARTPAGE CSS 
+import './assets/css/cartpage.css';
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
