@@ -7,15 +7,7 @@ export default function Homepage() {
   const [discountedProducts, setDiscountedProducts] = useState([]);
   const [mostSoldProducts, setMostSoldProducts] = useState([]);
 
-  // PER OVERLAY
-  const [hovered, setHovered] = useState(false);
-
-  const handleOnMouseEnter = () => {
-    setHovered(true);
-  };
-  const handleOnMouseLeave = () => {
-    setHovered(false);
-  };
+  let enableOverlay;
 
   // CHIAMATA OFFERTE
   useEffect(() => {
@@ -51,15 +43,11 @@ export default function Homepage() {
       <section className="card card-bg my-4">
         <h2 className="homepage-section-title h1 text-center text-warning my-1">OFFERTE EPICHE</h2>
         <div className="card card-bg p-4">
-          <ul className="row row-cols-2 row-cols-sm-4 g-3 mb-0 list-unstyled">
+          <ul className="row row-cols-2 row-cols-md-4 g-3 mb-0 list-unstyled">
             {discountedProducts.map((product) => (
-              <GameCard
-                className="col"
-                product={product}
-                key={product.id}
-                onMouseEnter={handleOnMouseEnter}
-                onMouseLeave={handleOnMouseLeave}
-              />
+              <div className="col" key={product.id}>
+                <GameCard product={product} enableHoverOverlay={true} />
+              </div>
             ))}
           </ul>
         </div>
@@ -71,13 +59,9 @@ export default function Homepage() {
         <div className="card card-bg p-4">
           <ul className="row row-cols-2 row-cols-sm-4 g-3 mb-0 list-unstyled">
             {mostSoldProducts.map((product) => (
-              <GameCard
-                className="col"
-                product={product}
-                key={product.id}
-                onMouseEnter={handleOnMouseEnter}
-                onMouseLeave={handleOnMouseLeave}
-              />
+              <div className="col" key={product.id}>
+                <GameCard product={product} enableHoverOverlay={true} />
+              </div>
             ))}
           </ul>
         </div>
