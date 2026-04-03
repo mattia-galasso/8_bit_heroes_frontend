@@ -6,6 +6,7 @@ import Games from "./pages/Games";
 import GameDetails from "./pages/GameDetails";
 import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
+import Page404 from "./pages/Page404.jsx"
 
 // LAYOUT
 import DefaultLayout from "./layouts/DefaultLayout";
@@ -26,6 +27,7 @@ export default function App() {
               <Route path="/products/:slug" element={<GameDetails />} />
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="*" element={<Page404/>}/>
             </Route>
           </Routes>
         </BrowserRouter>
