@@ -7,8 +7,6 @@ export default function Homepage() {
   const [discountedProducts, setDiscountedProducts] = useState([]);
   const [mostSoldProducts, setMostSoldProducts] = useState([]);
 
-  let enableOverlay;
-
   // CHIAMATA OFFERTE
   useEffect(() => {
     axios
