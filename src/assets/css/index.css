@@ -47,6 +47,7 @@ header .navbar {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+/* welcome popup */
 .welcome-popup .modal-title {
   position: absolute;
   left: 50%;
@@ -74,6 +75,16 @@ header .navbar {
   z-index: 20;
 }
 
+.list-view .card {
+  scale: 1;
+  transition: scale 0.1s ease;
+}
+
+.list-view .card:hover {
+  scale: 1.05;
+}
+
+/* container */
 .container-custom {
   width: 100%;
   margin: 0 auto;

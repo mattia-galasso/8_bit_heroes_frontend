@@ -89,7 +89,7 @@ export default function Games() {
       {viewMode === "grid" ? (
         <section className="card card-bg my-4">
           <div className="card card-bg p-4">
-            <ul className="row row-cols-2 row-cols-sm-4 g-3 mb-0 list-unstyled">
+            <ul className="row row-cols-2 row-cols-sm-4 g-4 mb-0 list-unstyled">
               {visibleGames.map((game) => (
                 <li key={game.id} className="col">
                   <GameCard product={game} enableHoverOverlay={true} />
@@ -99,7 +99,7 @@ export default function Games() {
           </div>
         </section>
       ) : (
-        <div className="d-flex flex-column gap-3 my-4">
+        <div className="list-view d-flex flex-column gap-3 my-4">
           {visibleGames.map((game) => {
             const percentage = game.percentage || 0;
             const final_price = Number(game.price) - Number(game.price) * (percentage / 100);
@@ -107,7 +107,7 @@ export default function Games() {
             return (
               <div key={game.id} className="card card-bg border-secondary p-3">
                 <Link to={`/products/${game.slug}`} className=" d-block text-decoration-none">
-                  <div className="row g-3 align-items-center">
+                  <div className="row g-4 align-items-center">
                     <div className="col-12 col-sm-4 col-md-2 game-card">
                       <div className="position-relative">
                         {percentage > 0 && (
