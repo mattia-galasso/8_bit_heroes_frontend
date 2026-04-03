@@ -1,12 +1,24 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+// COMPONENTS
 import GameCard from "../components/GameCard";
-import WelcomePopUp from "../components/WelcomePopUp";
+import WelcomePopup from "../components/WelcomePopup";
 
 export default function Homepage() {
   const [discountedProducts, setDiscountedProducts] = useState([]);
   const [mostSoldProducts, setMostSoldProducts] = useState([]);
+
+  // PER WELCOME
+  const [showWelcome, setShowWelcome] = useState(false);
+
+  useEffect(() => {
+    const hasVisited = localStorage.getItem("hasVisited");
+    if (!hasVisited) {
+      localStorage.setItem("hasVisited", "true");
+      setShowWelcome(true);
+    }
+  }, []);
 
   // CHIAMATA OFFERTE
   useEffect(() => {
@@ -24,7 +36,7 @@ export default function Homepage() {
 
   return (
     <>
-      <WelcomePopUp />
+      {showWelcome && <WelcomePopup onClose={() => setShowWelcome(false)} />}
 
       <section className="homepage-container">
         {/* HERO */}
