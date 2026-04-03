@@ -11,7 +11,7 @@ export default function Navbar() {
     const params = new URLSearchParams();
     params.set("search", userInput);
     setSearchNavbarParams(params.toString());
-    searchNavigate(`/products?${params.toString()}`);
+    searchNavigate(`/games?${params.toString()}`);
   };
 
   return (
