@@ -7,13 +7,15 @@ export default function Navbar() {
         <nav className="navbar navbar-expand-lg px-1 py-1" data-bs-theme="dark">
           <div className="container-fluid" id="container-navbar">
             <Link to="/" className="navbar-brand m-0 p-0">
-              <img
-                src="/8bit_heroes_logo.png"
-                alt="8bit_heroes_logo"
-                className="avatar"
-              />
+              <div className="d-flex gap-1 align-items-center">
+                <img
+                  src="/8bit_heroes_logo.png"
+                  alt="8bit_heroes_logo"
+                  className="avatar"
+                />
+                <div className="navbar-division"></div>
+              </div>
             </Link>
-            <div className="navbar-division"></div>
             <button
               className="navbar-toggler me-2"
               type="button"
@@ -50,8 +52,8 @@ export default function Navbar() {
               </ul>
             </div>
           </div>
-        </nav>
-      </div>
+        </nav >
+      </div >
     </>
   );
 }
