@@ -2,16 +2,9 @@ import { Link } from "react-router";
 import "../assets/css/page404.css"
 
 export default function Page404() {
-    // return (
-    //     <div className="homepage-container text-white">
-    //         <h1>Pagina non trovata</h1>
-    //         <h2>Errore 404</h2>
-    //     </div>
-    // )
 
     return (
-        <div className="container d-flex flex-column justify-content-center align-items-center text-center card-bg"
-            style={{ minHeight: "80vh" }}>
+        <div className="container d-flex flex-column justify-content-center align-items-center text-center card-bg hv-80">
             <h1 className="display-1 fw-bold text-warning glow-text">
                 404
             </h1>
@@ -29,11 +22,9 @@ export default function Page404() {
                 <img
                     src="/8bit_heroes_logo.png"
                     alt="8 Bit Heroes"
-                    style={{ maxWidth: "200px", opacity: 0.8 }}
+                    className="logo"
                 />
             </div>
-
-            {/* Bottoni */}
             <div className="d-flex gap-3">
                 <Link to="/" className="btn btn-warning fw-bold px-4">
                     🏠 Torna alla Home
