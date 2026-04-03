@@ -47,6 +47,7 @@ header .navbar {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+/* welcome popup */
 .welcome-popup .modal-title {
   position: absolute;
   left: 50%;
@@ -72,4 +73,43 @@ header .navbar {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 20;
+}
+
+.list-view .card {
+  scale: 1;
+  transition: scale 0.1s ease;
+}
+
+.list-view .card:hover {
+  scale: 1.05;
+}
+
+/* container */
+.container-custom {
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (min-width: 576px) {
+  .container-custom {
+    max-width: 90%;
+  }
+}
+
+@media (min-width: 768px) {
+  .container-custom {
+    max-width: 90%;
+  }
+}
+
+@media (min-width: 992px) {
+  .container-custom {
+    max-width: 80%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container-custom {
+    max-width: 80%;
+  }
 }
