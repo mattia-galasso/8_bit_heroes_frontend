@@ -18,7 +18,7 @@ export default function GameCard({ product, enableHoverOverlay }) {
   return (
     <Link
       className="game-card"
-      to={`products/${product.slug}`}
+      to={`/products/${product.slug}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
