@@ -1,8 +1,10 @@
 
 import { useCart } from '../contexts/CartContext.jsx';
+import { useNavigate } from 'react-router';
 
 export default function Cart() {
-  const { cart,addToCart, removeFromCart } = useCart();
+  const { cart, addToCart, removeFromCart, toggleDigitalCopy } = useCart();
+  const navigateTo = useNavigate();
 
   const totalPrice = cart.reduce((total, item) => {
     return total + Number(item.final_price) * item.quantity;
@@ -10,36 +12,65 @@ export default function Cart() {
 
   return (
     <div className="paddingpage">
-      <h1 className="text-white text-center mb-3">Il tuo carrello</h1>
-      <p className='fs-4 fw-bold text-white'>{`Prezzo totale: ${totalPrice.toFixed(2)} \u20AC`}</p>
-      <ul className="list-group mb-4">
-        {cart.map((product) => {
+      <h1 className="text-warning text-center mb-3">Il tuo carrello</h1>
+      <p className='fs-4 fw-bold text-white'>{`Totale: \u20AC ${totalPrice.toFixed(2)}`}</p>
+
+      <div className="d-flex flex-column gap-3 my-4">
+        {cart.map((game) => {
           return (
-            <li className="list-group-item cart-list-item text-white" key={product.id}>
-              <div className='d-flex flex-column align-items-center flex-sm-row gap-4'>
-                <div className='game-card'>
-                  <img src={`http://localhost:3000/videogame_covers/${product.cover_image}`} alt={product.aname} />
-                </div>
-                <div>
-                  <h1 className='fs-2'>{product.name}</h1>
-                  <p>{product.description}</p>
-                  <div>
-                    <div className='btn-group fs-5'>
-                      <button onClick={() => removeFromCart(product.id)} className='btn btn-light py-0 px-1'>{product.quantity === 1 ?<i class="bi bi-trash text-danger"></i>:<i className="bi bi-dash"></i>}</button>
-                      <p className='m-0 px-2 border border-light'>{product.quantity}</p>
-                      <button onClick={() => addToCart(product)}className='btn btn-light py-0 px-1'><i className="bi bi-plus p-0 m-0"></i></button>
+            <div key={game.id} className="card card-bg cart-list-item border-secondary p-3">
+              <div onClick={(e) => {
+                if (e.target.closest("button, input, label")) return;
+                navigateTo(`/products/${game.slug}`)}} className=" d-block text-decoration-none">
+                <div className="row g-3 align-items-center">
+                  <div className="col-12 col-sm-4 col-md-2 game-card">
+                    <div className="position-relative">
+                      <img
+                        className="img-fluid rounded-2"
+                        src={`http://localhost:3000/videogame_covers/${game.cover_image}`}
+                        alt={game.name}
+                      />
                     </div>
-                    <p className='text-end fs-4'>{`\u20AC ${product.final_price}`}</p>
+                  </div>
+
+                  <div className="col-12 col-sm-8 col-md-10 text-white">
+                    <h4 className="mb-2">{game.name}</h4>
+                    <p className="mb-0">
+                      {game.description}
+                    </p>
+                    <div>
+                      <div className='btn-group fs-5 mt-2'>
+                        <button onClick={() => removeFromCart(game.id)} className='btn btn-light py-0 px-1'>{game.quantity === 1 ? <i className="bi bi-trash text-danger"></i> : <i className="bi bi-dash"></i>}</button>
+                        <p className='m-0 px-2 border border-light'>{game.quantity}</p>
+                        <button onClick={() => addToCart(game)} className='btn btn-light py-0 px-1'><i className="bi bi-plus p-0 m-0"></i></button>
+                      </div>
+                      <div className='d-flex justify-content-between'>
+                        <div className="form-check mt-2">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            checked={game.copyInDigital || false}
+                            onClick={(e) => {e.stopPropagation}}
+                            onChange={() => toggleDigitalCopy(game.id)}
+                            id={`digital-${game.id}`}
+                          />
+                          <label
+                            className="form-check-label text-light"
+                            htmlFor={`digital-${game.id}`}
+                          >
+                            Copia digitale
+                          </label>
+                        </div>
+                      <p className='text-end fs-4'>{`\u20AC ${game.final_price}`}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </li>
-
-
+            </div>
           )
-
         })}
-      </ul>
+      </div>
       <div className='d-flex justify-content-end'>
         <button className='btn btn-primary'>Effettua ordine</button>
       </div>

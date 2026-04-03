@@ -3,15 +3,6 @@
     border-color: #1e1e30;
 }
 
-/* .product-image{
-    width: 20%;
-} */
-
-.product-image > img {
-    width: 100px;
-    height: 100%;
-}
-
 .cart-list-item:hover{
     background-color: #2b3035;
 }
