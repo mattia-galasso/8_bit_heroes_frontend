@@ -1,12 +1,33 @@
 import axios from "axios";
+import { useState } from "react";
 
 export default function WelcomePopup({ onClose }) {
+  const [inputData, setInputData] = useState("");
+
+  const handleInputChange = (e) => {
+    setInputData(e.target.value);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    axios
+      .post("http://localhost:3000/newsletter", { email: inputData.trim().toLowerCase() })
+      .then((res) => {
+        console.log(res.data);
+      });
+
+    setInputData("");
+
+    onClose();
+  };
+
   return (
-    <div className="welcome-popup modal show d-block" tabIndex="-1">
+    <div className="welcome-popup modal show d-block" tabIndex="-1" data-bs-theme="dark">
       <div className="modal-dialog modal-xl modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header position-relative py-4">
-            <h1 className="modal-title text-center fw-bold m-0">Welcome!</h1>
+            <h1 className="modal-title text-warning text-center fw-bold m-0">Welcome!</h1>
             <button
               onClick={onClose}
               type="button"
@@ -17,7 +38,7 @@ export default function WelcomePopup({ onClose }) {
           </div>
           <div className="modal-body">
             <p className="text-center">
-              Benvenuto su <strong>8-Bit Heroes</strong> Videogame Store
+              Benvenuto su <strong className="text-warning">8-Bit Heroes</strong> Videogame Store
             </p>
             <p className="text-center">
               Iscriviti alla nostra Newsletter per rimanere aggiornato su nuove uscite e promozioni
@@ -26,22 +47,24 @@ export default function WelcomePopup({ onClose }) {
             <label htmlFor="newsletter-input" className="form-label">
               Inserisci il tuo indirizzo email
             </label>
-            <div className="input-group">
-              <span className="input-group-text" id="visible-addon">
-                @
-              </span>
-              <input
-                id="newsletter-input"
-                type="email"
-                className="form-control"
-                placeholder="..."
-                aria-label="Username"
-                aria-describedby="visible-addon"
-              />
-              <span className="input-group-text" id="basic-addon2">
-                @
-              </span>
-            </div>
+            <form onSubmit={handleFormSubmit}>
+              <div className="input-group">
+                <input
+                  value={inputData}
+                  onChange={handleInputChange}
+                  id="newsletter-input"
+                  type="email"
+                  className="form-control"
+                  placeholder="..."
+                  aria-label="Username"
+                  aria-describedby="visible-addon"
+                  required
+                />
+                <button className="btn btn-success" type="submit" id="button-addon2">
+                  Iscrivimi
+                </button>
+              </div>
+            </form>
           </div>
           <div className="modal-footer">
             <button
@@ -51,9 +74,6 @@ export default function WelcomePopup({ onClose }) {
               data-bs-dismiss="modal"
             >
               Magari no
-            </button>
-            <button type="button" className="btn btn-success fs-4" onClick={onClose}>
-              Iscrivimi
             </button>
           </div>
         </div>

@@ -36,7 +36,12 @@ export default function Homepage() {
 
   return (
     <>
-      {showWelcome && <WelcomePopup onClose={() => setShowWelcome(false)} />}
+      {showWelcome && (
+        <>
+          <div className="welcome-overlay"></div>
+          <WelcomePopup onClose={() => setShowWelcome(false)} />
+        </>
+      )}
 
       <section className="homepage-container">
         {/* HERO */}
