@@ -73,3 +73,32 @@ header .navbar {
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 20;
 }
+
+.container-custom {
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (min-width: 576px) {
+  .container-custom {
+    max-width: 90%;
+  }
+}
+
+@media (min-width: 768px) {
+  .container-custom {
+    max-width: 90%;
+  }
+}
+
+@media (min-width: 992px) {
+  .container-custom {
+    max-width: 80%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container-custom {
+    max-width: 80%;
+  }
+}

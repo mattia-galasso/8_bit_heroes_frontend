@@ -9,7 +9,7 @@ export default function DefaultLayout() {
         <Navbar />
       </header>
       {/* MAIN */}
-      <main className="main-layout">
+      <main className="main-layout container-custom">
         <Outlet />
       </main>
     </>
