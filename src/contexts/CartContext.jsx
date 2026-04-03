@@ -28,7 +28,7 @@ function CartProvider({ children }) {
                 );
             }
 
-            return [...oldCart, { ...game, quantity: 1 }]
+            return [...oldCart, { ...game, quantity: 1, copyInDigital: false}]
 
         });
 
@@ -40,15 +40,26 @@ function CartProvider({ children }) {
         setCart((oldCart) => oldCart.map(game =>
             game.id === gameId
                 ? { ...game, quantity: (game.quantity || 1) - 1 }
-                : item)
+                : game)
                 // se la quantità è uguale o minore a 0 il prodotto viene rimosso dalla lista dei prodotti nel carrello
             .filter(game => game.quantity > 0))
     }
 
+    const toggleDigitalCopy = (gameId) => {
+        setCart((oldCart) =>
+            oldCart.map(game =>
+                game.id === gameId
+                    ? { ...game, copyInDigital: !game.copyInDigital }
+                    : game
+            )
+        );
+    };
+
     const value = {
         cart,
         addToCart,
-        removeFromCart
+        removeFromCart,
+        toggleDigitalCopy
     }
 
     return (
