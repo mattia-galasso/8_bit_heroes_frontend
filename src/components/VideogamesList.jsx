@@ -1,74 +1,71 @@
-import { useEffect, useState } from "react";
-import GameCard from "./GameCard";
-import { Link, useSearchParams } from "react-router";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router";
+import GameCard from "../components/GameCard";
 
-const baseURL = "http://localhost:3000/products/find";
-
-export default function GamesSearched() {
-  //* useState Constants
-  const [searchGamesList, setSearchGamesList] = useState([]);
+export default function VideogamesList() {
+  //* useState Constant
+  const [viewMode, setViewMode] = useState("grid");
+  const [onlyDiscounted, setOnlyDiscounted] = useState(false);
+  const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [onlyDiscounted, setOnlyDiscounted] = useState(false);
-  const [viewMode, setViewMode] = useState("grid");
+  const [sortBy, setSortBy] = useState("");
 
-  //* Query Param
-  const [searchParams] = useSearchParams();
-  const search = searchParams.get("search");
-
-  //* Function Search Axios
-  function searchNavbar() {
-    if (!search) {
-      setSearchGamesList([]);
-      setLoading(false);
-      return;
-    }
-
+  useEffect(() => {
     setLoading(true);
 
+    let url = "http://localhost:3000/products";
+
+    if (sortBy === "price_asc") url += "?field=price&order=asc";
+
+    if (sortBy === "price_desc") url += "?field=price&order=desc";
+
+    if (sortBy === "name_asc") url += "?field=name&order=asc";
+
+    if (sortBy === "name_desc") url += "?field=name&order=desc";
+
+    //* Axios
     axios
-      .get(baseURL + `?search=${search}`)
+      .get(url)
       .then((res) => {
+        setGames(res.data.result);
         setLoading(false);
-        setSearchGamesList(res.data.result);
       })
       .catch((err) => {
         console.log(err);
         setError("Errore nel recupero dei videogiochi");
         setLoading(false);
       });
-  }
-
-  useEffect(searchNavbar, [search]);
+  }, [sortBy]);
 
   if (loading) return <p className="container mt-4">Caricamento...</p>;
   if (error) return <p className="container mt-4">{error}</p>;
 
-  if (searchGamesList.length === 0) {
-    return (
-      <div className="container mt-4 text-center">
-        <h2 className="text-warning">Nessun risultato per “{search}”</h2>
-        <p className="text-light">
-          Prova con un altro nome oppure esplora i nostri giochi 🎮
-        </p>
-      </div>
-    );
-  }
-
   const visibleGames = onlyDiscounted
-    ? searchGamesList.filter((game) => (game.percentage || 0) > 0)
-    : searchGamesList;
+    ? games.filter((game) => (game.percentage || 0) > 0)
+    : games;
 
   return (
     <>
       <section className="homepage-container">
         <div className="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 my-4">
-          <h1 className="text-warning ms-1 mb-0">
-            Risultati di ricerca per “{search}”
-          </h1>
+          <h1 className="text-warning ms-1 mb-0">Tutti i videogiochi</h1>
 
           <div className="d-flex flex-wrap align-items-center gap-2">
+            <select
+              className="form-select bg-dark text-light border-secondary"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              style={{ width: "170px" }}
+            >
+              <option value="">Ordina</option>
+              <option value="price_asc">Prezzo ↑</option>
+              <option value="price_desc">Prezzo ↓</option>
+              <option value="name_asc">Nome A-Z</option>
+              <option value="name_desc">Nome Z-A</option>
+            </select>
+
             <button
               className={`btn ${onlyDiscounted ? "btn-warning" : "btn-outline-warning"}`}
               onClick={() => setOnlyDiscounted(!onlyDiscounted)}

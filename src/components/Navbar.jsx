@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
-import { useSearchContext } from "../contexts/SearchContext";
+import { useCart } from "../contexts/CartContext";
 
 export default function Navbar() {
   const [userInput, setUserInput] = useState("");
-  const { setSearchNavbarParams } = useSearchContext();
   const searchNavigate = useNavigate();
+  const { totalQuantity } = useCart();
 
   const handleClickButton = () => {
     const params = new URLSearchParams();
     params.set("search", userInput);
-    setSearchNavbarParams(params.toString());
     searchNavigate(`/games?${params.toString()}`);
+    setUserInput("");
   };
 
   return (
@@ -88,16 +88,21 @@ export default function Navbar() {
                     <i className="bi bi-heart"></i>
                   </NavLink>
                 </button>
-                <button className="btn btn-outline-light my-3">
+                <button className="btn btn-outline-light my-3 position-relative">
                   <NavLink to="/cart" className="nav-link fs-5">
                     <i className="bi bi-cart"></i>
                   </NavLink>
+                  {totalQuantity > 0 && (
+                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                      {totalQuantity}
+                    </span>
+                  )}
                 </button>
               </div>
             </div>
           </div>
-        </nav >
-      </div >
+        </nav>
+      </div>
     </>
   );
 }
