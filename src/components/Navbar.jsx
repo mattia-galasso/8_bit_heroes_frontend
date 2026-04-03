@@ -1,6 +1,19 @@
-import { Link, NavLink } from "react-router";
+import { useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router";
+import { useSearchContext } from "../contexts/SearchContext";
 
 export default function Navbar() {
+  const [userInput, setUserInput] = useState("");
+  const { setSearchNavbarParams } = useSearchContext();
+  const searchNavigate = useNavigate();
+
+  const handleClickButton = () => {
+    const params = new URLSearchParams();
+    params.set("search", userInput);
+    setSearchNavbarParams(params.toString());
+    searchNavigate(`/products?${params.toString()}`);
+  };
+
   return (
     <>
       <div className="navbar-container">
@@ -43,46 +56,41 @@ export default function Navbar() {
                       Videogames
                     </NavLink>
                   </li>
-                  {/*                 <li className="nav-item">
-                  <NavLink to="/wishlist" className="nav-link fs-5 fw-bold">
-                  Wishlist
-                  </NavLink>
-                  </li>
-                  <li className="nav-item">
-                  <NavLink to="/cart" className="nav-link fs-5 fw-bold">
-                  Carrello
-                  </NavLink>
-                  </li> */}
                 </ul>
               </div>
               <div className="search-input-navbar my-3">
-                <form class="d-flex">
-                  <div class="input-group">
+                <div className="d-flex">
+                  <div className="input-group">
                     <input
+                      //
+                      value={userInput}
+                      onChange={(e) => setUserInput(e.target.value)}
+                      name="search-input"
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       placeholder="Cerca"
                       aria-label="Cerca"
                       id="search-navbar"
                     />
                     <button
-                      class="btn btn-outline-secondary"
+                      className="btn btn-outline-secondary"
                       id="search-navbar"
+                      onClick={handleClickButton}
                     >
                       Cerca
                     </button>
                   </div>
-                </form>
+                </div>
               </div>
               <div className="navbar-icons">
-                <button class="btn btn-outline-light my-3">
+                <button className="btn btn-outline-light my-3">
                   <NavLink to="/wishlist" className="nav-link fs-5">
-                    <i class="bi bi-heart"></i>
+                    <i className="bi bi-heart"></i>
                   </NavLink>
                 </button>
-                <button class="btn btn-outline-light my-3">
+                <button className="btn btn-outline-light my-3">
                   <NavLink to="/cart" className="nav-link fs-5">
-                    <i class="bi bi-cart"></i>
+                    <i className="bi bi-cart"></i>
                   </NavLink>
                 </button>
               </div>

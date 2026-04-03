@@ -12,21 +12,24 @@ import DefaultLayout from "./layouts/DefaultLayout";
 
 // CONTEXT PROVIDERS
 import { LoadingProvider } from "./contexts/LoadingContext";
+import { SearchProvider } from "./contexts/SearchContext";
 
 export default function App() {
   return (
     <LoadingProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route Component={DefaultLayout}>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/games" element={<Games />} />
-            <Route path="/products/:slug" element={<GameDetails />} />
-            <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/cart" element={<Cart />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <SearchProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route Component={DefaultLayout}>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/games" element={<Games />} />
+              <Route path="/products/:slug" element={<GameDetails />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/cart" element={<Cart />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </SearchProvider>
     </LoadingProvider>
   );
 }
