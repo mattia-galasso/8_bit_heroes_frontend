@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { useCart } from "../contexts/CartContext";
 
 export default function GameDetails() {
   const { slug } = useParams();
 
   const [product, setProduct] = useState(null);
   const [error, setError] = useState("");
+  const { addToCart } = useCart();
 
   useEffect(() => {
     axios
@@ -71,7 +73,7 @@ export default function GameDetails() {
             <p className="fs-3 fw-bold">€ {product.price}</p>
           )}
 
-          <button className="btn btn-primary btn-lg">Aggiungi al carrello</button>
+          <button className="btn btn-primary btn-lg" onClick={() => addToCart(product) }>Aggiungi al carrello</button>
         </div>
       </div>
 

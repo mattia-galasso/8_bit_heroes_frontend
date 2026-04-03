@@ -6,33 +6,28 @@ import Games from "./pages/Games";
 import GameDetails from "./pages/GameDetails";
 import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
+import Page404 from "./pages/Page404.jsx";
 
 // LAYOUT
 import DefaultLayout from "./layouts/DefaultLayout";
 
 // CONTEXT PROVIDERS
 import { LoadingProvider } from "./contexts/LoadingContext";
-import { SearchProvider } from "./contexts/SearchContext";
-import { ProductsProvider } from "./contexts/ProductsContext";
 
 export default function App() {
   return (
     <LoadingProvider>
-      <ProductsProvider>
-        <SearchProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route Component={DefaultLayout}>
-                <Route path="/" element={<Homepage />} />
-                <Route path="/games" element={<Games />} />
-                <Route path="/products/:slug" element={<GameDetails />} />
-                <Route path="/wishlist" element={<Wishlist />} />
-                <Route path="/cart" element={<Cart />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </SearchProvider>
-      </ProductsProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route Component={DefaultLayout}>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/games" element={<Games />} />
+            <Route path="/products/:slug" element={<GameDetails />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/cart" element={<Cart />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </LoadingProvider>
   );
 }

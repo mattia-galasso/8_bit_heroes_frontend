@@ -1,0 +1,12 @@
+.cart-list-item {
+    background-color: #140c1c;
+    border-color: #1e1e30;
+}
+
+.cart-list-item:hover{
+    background-color: #2b3035;
+}
+
+.paddingpage{
+    padding: 2rem;
+}
