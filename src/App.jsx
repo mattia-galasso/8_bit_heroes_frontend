@@ -14,23 +14,26 @@ import DefaultLayout from "./layouts/DefaultLayout";
 // CONTEXT PROVIDERS
 import { LoadingProvider } from "./contexts/LoadingContext";
 import { CartProvider } from "./contexts/CartContext.jsx";
+import { WishlistProvider } from "./contexts/WishlistContext.jsx";
 
 export default function App() {
   return (
     <LoadingProvider>
       <CartProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route Component={DefaultLayout}>
-              <Route path="/" element={<Homepage />} />
-              <Route path="/games" element={<Games />} />
-              <Route path="/products/:slug" element={<GameDetails />} />
-              <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="*" element={<Page404 />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+        <WishlistProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route Component={DefaultLayout}>
+                <Route path="/" element={<Homepage />} />
+                <Route path="/games" element={<Games />} />
+                <Route path="/products/:slug" element={<GameDetails />} />
+                <Route path="/wishlist" element={<Wishlist />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="*" element={<Page404 />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </WishlistProvider>
       </CartProvider>
     </LoadingProvider>
   );
