@@ -92,7 +92,7 @@ export default function VideogamesList() {
         {viewMode === "grid" ? (
           <section className="card card-bg my-4">
             <div className="card card-bg p-4">
-              <ul className="row row-cols-2 row-cols-sm-4 g-4 mb-0 list-unstyled">
+              <ul className="row row-cols-2 row-cols-sm-4 g-3 mb-0 list-unstyled">
                 {visibleGames.map((game) => (
                   <li key={game.id} className="col">
                     <GameCard product={game} enableHoverOverlay={true} />

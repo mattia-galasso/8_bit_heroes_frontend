@@ -14,50 +14,39 @@ export default function OffcanvasCart() {
       {/* RIMUOVERE CLASSE SHOW PRIMA DI UTILIZZARLO E AGGIUNGERE CLASSE offcanvas-end */}
 
       <div
-        class="offcanvas offcanvas-end text-bg-dark"
-        tabindex="-1"
+        className="offcanvas offcanvas-end text-bg-dark"
+        tabIndex="-1"
         id="cartOffcanvas"
         aria-labelledby="cartOffcanvas"
       >
-        <div class="offcanvas-header d-block">
+        <div className="offcanvas-header d-block">
           <div className="d-flex justify-content-between align-items-center">
-            <h5 class="offcanvas-title" id="offcanvasRightLabel">
+            <h5 className="offcanvas-title" id="offcanvasRightLabel">
               Carrello
             </h5>
             <div>
               <div
-                class="btn-group pe-2"
+                className="btn-group pe-2"
                 role="group"
                 aria-label="CartOffcanvas"
                 data-bs-dismiss="offcanvas"
               >
-                <Link
-                  to={`/cart`}
-                  className="btn btn-outline-light"
-                  type="button"
-                >
-                  <i class="bi bi-box-arrow-up-right"></i>
+                <Link to={`/cart`} className="btn btn-outline-light" type="button">
+                  <i className="bi bi-box-arrow-up-right"></i>
                 </Link>
-                <button
-                  type="button"
-                  class="btn btn-outline-light"
-                  aria-label="Close"
-                >
-                  <i class="bi bi-x-lg"></i>
+                <button type="button" className="btn btn-outline-light" aria-label="Close">
+                  <i className="bi bi-x-lg"></i>
                 </button>
               </div>
             </div>
           </div>
           <div className="division-offcanvas-top"></div>
         </div>
-        <div class="offcanvas-body d-flex flex-column">
+        <div className="offcanvas-body d-flex flex-column">
           <div className="flex-grow-1 overflow-auto cart-offcanvas-body">
             {cart.map((game) => {
               return (
-                <div
-                  key={game.id}
-                  className="card card-bg cart-list-item border-secondary p-3"
-                >
+                <div key={game.id} className="card card-bg cart-list-item border-secondary p-3">
                   <div
                     onClick={(e) => {
                       if (e.target.closest("button, input, label")) return;
@@ -91,9 +80,7 @@ export default function OffcanvasCart() {
                                 <i className="bi bi-dash"></i>
                               )}
                             </button>
-                            <p className="m-0 px-2 border border-light">
-                              {game.quantity}
-                            </p>
+                            <p className="m-0 px-2 border border-light">{game.quantity}</p>
                             <button
                               onClick={() => addToCart(game)}
                               className="btn btn-light py-0 px-1"
