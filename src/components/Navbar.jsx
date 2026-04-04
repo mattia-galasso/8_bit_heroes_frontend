@@ -17,18 +17,11 @@ export default function Navbar() {
   return (
     <>
       <div className="navbar-container">
-        <nav
-          className="navbar navbar-expand-lg ps-1 pe-1 pe-lg-4 py-1"
-          data-bs-theme="dark"
-        >
+        <nav className="navbar navbar-expand-lg ps-1 pe-1 pe-lg-4 py-1" data-bs-theme="dark">
           <div className="container-fluid" id="container-navbar">
             <Link to="/" className="navbar-brand m-0 p-0">
               <div className="d-flex gap-1 align-items-center">
-                <img
-                  src="/8bit_heroes_logo.png"
-                  alt="8bit_heroes_logo"
-                  className="avatar"
-                />
+                <img src="/8bit_heroes_logo.png" alt="8bit_heroes_logo" className="avatar" />
                 <div className="navbar-division"></div>
               </div>
             </Link>
@@ -59,28 +52,31 @@ export default function Navbar() {
                 </ul>
               </div>
               <div className="search-input-navbar my-3">
-                <div className="d-flex">
-                  <div className="input-group">
-                    <input
-                      //
-                      value={userInput}
-                      onChange={(e) => setUserInput(e.target.value)}
-                      name="search-input"
-                      type="text"
-                      className="form-control"
-                      placeholder="Cerca"
-                      aria-label="Cerca"
-                      id="search-navbar"
-                    />
-                    <button
-                      className="btn btn-outline-secondary"
-                      id="search-navbar"
-                      onClick={handleClickButton}
-                    >
-                      Cerca
-                    </button>
-                  </div>
-                </div>
+                <form
+                  className="input-group d-flex"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                  }}
+                >
+                  <input
+                    //
+                    value={userInput}
+                    onChange={(e) => setUserInput(e.target.value)}
+                    name="search-input"
+                    type="text"
+                    className="form-control"
+                    placeholder="Cerca"
+                    aria-label="Cerca"
+                    id="search-navbar"
+                  />
+                  <button
+                    className="btn btn-outline-secondary"
+                    id="search-navbar"
+                    onClick={handleClickButton}
+                  >
+                    Cerca
+                  </button>
+                </form>
               </div>
               <div className="navbar-icons">
                 <button className="btn btn-outline-light my-3">
