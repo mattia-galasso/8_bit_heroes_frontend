@@ -3,7 +3,7 @@ body {
 }
 
 .homepage-container {
-  padding: 0 2rem 2rem;
+  padding: 0 1.5rem 2rem;
   height: 100%;
 }
 
@@ -56,6 +56,34 @@ body {
 
 .homepage-section-title {
   text-shadow: 0px 0px 10px grey;
+}
+
+/* welcome popup */
+.welcome-popup .modal-title {
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  translate: -50% 0;
+  text-shadow: 0px 0px 10px grey;
+}
+
+.welcome-popup #newsletter-input,
+.welcome-popup #button-addon2 {
+  box-shadow: 0px 0px 5px grey;
+}
+
+.thanks-modal h1 {
+  text-shadow: 0px 0px 5px grey;
+}
+
+.welcome-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 20;
 }
 
 /* MEDIA QUERIES */
@@ -116,7 +144,7 @@ body {
 
 @media (min-width: 1200px) {
   .hero-space {
-    padding: 5rem 6rem;
+    padding: 5rem 5rem;
   }
 
   .hero-space-text {
