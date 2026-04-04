@@ -47,3 +47,8 @@
   height: 1px;
   background-color: white;
 }
+
+.cart-offcanvas-body {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 215, 70, 0.5) rgb(20, 12, 28, 0.3);
+}
