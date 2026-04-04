@@ -3,10 +3,11 @@
     border-color: #1e1e30;
 }
 
-.cart-list-item:hover{
-    background-color: #2b3035;
+.cart-list-item.cart-item:hover{
+    scale: 1.05;
 }
 
 .paddingpage{
     padding: 2rem;
 }
+
