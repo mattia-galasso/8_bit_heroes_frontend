@@ -53,7 +53,6 @@ export default function OffcanvasCart() {
                       navigateTo(`/products/${game.slug}`);
                     }}
                     className=" d-block text-decoration-none"
-                    data-bs-dismiss="offcanvas"
                   >
                     <div className="row g-3 align-items-center">
                       <div className="col-4 game-card">
@@ -62,6 +61,7 @@ export default function OffcanvasCart() {
                             className="img-fluid rounded-2"
                             src={`http://localhost:3000/videogame_covers/${game.cover_image}`}
                             alt={game.name}
+                            data-bs-dismiss="offcanvas"
                           />
                         </div>
                       </div>
