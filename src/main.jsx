@@ -12,8 +12,10 @@ import "./assets/css/index.css";
 import "./assets/css/homepage.css";
 // NAVBAR CSS
 import "./assets/css/navbar.css";
-// CARTPAGE CSS 
-import './assets/css/cartpage.css';
+// OFFCANVAS CSS
+import "./assets/css/OffcanvasCart.css";
+// CARTPAGE CSS
+import "./assets/css/cartpage.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
