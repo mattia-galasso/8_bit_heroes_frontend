@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 // COMPONENTS
 import GameCard from "../components/GameCard";
-import WelcomePopup from "../components/WelcomePopup";
+import WelcomePopUp from "../components/WelcomePopUp";
 
 export default function Homepage() {
   const [discountedProducts, setDiscountedProducts] = useState([]);
@@ -39,7 +39,7 @@ export default function Homepage() {
       {showWelcome && (
         <>
           <div className="welcome-overlay"></div>
-          <WelcomePopup onClose={() => setShowWelcome(false)} />
+          <WelcomePopUp onClose={() => setShowWelcome(false)} />
         </>
       )}
 
