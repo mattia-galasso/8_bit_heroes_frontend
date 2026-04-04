@@ -6,14 +6,14 @@ import Games from "./pages/Games";
 import GameDetails from "./pages/GameDetails";
 import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
-import Page404 from "./pages/Page404.jsx"
+import Page404 from "./pages/Page404.jsx";
 
 // LAYOUT
 import DefaultLayout from "./layouts/DefaultLayout";
 
 // CONTEXT PROVIDERS
 import { LoadingProvider } from "./contexts/LoadingContext";
-import { CartProvider } from './contexts/CartContext.jsx';
+import { CartProvider } from "./contexts/CartContext.jsx";
 
 export default function App() {
   return (
@@ -27,7 +27,7 @@ export default function App() {
               <Route path="/products/:slug" element={<GameDetails />} />
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="*" element={<Page404/>}/>
+              <Route path="*" element={<Page404 />} />
             </Route>
           </Routes>
         </BrowserRouter>
