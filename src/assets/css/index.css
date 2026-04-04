@@ -78,6 +78,11 @@
   scale: 1.05;
 }
 
+.bi-list-task {
+  position: relative;
+  top: 1px;
+}
+
 /* container */
 .container-custom {
   width: 100%;
