@@ -5,10 +5,6 @@
         0 0 30px rgba(255, 193, 7, 0.4);
 }
 
-body {
-    background: radial-gradient(circle at top, #0d0d1a, #050510);
-}
-
 .card-bg {
     background: linear-gradient(145deg, #0f172a, #020617);
     border-radius: 16px;
@@ -18,7 +14,7 @@ body {
     min-height: 80vh
 }
 
-.logo{
+.logo {
     max-width: 200px;
     opacity: 0.8
 }
