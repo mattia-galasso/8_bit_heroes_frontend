@@ -31,7 +31,8 @@ export default function GameDetails() {
 
   return (
     <div className="container my-5 text-light">
-      <div className="row g-4">
+      <div className="row g-4 justify-content-center">
+        {/* banner */}
         <div className="col-12">
           <img
             src={`http://localhost:3000/videogame_banners/${product.banner_image}`}
@@ -39,16 +40,16 @@ export default function GameDetails() {
             className="img-fluid rounded w-100"
           />
         </div>
-
-        <div className="col-md-4">
+        {/* cover */}
+        <div className="col-8 col-md-5 col-lg-4">
           <img
             src={`http://localhost:3000/videogame_covers/${product.cover_image}`}
             alt={product.name}
             className="img-fluid rounded shadow"
           />
         </div>
-
-        <div className="col-md-8">
+        {/* infos */}
+        <div className="col-11 col-md-7 col-lg-8">
           <h1 className="mb-3 text-warning">{product.name}</h1>
 
           <p>{product.description}</p>
@@ -73,23 +74,30 @@ export default function GameDetails() {
             <p className="fs-3 fw-bold">€ {product.price}</p>
           )}
 
-          <button className="btn btn-primary btn-lg" onClick={() => addToCart(product) }>Aggiungi al carrello</button>
+          <button className="btn btn-primary btn-lg" onClick={() => addToCart(product)}>
+            Aggiungi al carrello
+          </button>
         </div>
       </div>
-
+      {/* trailer */}
       {trailerEmbed && (
         <div className="mt-5">
-          <h3 className="mb-3">Trailer</h3>
+          <h2 className="ms-1 pt-2 mb-3 border-top">Trailer</h2>
           <div className="ratio ratio-16x9">
-            <iframe src={trailerEmbed} title={product.name} allowFullScreen></iframe>
+            <iframe
+              src={trailerEmbed}
+              title={product.name}
+              className="rounded-4"
+              allowFullScreen
+            ></iframe>
           </div>
         </div>
       )}
-
+      {/* requirements */}
       {product.requirements && (
-        <div className="mt-5">
+        <div className="mt-5 pt-2 border-top">
           <h3 className="mb-3">Requisiti minimi</h3>
-          <ul className="list-group list-group-flush">
+          <ul className="list-group list-group-flush w-75">
             <li className="list-group-item bg-dark text-light border-secondary">
               <strong>Sistema operativo:</strong> {product.requirements.os}
             </li>
