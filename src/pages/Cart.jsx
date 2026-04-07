@@ -71,7 +71,6 @@ export default function Cart() {
                             </> : <>
                               <button onClick={() => removeFromCart(game.id)} className='btn btn-light py-0 px-1'><i className="bi bi-dash"></i></button>
                             </>}
-                            {/* <button onClick={() => removeFromCart(game.id)} className='btn btn-light py-0 px-1'>{game.quantity === 1 ? <i className="bi bi-trash text-danger"></i> : <i className="bi bi-dash"></i>}</button> */}
                             <p className='m-0 px-2 border border-light'>{game.quantity}</p>
                             <button onClick={() => addToCart(game)} className='btn btn-light py-0 px-1'><i className="bi bi-plus p-0 m-0"></i></button>
                           </div>
