@@ -50,7 +50,7 @@ export default function VideogamesList() {
         <div className="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 gap-lg-2 my-4">
           <h1 className="text-warning ms-1 mb-0">Tutti i videogiochi</h1>
 
-          <div className="d-flex flex-wrap align-items-center gap-2">
+          <div className="d-flex flex-wrap align-items-center gap-2 me-1">
             <select
               className="form-select bg-dark text-light border-warning"
               value={sortBy}
