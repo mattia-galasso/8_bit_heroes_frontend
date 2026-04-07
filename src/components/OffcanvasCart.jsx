@@ -124,7 +124,7 @@ export default function OffcanvasCart() {
           <div className="division-offcanvas-bottom"></div>
           <p className="fs-5 fw-bold text-white m-2">{`Totale: \u20AC ${totalPrice.toFixed(2)}`}</p>
           <div className="d-flex justify-content-end">
-            <button onClick={() => setOpenForm(true)} className="btn btn-primary">Effettua ordine</button>
+            <button onClick={() => setOpenForm(true)} className="btn btn-primary" data-bs-dismiss='offcanvas'>Effettua ordine</button>
           </div>
         </div>
       </div>
