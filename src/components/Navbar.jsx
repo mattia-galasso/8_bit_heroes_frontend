@@ -6,6 +6,11 @@ export default function Navbar() {
   const [userInput, setUserInput] = useState("");
   const searchNavigate = useNavigate();
   const { totalQuantity } = useCart();
+  const [navOpen, setNavOpen] = useState(false);
+
+  function closeNav() {
+    setNavOpen((state) => !state);
+  }
 
   const handleClickButton = () => {
     const params = new URLSearchParams();
@@ -33,7 +38,12 @@ export default function Navbar() {
               </div>
             </Link>
             <button
-              className="navbar-toggler me-2"
+              onClick={closeNav}
+              className={
+                navOpen
+                  ? "navbar-toggler me-2"
+                  : "navbar-toggler collapsed me-2"
+              }
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarNav"
@@ -43,16 +53,31 @@ export default function Navbar() {
             >
               <span className="navbar-toggler-icon"></span>
             </button>
-            <div className="collapse navbar-collapse gap-5" id="navbarNav">
+            <div
+              className={
+                navOpen
+                  ? "collapse navbar-collapse show gap-5"
+                  : "collapse navbar-collapse gap-5"
+              }
+              id="navbarNav"
+            >
               <div>
                 <ul className="navbar-nav">
                   <li className="nav-item">
-                    <NavLink to="/" className="nav-link fs-5 fw-bold">
+                    <NavLink
+                      to="/"
+                      className="nav-link fs-5 fw-bold"
+                      onClick={closeNav}
+                    >
                       Home
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink to="/games" className="nav-link fs-5 fw-bold">
+                    <NavLink
+                      to="/games"
+                      className="nav-link fs-5 fw-bold"
+                      onClick={closeNav}
+                    >
                       Videogames
                     </NavLink>
                   </li>
@@ -79,14 +104,20 @@ export default function Navbar() {
                   <button
                     className="btn btn-outline-secondary"
                     id="search-navbar"
-                    onClick={handleClickButton}
+                    onClick={() => {
+                      handleClickButton();
+                      closeNav();
+                    }}
                   >
                     Cerca
                   </button>
                 </form>
               </div>
               <div className="navbar-icons">
-                <button className="btn btn-outline-light my-3">
+                <button
+                  className="btn btn-outline-light my-3"
+                  onClick={closeNav}
+                >
                   <NavLink to="/wishlist" className="nav-link fs-5">
                     <i className="bi bi-heart"></i>
                   </NavLink>
@@ -97,6 +128,7 @@ export default function Navbar() {
                   data-bs-toggle="offcanvas"
                   data-bs-target="#cartOffcanvas"
                   aria-controls="cartOffcanvas"
+                  onClick={closeNav}
                 >
                   <span className="nav-link fs-5 p-0">
                     <i className="bi bi-cart"></i>

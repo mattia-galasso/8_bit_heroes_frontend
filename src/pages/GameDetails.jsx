@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useCart } from "../contexts/CartContext";
+import { useFavorites } from "../contexts/FavoritesContext";
 
 export default function GameDetails() {
   const { slug } = useParams();
@@ -9,6 +10,8 @@ export default function GameDetails() {
   const [product, setProduct] = useState(null);
   const [error, setError] = useState("");
   const { addToCart } = useCart();
+
+  const  {toggleFavorite,isFavorite} =useFavorites()
 
   useEffect(() => {
     axios
@@ -52,7 +55,22 @@ export default function GameDetails() {
         </div>
         {/* infos */}
         <div className="col-11 col-md-7 col-lg-8">
+          <div className="d-flex justify-content-between align-items-center mb-3">
           <h1 className="mb-3 text-warning">{product.name}</h1>
+
+          <button
+           type="button"
+           className="btn p-0"
+           onClick={() => toggleFavorite(product)}>                   
+           <i
+            className={`bi ${
+           isFavorite(product.id)
+           ? "bi-heart-fill text-danger"
+           : "bi-heart text-light"
+           } fs-3`}>
+           </i>
+            </button>
+            </div>
 
           <p>{product.description}</p>
 
@@ -107,6 +125,7 @@ export default function GameDetails() {
           </button>
         </div>
       </div>
+
       {/* trailer */}
       {trailerEmbed && (
         <div className="mt-5">
