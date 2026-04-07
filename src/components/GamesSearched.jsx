@@ -14,7 +14,7 @@ export default function GamesSearched() {
   const [viewMode, setViewMode] = useState("grid");
 
   //* Query Param
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get("search");
 
   //* Function Search Axios
@@ -41,6 +41,29 @@ export default function GamesSearched() {
   }
 
   useEffect(searchNavbar, [search]);
+
+  //* Function View Mode Query Param
+  const handleClickViewMode = (viewMode) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("viewmode", viewMode);
+    setSearchParams(params);
+  };
+
+  const handleClickDiscounted = (isDiscounted) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("discounted", isDiscounted);
+    setSearchParams(params);
+  };
+
+  const viewsParams = () => {
+    const viewmode = searchParams.get("viewmode") || "grid";
+    setViewMode(viewmode);
+
+    const discounted = searchParams.get("discounted") === "true";
+    setOnlyDiscounted(discounted);
+  };
+
+  useEffect(viewsParams, [searchParams]);
 
   if (loading) return <p className="container mt-4">Caricamento...</p>;
   if (error) return <p className="container mt-4">{error}</p>;
@@ -71,24 +94,33 @@ export default function GamesSearched() {
           <div className="d-flex flex-wrap align-items-center gap-2">
             <button
               className={`btn ${onlyDiscounted ? "btn-warning" : "btn-outline-warning"}`}
-              onClick={() => setOnlyDiscounted(!onlyDiscounted)}
+              onClick={() => {
+                setOnlyDiscounted(!onlyDiscounted);
+                handleClickDiscounted(!onlyDiscounted);
+              }}
             >
-              Scontati
+              Scontati <i className="bi bi-percent" />
             </button>
 
             <div className="btn-group">
               <button
                 className={`btn btn-${viewMode === "grid" ? "warning" : "outline-warning"}`}
-                onClick={() => setViewMode("grid")}
+                onClick={() => {
+                  setViewMode("grid");
+                  handleClickViewMode("grid");
+                }}
               >
-                Griglia
+                <i className="bi bi-grid-3x3-gap" /> Griglia
               </button>
 
               <button
                 className={`btn btn-${viewMode === "list" ? "warning" : "outline-warning"}`}
-                onClick={() => setViewMode("list")}
+                onClick={() => {
+                  setViewMode("list");
+                  handleClickViewMode("list");
+                }}
               >
-                Lista
+                <i className="bi bi-list-task" /> Lista
               </button>
             </div>
           </div>
