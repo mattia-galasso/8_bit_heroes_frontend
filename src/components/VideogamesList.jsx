@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import GameCard from "../components/GameCard";
+import { useFavorites } from "../contexts/FavoritesContext";
 
 export default function VideogamesList() {
   //* useState Constant
@@ -11,6 +12,8 @@ export default function VideogamesList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [sortBy, setSortBy] = useState("");
+
+  const {toggleFavorite,isFavorite} = useFavorites()
 
   useEffect(() => {
     setLoading(true);
@@ -108,7 +111,23 @@ export default function VideogamesList() {
               const final_price = Number(game.price) - Number(game.price) * (percentage / 100);
 
               return (
-                <div key={game.id} className="card card-bg border-secondary p-3">
+                <div key={game.id} className="card card-bg border-secondary p-3 position-relative">
+                  <button
+                  type="button"
+                  className="btn position-absolute top-0 end-0 m-2 z-3"
+                  onClick={(e)=>{
+                    e.preventDefault()
+                    e.stopPropagation()
+                    toggleFavorite(game)
+                  }}>
+                    <i
+                    className={`bi ${isFavorite(game.id)
+                      ? "bi-heart-fill text-danger"
+                      : "bi-heart text-light"
+                    } fs-4`}>
+                    </i>
+
+                  </button>
                   <Link to={`/products/${game.slug}`} className=" d-block text-decoration-none">
                     <div className="row g-4 align-items-center">
                       <div className="col-12 col-sm-4 col-md-2 game-card">
