@@ -1,23 +1,28 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import Notification from "../components/Notification"; // Import aggiornato
 
 const CartContext = createContext();
 
 function CartProvider({ children }) {
-  const [cart, setCart] = useState(
-    // salva i dati in cart nel local storage
-    () => {
-      const savedCart = localStorage.getItem("cart");
-      return savedCart ? JSON.parse(savedCart) : [];
-    },
-  );
+  const [cart, setCart] = useState(() => {
+    // recupera i dati dal local storage all'avvio
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
 
-  // ogni volta che il cart cambia viene aggionato nel local storage
+  // Stato per gestire il messaggio della notifica
+  const [notification, setNotification] = useState(null);
+
+  // aggiorna il local storage quando il carrello cambia
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
   // aggiunge un prodotto al carrello
   const addToCart = (game) => {
+    // Mostra la notifica popup
+    setNotification(`${game.name} aggiunto al carrello!`);
+
     setCart((oldCart) => {
       const existing = oldCart.find((item) => item.id === game.id);
 
@@ -35,7 +40,6 @@ function CartProvider({ children }) {
 
   // Rimuove un elemento dal carrello
   const removeFromCart = (gameId) => {
-    // il map decrementa la quantità del prodotto
     setCart((oldCart) =>
       oldCart
         .map((game) =>
@@ -43,7 +47,6 @@ function CartProvider({ children }) {
             ? { ...game, quantity: (game.quantity || 1) - 1 }
             : game,
         )
-        // se la quantità è uguale o minore a 0 il prodotto viene rimosso dalla lista dei prodotti nel carrello
         .filter((game) => game.quantity > 0),
     );
   };
@@ -58,7 +61,7 @@ function CartProvider({ children }) {
     );
   };
 
-  //* Totale videogiochi nel carrello
+  //* Calcolo totale pezzi nel carrello
   const totalQuantity = cart.reduce((acc, game) => {
     return acc + (game.quantity || 1);
   }, 0);
@@ -69,10 +72,21 @@ function CartProvider({ children }) {
     removeFromCart,
     toggleDigitalCopy,
     totalQuantity,
-    setCart
   };
 
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+  return (
+    <CartContext.Provider value={value}>
+      {children}
+
+      {/* Mostra la notifica se presente */}
+      {notification && (
+        <Notification
+          message={notification}
+          onClose={() => setNotification(null)}
+        />
+      )}
+    </CartContext.Provider>
+  );
 }
 
 function useCart() {
