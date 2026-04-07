@@ -6,7 +6,7 @@ import { Link } from "react-router";
 export default function CheckoutForm({ openForm, setOpenForm }) {
 
     // CUSTOM HOOK
-    const { cart } = useCart();
+    const { cart, setCart } = useCart();
 
     const initialData = {
         "name": "",
@@ -150,6 +150,7 @@ export default function CheckoutForm({ openForm, setOpenForm }) {
                     setOrderSuccess(true);
                     console.log(res.data);
                 }
+                setCart([]);
             })
             .catch((err) => {
                 if (err) {
