@@ -69,6 +69,7 @@ function CartProvider({ children }) {
     removeFromCart,
     toggleDigitalCopy,
     totalQuantity,
+    setCart
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
