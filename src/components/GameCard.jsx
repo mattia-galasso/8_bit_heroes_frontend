@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { useFavorites } from "../contexts/FavoritesContext";
 
 export default function GameCard({ product, enableHoverOverlay }) {
+
+  const  {toggleFavorite,isFavorite} =useFavorites()
+
   // PER OVERLAY
   const [isHovered, setIsHovered] = useState(false);
 
@@ -23,6 +27,24 @@ export default function GameCard({ product, enableHoverOverlay }) {
       onMouseLeave={handleMouseLeave}
     >
       <div className="position-relative">
+
+        <button
+        type="button"
+        className="btn position-absolute top-0 end-0 m-2 z-3"
+        onClick={(e)=>{
+          e.preventDefault()
+          e.stopPropagation()
+          toggleFavorite(product)
+        }}
+        >
+          <i className= 
+          {`bi ${isFavorite(product.id)
+            ? "bi-heart-fill text-danger"
+            : "bi-heart text-light"
+          } fs-4`}>
+          </i>
+
+        </button>
         {product.percentage > 0 && (
           <div className="discount-flag fw-bold py-1 px-2">-{product.percentage}%</div>
         )}
