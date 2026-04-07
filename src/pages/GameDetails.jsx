@@ -26,7 +26,9 @@ export default function GameDetails() {
   if (!product) return <p className="container mt-4">Caricamento...</p>;
 
   const trailerEmbed = product.trailer
-    ? product.trailer.replace("youtu.be/", "www.youtube.com/embed/").split("?")[0]
+    ? product.trailer
+        .replace("youtu.be/", "www.youtube.com/embed/")
+        .split("?")[0]
     : null;
 
   return (
@@ -54,27 +56,53 @@ export default function GameDetails() {
 
           <p>{product.description}</p>
 
-          <ul className="list-group list-group list-group-flush mb-3">
-            <li className="list-group-item bg-dark text-light border-secondary">
-              <strong>PEGI:</strong> {product.pegi}
+          <ul className="list-group list-group-flush mb-3 rounded shadow-sm">
+            {/* Riga PEGI */}
+            <li className="list-group-item bg-dark text-light border-secondary py-2 d-flex align-items-center">
+              <strong className="me-2">PEGI:</strong>
+              <img
+                src={`http://localhost:3000/videogame_pegi/PEGI_${product.pegi}.png`}
+                alt={`PEGI ${product.pegi}`}
+                style={{ width: "30px", height: "auto", display: "block" }}
+                onError={(e) => {
+                  e.target.style.display = "none";
+                }}
+              />
             </li>
-            <li className="list-group-item bg-dark text-light border-secondary">
-              <strong>Copia digitale </strong>{" "}
-              {product.digital_copy ? "Disponibile" : "Non Disponibile"}
+
+            {/* Riga Copia Digitale */}
+            <li className="list-group-item bg-dark text-light border-secondary py-2">
+              <strong className="me-2">Copia digitale:</strong>
+              <span
+                className={
+                  product.digital_copy ? "text-success" : "text-danger"
+                }
+              >
+                {product.digital_copy ? "Disponibile" : "Non Disponibile"}
+              </span>
             </li>
           </ul>
 
           {product.price !== product.final_price ? (
             <div className="mb-3">
-              <p className="text-decoration-line-through text-danger mb-1">€ {product.price}</p>
-              <p className="fs-3 fw-bold text-success mb-2">€ {product.final_price}</p>
-              <span className="badge bg-warning">-{product.discount_percentage}%</span>
+              <p className="text-decoration-line-through text-danger mb-1">
+                € {product.price}
+              </p>
+              <p className="fs-3 fw-bold text-success mb-2">
+                € {product.final_price}
+              </p>
+              <span className="badge bg-warning">
+                -{product.discount_percentage}%
+              </span>
             </div>
           ) : (
             <p className="fs-3 fw-bold">€ {product.price}</p>
           )}
 
-          <button className="btn btn-primary btn-lg" onClick={() => addToCart(product)}>
+          <button
+            className="btn btn-primary btn-lg"
+            onClick={() => addToCart(product)}
+          >
             Aggiungi al carrello
           </button>
         </div>
