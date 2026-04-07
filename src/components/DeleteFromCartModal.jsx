@@ -1,9 +1,10 @@
 import { useCart } from "../contexts/CartContext";
 
 export default function DeleteFromCartModal({ gameToDelete, setOpenDeleteModal }) {
-const {removeFromCart} = useCart();
+    const { removeFromCart } = useCart();
     return (
         <>
+            <div className="modal-backdrop fade show"></div>
             <div
                 className="modal fade show d-block"
                 tabIndex="-1"
@@ -22,7 +23,7 @@ const {removeFromCart} = useCart();
                         <div className="modal-body text-center">
                             <p className="fs-5">Sei sicuro di voler eliminare <span className="text-warning">{gameToDelete.name}</span> dal tuo carrello?</p>
                             <div className="d-flex gap-4 justify-content-center">
-                                <button onClick={() => {removeFromCart(gameToDelete.id); setOpenDeleteModal(false);}} className="btn btn-primary btn-lg">SI</button>
+                                <button onClick={() => { removeFromCart(gameToDelete.id); setOpenDeleteModal(false); }} className="btn btn-primary btn-lg">SI</button>
                                 <button onClick={() => setOpenDeleteModal(false)} className="btn btn-secondary btn-lg">NO</button>
                             </div>
                         </div>
