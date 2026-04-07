@@ -91,7 +91,7 @@ export default function Cart() {
 
 
         <div className='d-flex justify-content-end mt-2'>
-          <button onClick={() => setOpenForm(true)} className='btn btn-primary'>Effettua ordine</button>
+          <button onClick={() => setOpenForm(true)} className='btn btn-primary btn-lg'>Effettua ordine</button>
         </div>
       </div>
 
