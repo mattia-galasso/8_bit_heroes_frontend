@@ -3,9 +3,12 @@ import { useState } from 'react';
 import CheckoutForm from '../components/CheckoutForm.jsx';
 import { useCart } from '../contexts/CartContext.jsx';
 import { useNavigate } from 'react-router';
+import DeleteFromCartModal from '../components/DeleteFromCartModal.jsx';
 
 export default function Cart() {
   const [openForm, setOpenForm] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [gameToDelete, setGameToDelete] = useState();
   const { cart, addToCart, removeFromCart, toggleDigitalCopy } = useCart();
   const navigateTo = useNavigate();
 
@@ -13,8 +16,10 @@ export default function Cart() {
     return total + Number(item.final_price) * item.quantity;
   }, 0);
 
-  // blocca lo scroll del documento quando la modale del form si apre
+  
+  
   if (openForm) {
+    // blocca lo scroll del documento quando la modale del form si apre
     document.body.style.overflow = 'hidden';
     document.body.style.paddingRight = '15px'; // compensa la larghezza della scrollbar
   } else {
@@ -55,7 +60,18 @@ export default function Cart() {
                         </p>
                         <div>
                           <div className='btn-group fs-4 mt-2'>
-                            <button onClick={() => removeFromCart(game.id)} className='btn btn-light py-0 px-1'>{game.quantity === 1 ? <i className="bi bi-trash text-danger"></i> : <i className="bi bi-dash"></i>}</button>
+                            {game.quantity === 1 ? <>
+                              <button onClick={(e) => {
+                                e.stopPropagation();
+                                setGameToDelete(game);
+                                setOpenDeleteModal(true);
+                              }}type="button" className="btn btn-light py-0 px-1">
+                                <i className="bi bi-trash text-danger"></i>
+                              </button>
+                            </> : <>
+                              <button onClick={() => removeFromCart(game.id)} className='btn btn-light py-0 px-1'><i className="bi bi-dash"></i></button>
+                            </>}
+                            {/* <button onClick={() => removeFromCart(game.id)} className='btn btn-light py-0 px-1'>{game.quantity === 1 ? <i className="bi bi-trash text-danger"></i> : <i className="bi bi-dash"></i>}</button> */}
                             <p className='m-0 px-2 border border-light'>{game.quantity}</p>
                             <button onClick={() => addToCart(game)} className='btn btn-light py-0 px-1'><i className="bi bi-plus p-0 m-0"></i></button>
                           </div>
@@ -96,6 +112,7 @@ export default function Cart() {
       </div>
 
       {openForm && <CheckoutForm openForm={openForm} setOpenForm={setOpenForm} />}
+      {openDeleteModal && <DeleteFromCartModal gameToDelete={gameToDelete} setOpenDeleteModal={setOpenDeleteModal}/>}
     </>
   );
 }
