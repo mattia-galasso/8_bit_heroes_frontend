@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import GameCard from "../components/GameCard";
 import { useFavorites } from "../contexts/FavoritesContext";
 
@@ -12,6 +12,7 @@ export default function VideogamesList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [sortBy, setSortBy] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const {toggleFavorite,isFavorite} = useFavorites()
 
@@ -42,10 +43,44 @@ export default function VideogamesList() {
       });
   }, [sortBy]);
 
+  //* Function Query Params Ordering
+  const handleClickViewMode = (viewMode) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("viewmode", viewMode);
+    setSearchParams(params);
+  };
+
+  const handleClickDiscounted = (isDiscounted) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("discounted", isDiscounted);
+    setSearchParams(params);
+  };
+
+  const handleOrderingProducts = (ordering) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("ordering", ordering);
+    setSearchParams(params);
+  };
+
+  const viewsParams = () => {
+    const viewmode = searchParams.get("viewmode") || "grid";
+    setViewMode(viewmode);
+
+    const discounted = searchParams.get("discounted") === "true";
+    setOnlyDiscounted(discounted);
+
+    const ordering = searchParams.get("ordering") || "";
+    setSortBy(ordering);
+  };
+
+  useEffect(viewsParams, [searchParams]);
+
   if (loading) return <p className="container mt-4">Caricamento...</p>;
   if (error) return <p className="container mt-4">{error}</p>;
 
-  const visibleGames = onlyDiscounted ? games.filter((game) => (game.percentage || 0) > 0) : games;
+  const visibleGames = onlyDiscounted
+    ? games.filter((game) => (game.percentage || 0) > 0)
+    : games;
 
   return (
     <>
@@ -57,7 +92,10 @@ export default function VideogamesList() {
             <select
               className="form-select bg-dark text-light border-warning"
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
+              onChange={(e) => {
+                setSortBy(e.target.value);
+                handleOrderingProducts(e.target.value);
+              }}
               style={{ width: "130px" }}
             >
               <option value="">Ordina ↑↓</option>
@@ -69,7 +107,10 @@ export default function VideogamesList() {
 
             <button
               className={`btn ${onlyDiscounted ? "btn-warning" : "btn-outline-warning"}`}
-              onClick={() => setOnlyDiscounted(!onlyDiscounted)}
+              onClick={() => {
+                setOnlyDiscounted(!onlyDiscounted);
+                handleClickDiscounted(!onlyDiscounted);
+              }}
             >
               Scontati <i className="bi bi-percent" />
             </button>
@@ -77,14 +118,20 @@ export default function VideogamesList() {
             <div className="btn-group">
               <button
                 className={`btn btn-${viewMode === "grid" ? "warning" : "outline-warning"}`}
-                onClick={() => setViewMode("grid")}
+                onClick={() => {
+                  setViewMode("grid");
+                  handleClickViewMode("grid");
+                }}
               >
                 <i className="bi bi-grid-3x3-gap" /> Griglia
               </button>
 
               <button
                 className={`btn btn-${viewMode === "list" ? "warning" : "outline-warning"}`}
-                onClick={() => setViewMode("list")}
+                onClick={() => {
+                  setViewMode("list");
+                  handleClickViewMode("list");
+                }}
               >
                 <i className="bi bi-list-task" /> Lista
               </button>
@@ -108,7 +155,8 @@ export default function VideogamesList() {
           <div className="list-view d-flex flex-column gap-3 my-4">
             {visibleGames.map((game) => {
               const percentage = game.percentage || 0;
-              const final_price = Number(game.price) - Number(game.price) * (percentage / 100);
+              const final_price =
+                Number(game.price) - Number(game.price) * (percentage / 100);
 
               return (
                 <div key={game.id} className="card card-bg border-secondary p-3 position-relative">
@@ -157,7 +205,9 @@ export default function VideogamesList() {
                               <p className="fs-3 fw-bold text-success mb-2">
                                 € {final_price.toFixed(2)}
                               </p>
-                              <span className="badge bg-warning">-{percentage}%</span>
+                              <span className="badge bg-warning">
+                                -{percentage}%
+                              </span>
                             </div>
                           ) : (
                             <p className="fs-3 fw-bold">€ {game.price}</p>
