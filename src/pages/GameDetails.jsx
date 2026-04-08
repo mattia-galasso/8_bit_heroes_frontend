@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useCart } from "../contexts/CartContext";
+import GameCard from "../components/GameCard";
 import { useFavorites } from "../contexts/FavoritesContext";
 
 export default function GameDetails() {
@@ -35,7 +36,7 @@ export default function GameDetails() {
     : null;
 
   return (
-    <div className="container my-5 text-light">
+    <div className="details-container container my-5 text-light">
       <div className="row g-4 justify-content-center">
         {/* banner */}
         <div className="col-12">
@@ -54,8 +55,7 @@ export default function GameDetails() {
           />
         </div>
         {/* infos */}
-        <div className="col-11 col-md-7 col-lg-8">
-          <div className="d-flex justify-content-between align-items-center mb-3">
+        <section className="col-11 col-md-7 col-lg-8">
           <h1 className="mb-3 text-warning">{product.name}</h1>
 
           <button
@@ -123,12 +123,25 @@ export default function GameDetails() {
           >
             Aggiungi al carrello
           </button>
-        </div>
+        </section>
       </div>
+      {/* related */}
+      <section className="card card-bg my-4">
+        <h2 className="card-section-title h1 text-center text-warning my-3">Prodotti Correlati</h2>
+        <div className="card card-bg p-4">
+          <ul className="row row-cols-2 row-cols-md-4 g-4 mb-0 list-unstyled">
+            {product.relatedProducts.map((related) => (
+              <div className="col" key={related.id}>
+                <GameCard product={related} enableHoverOverlay={true} />
+              </div>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       {/* trailer */}
       {trailerEmbed && (
-        <div className="mt-5">
+        <section className="mt-5 mb-4">
           <h2 className="ms-1 pt-2 mb-3 border-top">Trailer</h2>
           <div className="ratio ratio-16x9">
             <iframe
@@ -138,27 +151,50 @@ export default function GameDetails() {
               allowFullScreen
             ></iframe>
           </div>
-        </div>
+        </section>
       )}
       {/* requirements */}
       {product.requirements && (
-        <div className="mt-5 pt-2 border-top">
-          <h3 className="mb-3">Requisiti minimi</h3>
-          <ul className="list-group list-group-flush w-75">
-            <li className="list-group-item bg-dark text-light border-secondary">
-              <strong>Sistema operativo:</strong> {product.requirements.os}
-            </li>
-            <li className="list-group-item bg-dark text-light border-secondary">
-              <strong>GPU:</strong> {product.requirements.gpu}
-            </li>
-            <li className="list-group-item bg-dark text-light border-secondary">
-              <strong>RAM:</strong> {product.requirements.ram}
-            </li>
-            <li className="list-group-item bg-dark text-light border-secondary">
-              <strong>Storage:</strong> {product.requirements.storage}
-            </li>
-          </ul>
-        </div>
+        <section className="requirements-accordion border-top pt-4">
+          <div className="accordion" data-bs-theme="dark" id="accordionExample">
+            <div className="accordion-item">
+              <h2 className="accordion-header">
+                <button
+                  className="accordion-button collapsed fw-semibold fs-5"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne"
+                  aria-expanded="false"
+                  aria-controls="collapseOne"
+                >
+                  <span className="ms-1">Requisiti minimi</span>
+                </button>
+              </h2>
+              <div
+                id="collapseOne"
+                className="accordion-collapse collapse"
+                data-bs-parent="#accordionExample"
+              >
+                <div className="accordion-body">
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item bg-dark text-light border-secondary">
+                      <strong>Sistema operativo:</strong> {product.requirements.os}
+                    </li>
+                    <li className="list-group-item bg-dark text-light border-secondary">
+                      <strong>GPU:</strong> {product.requirements.gpu}
+                    </li>
+                    <li className="list-group-item bg-dark text-light border-secondary">
+                      <strong>RAM:</strong> {product.requirements.ram}
+                    </li>
+                    <li className="list-group-item bg-dark text-light border-secondary">
+                      <strong>Archiviazione:</strong> {product.requirements.storage}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       )}
     </div>
   );

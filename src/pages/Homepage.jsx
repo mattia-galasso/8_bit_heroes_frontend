@@ -60,9 +60,7 @@ export default function Homepage() {
 
         {/* OFFERTE */}
         <section className="card card-bg my-4">
-          <h2 className="homepage-section-title h1 text-center text-warning my-3">
-            OFFERTE EPICHE
-          </h2>
+          <h2 className="card-section-title h1 text-center text-warning my-3">OFFERTE EPICHE</h2>
           <div className="card card-bg p-4">
             <ul className="row row-cols-2 row-cols-md-4 g-4 mb-0 list-unstyled">
               {discountedProducts.map((product) => (
@@ -76,7 +74,7 @@ export default function Homepage() {
 
         {/* PIU' VENDUTI */}
         <section className="card card-bg">
-          <h2 className="homepage-section-title h1 text-center text-warning my-3">I PIÙ VENDUTI</h2>
+          <h2 className="card-section-title h1 text-center text-warning my-3">I PIÙ VENDUTI</h2>
           <div className="card card-bg p-4">
             <ul className="row row-cols-2 row-cols-sm-4 g-4 mb-0 list-unstyled">
               {mostSoldProducts.map((product) => (
