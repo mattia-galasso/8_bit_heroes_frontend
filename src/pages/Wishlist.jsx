@@ -13,7 +13,7 @@ export default function Wishlist() {
           const percentage = game.percentage || 0;
           const final_price = Number(game.price) - Number(game.price) * (percentage / 100);
 
-          return <div key={game.id} className="card card-bg border-secondary p-3">
+          return <div key={game.id} className="card card-bg cart-list-item cart-item border-secondary p-3">
             <div onClick={(e) => {
               if (e.target.closest("button, input, label")) return;
               navigateTo(`/products/${game.slug}`);
