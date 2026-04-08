@@ -1,5 +1,5 @@
 import { useFavorites } from "../contexts/FavoritesContext";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 export default function Wishlist() {
   const { favorites, toggleFavorite, isFavorite } = useFavorites();
   const navigateTo = useNavigate();
