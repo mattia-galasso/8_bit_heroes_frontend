@@ -18,10 +18,9 @@ import { FavoritesProvider } from "./contexts/FavoritesContext.jsx";
 
 export default function App() {
   return (
-    <FavoritesProvider>
     <LoadingProvider>
       <CartProvider>
-        <WishlistProvider>
+        <FavoritesProvider>
           <BrowserRouter>
             <Routes>
               <Route Component={DefaultLayout}>
@@ -34,9 +33,8 @@ export default function App() {
               </Route>
             </Routes>
           </BrowserRouter>
-        </WishlistProvider>
+        </FavoritesProvider>
       </CartProvider>
     </LoadingProvider>
-    </FavoritesProvider>
   );
 }

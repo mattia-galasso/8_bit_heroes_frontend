@@ -1,18 +1,23 @@
-import { useWishlist } from "../contexts/WishlistContext";
+import { useFavorites } from "../contexts/FavoritesContext";
+import { Link, useNavigate } from "react-router";
 export default function Wishlist() {
-  const { wishlist } = useWishlist();
+  const { favorites, toggleFavorite, isFavorite } = useFavorites();
+  const navigateTo = useNavigate();
 
   return (
-    <div className="paddingpage text-center">
-      <h1 className="text-warning homepage-section-title">Wishlist</h1>
+    <div className="paddingpage">
+      <h1 className="text-warning homepage-section-title text-center">Wishlist</h1>
 
       <div className="d-flex flex-column gap-3 my-4">
-        {wishlist.map((game) => {
+        {favorites.map((game) => {
           const percentage = game.percentage || 0;
           const final_price = Number(game.price) - Number(game.price) * (percentage / 100);
 
           return <div key={game.id} className="card card-bg border-secondary p-3">
-            <Link to={`/products/${game.slug}`} className=" d-block text-decoration-none">
+            <div onClick={(e) => {
+              if (e.target.closest("button, input, label")) return;
+              navigateTo(`/products/${game.slug}`);
+            }} className=" d-block text-decoration-none">
               <div className="row g-4 align-items-center">
                 <div className="col-12 col-sm-4 col-md-2 game-card">
                   <div className="position-relative">
@@ -30,8 +35,16 @@ export default function Wishlist() {
                 </div>
 
                 <div className="col-12 col-sm-8 col-md-10 text-light">
-                  <h4 className="mb-2">{game.name}</h4>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <h4 className="mb-2">{game.name}</h4>
+                    <button type="button" className="btn p-0" onClick={(e) =>{ e.stopPropagation(); toggleFavorite(game)}}>
+                      <i
+                        className={`bi ${isFavorite(game.id) ? "bi-heart-fill text-danger" : "bi-heart text-light"} fs-3`}
+                      />
+                    </button>
+                  </div>
                   <p className="mb-0">{game.description}</p>
+
                   <div>
                     {percentage > 0 ? (
                       <div className="mb-3">
@@ -49,7 +62,7 @@ export default function Wishlist() {
                   </div>
                 </div>
               </div>
-            </Link>
+            </div>
           </div>
         })}
       </div>
