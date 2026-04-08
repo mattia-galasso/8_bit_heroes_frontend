@@ -110,7 +110,7 @@ export default function GameDetails() {
 
       {/* related */}
       <section className="card card-bg my-4">
-        <h2 className="card-section-title h1 text-center text-warning my-3">OFFERTE EPICHE</h2>
+        <h2 className="card-section-title h1 text-center text-warning my-3">Prodotti Correlati</h2>
         <div className="row-border rounded-3">
           <div className="row row-cols-2 row-cols-md-4 g-4 mb-3 mt-05 mx-2">
             {product.relatedProducts.map((related) => (
