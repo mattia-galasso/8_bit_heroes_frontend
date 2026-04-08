@@ -12,7 +12,7 @@ export default function DefaultLayout() {
       {/* GLOBAL CART OFFCANVAS */}
       <OffcanvasCart />
       {/* MAIN */}
-      <main className="main-layout container-custom">
+      <main className="main-layout container-custom mx-auto">
         <Outlet />
       </main>
     </>

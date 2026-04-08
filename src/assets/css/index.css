@@ -63,27 +63,31 @@ html,
   scrollbar-color: rgba(255, 215, 70, 0.5) rgb(20, 12, 28, 0.3);
 }
 
+.details-container .product-title {
+  max-width: 90%;
+}
+
 /* container */
 .container-custom {
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
 }
 
 @media (min-width: 576px) {
   .container-custom {
-    max-width: 90%;
+    max-width: 80%;
   }
 }
 
 @media (min-width: 768px) {
   .container-custom {
-    max-width: 90%;
+    max-width: 75%;
   }
 }
 
 @media (min-width: 992px) {
   .container-custom {
-    max-width: 80%;
+    max-width: 75%;
   }
 }
 

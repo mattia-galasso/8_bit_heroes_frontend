@@ -34,7 +34,7 @@ export default function GameDetails() {
     : null;
 
   return (
-    <div className="details-container container my-5 text-light">
+    <div className="details-container my-5 text-light">
       <div className="row g-4 justify-content-center">
         {/* banner */}
         <div className="col-12">
@@ -54,15 +54,17 @@ export default function GameDetails() {
         </div>
         {/* infos */}
         <section className="col-11 col-md-7 col-lg-8">
-          <h1 className="mb-3 text-warning">{product.name}</h1>
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <h1 className="product-title mb-3 text-warning">{product.name}</h1>
 
-          <button type="button" className="btn p-0" onClick={() => toggleFavorite(product)}>
-            <i
-              className={`bi ${
-                isFavorite(product.id) ? "bi-heart-fill text-danger" : "bi-heart text-light"
-              } fs-3`}
-            ></i>
-          </button>
+            <button type="button" className="btn p-0" onClick={() => toggleFavorite(product)}>
+              <i
+                className={`bi ${
+                  isFavorite(product.id) ? "bi-heart-fill text-danger" : "bi-heart text-light"
+                } fs-3`}
+              ></i>
+            </button>
+          </div>
 
           <p>{product.description}</p>
 
@@ -93,19 +95,19 @@ export default function GameDetails() {
             <div className="mb-3">
               <p className="text-decoration-line-through text-danger mb-1">€ {product.price}</p>
               <p className="fs-3 fw-bold text-success mb-2">€ {product.final_price}</p>
-              <span className="badge bg-warning">-{product.discount_percentage}%</span>
+              <span className="badge bg-info">-{product.discount_percentage}%</span>
             </div>
           ) : (
             <p className="fs-3 fw-bold">€ {product.price}</p>
           )}
 
-          <button className="btn btn-primary btn-lg" onClick={() => addToCart(product)}>
+          <button className="btn btn-warning btn-lg" onClick={() => addToCart(product)}>
             Aggiungi al carrello
           </button>
         </section>
 
         {/* related */}
-        <section className="card card-bg my-4">
+        <section className="card card-bg mt-4">
           <h2 className="card-section-title h1 text-center text-warning my-3">
             Prodotti Correlati
           </h2>
@@ -122,7 +124,7 @@ export default function GameDetails() {
 
         {/* trailer */}
         {trailerEmbed && (
-          <section className="mt-5 mb-4">
+          <section className="mt-5 pb-4 border-bottom">
             <h2 className="ms-1 pt-2 mb-3 border-top">Trailer</h2>
             <div className="ratio ratio-16x9">
               <iframe
@@ -134,48 +136,47 @@ export default function GameDetails() {
             </div>
           </section>
         )}
+
         {/* requirements */}
         {product.requirements && (
-          <section className="requirements-accordion border-top pt-4">
-            <div className="accordion" data-bs-theme="dark" id="accordionExample">
-              <div className="accordion-item">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button collapsed fw-semibold fs-5"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseOne"
-                    aria-expanded="false"
-                    aria-controls="collapseOne"
-                  >
-                    <span className="ms-1">Requisiti minimi</span>
-                  </button>
-                </h2>
-                <div
-                  id="collapseOne"
-                  className="accordion-collapse collapse"
-                  data-bs-parent="#accordionExample"
+          <div className="accordion" data-bs-theme="dark" id="accordionExample">
+            <div className="accordion-item">
+              <h2 className="accordion-header">
+                <button
+                  className="accordion-button collapsed fw-semibold fs-5"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne"
+                  aria-expanded="false"
+                  aria-controls="collapseOne"
                 >
-                  <div className="accordion-body">
-                    <ul className="list-group list-group-flush">
-                      <li className="list-group-item bg-dark text-light border-secondary">
-                        <strong>Sistema operativo:</strong> {product.requirements.os}
-                      </li>
-                      <li className="list-group-item bg-dark text-light border-secondary">
-                        <strong>GPU:</strong> {product.requirements.gpu}
-                      </li>
-                      <li className="list-group-item bg-dark text-light border-secondary">
-                        <strong>RAM:</strong> {product.requirements.ram}
-                      </li>
-                      <li className="list-group-item bg-dark text-light border-secondary">
-                        <strong>Archiviazione:</strong> {product.requirements.storage}
-                      </li>
-                    </ul>
-                  </div>
+                  <span className="ms-1">Requisiti minimi</span>
+                </button>
+              </h2>
+              <div
+                id="collapseOne"
+                className="accordion-collapse collapse"
+                data-bs-parent="#accordionExample"
+              >
+                <div className="accordion-body">
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item bg-dark text-light border-secondary">
+                      <strong>Sistema operativo:</strong> {product.requirements.os}
+                    </li>
+                    <li className="list-group-item bg-dark text-light border-secondary">
+                      <strong>GPU:</strong> {product.requirements.gpu}
+                    </li>
+                    <li className="list-group-item bg-dark text-light border-secondary">
+                      <strong>RAM:</strong> {product.requirements.ram}
+                    </li>
+                    <li className="list-group-item bg-dark text-light border-secondary">
+                      <strong>Archiviazione:</strong> {product.requirements.storage}
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
-          </section>
+          </div>
         )}
       </div>
     </div>
