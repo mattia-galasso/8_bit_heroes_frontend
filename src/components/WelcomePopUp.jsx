@@ -6,7 +6,6 @@ export default function WelcomePopUp({ onClose }) {
   const [inputData, setInputData] = useState("");
   const { showNotification } = useNotificationContext();
   const [status, setStatus] = useState("welcome");
-  const [errorMessage, setErrorMessage] = useState("");
 
   const email = inputData.trim().toLowerCase();
 
@@ -16,6 +15,20 @@ export default function WelcomePopUp({ onClose }) {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    const regex = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
+
+    //* Se l'email input è vuoto
+    if (email.length === 0) {
+      return showNotification(
+        `L'indirizzo email è obbligatorio per iscrizione!`,
+        "warning",
+      );
+    }
+
+    //* Se l'email input contiene caratteri non accettati
+    if (!regex.test(email)) {
+      return showNotification(`L'indirizzo email non è valido!`, "warning");
+    }
 
     axios
       .post("http://localhost:3000/newsletter", { email: email })
@@ -24,11 +37,7 @@ export default function WelcomePopUp({ onClose }) {
         showNotification(`Registrazione avvenuta con successo!`, "success");
       })
       .catch((err) => {
-        /* setStatus("error"); */
         if (err.response.status === 409) {
-          /* setErrorMessage(
-            `L'indirizzo email "${email}" risulta già registrato!`,
-          ); */
           showNotification(
             `L'indirizzo email "${email}" risulta già registrato!`,
             "warning",
@@ -81,12 +90,11 @@ export default function WelcomePopUp({ onClose }) {
                       value={inputData}
                       onChange={handleInputChange}
                       id="newsletter-input"
-                      type="email"
+                      type="text"
                       className="form-control"
                       placeholder="..."
                       aria-label="Username"
                       aria-describedby="visible-addon"
-                      required
                     />
                     <button
                       className="btn btn-success"
@@ -112,69 +120,6 @@ export default function WelcomePopUp({ onClose }) {
           </div>
         </div>
       )}
-      {/* {status === "error" && (
-        <div
-          className="welcome-popup thanks-modal modal show d-block"
-          tabIndex="-1"
-          data-bs-theme="dark"
-        >
-          <div className="modal-dialog modal-lg modal-dialog-centered">
-            <div className="modal-content">
-              <div className="modal-header">
-                <button
-                  onClick={onClose}
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div className="modal-body text-center">
-                <h1 className="text-warning">Qualcosa è andato storto</h1>
-                <p className="mb-2">{errorMessage}</p>
-                <form onSubmit={handleFormSubmit}>
-                  <label
-                    htmlFor="newsletter-input-retry"
-                    className="form-label mb-3"
-                  >
-                    Provane un altro oppure procedi al sito
-                  </label>
-                  <div className="input-group">
-                    <input
-                      value={inputData}
-                      onChange={handleInputChange}
-                      id="newsletter-input-retry"
-                      type="email"
-                      className="form-control"
-                      placeholder="..."
-                      aria-label="Username"
-                      aria-describedby="visible-addon"
-                      required
-                    />
-                    <button
-                      className="btn btn-success"
-                      type="submit"
-                      id="button-addon2"
-                    >
-                      Riprova
-                    </button>
-                  </div>
-                </form>
-              </div>
-              <div className="modal-footer">
-                <button
-                  onClick={onClose}
-                  type="button"
-                  className="btn btn-secondary align-self-end"
-                  data-bs-dismiss="modal"
-                >
-                  Procedi al Sito
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )} */}
       {status === "thanks" && (
         <div
           className="welcome-popup thanks-modal modal show d-block"
