@@ -3,9 +3,12 @@ import { Link, useNavigate } from "react-router";
 import { useCart } from "../contexts/CartContext.jsx";
 import { useState } from "react";
 import CheckoutForm from "./CheckoutForm.jsx";
+import DeleteFromCartModal from "./DeleteFromCartModal.jsx";
 
 export default function OffcanvasCart() {
   const [openForm, setOpenForm] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [gameToDelete, setGameToDelete] = useState();
   const { cart, addToCart, removeFromCart, toggleDigitalCopy } = useCart();
   const navigateTo = useNavigate();
   const totalPrice = cart.reduce((total, item) => {
@@ -72,24 +75,20 @@ export default function OffcanvasCart() {
                       <div className="col-8 text-white align-self-start mt-4">
                         <h4 className="title-offcanvas">{game.name}</h4>
                         <div>
-                          <div className="btn-group fs-5 my-2">
-                            <button
-                              onClick={() => removeFromCart(game.id)}
-                              className="btn btn-light py-0 px-1"
-                            >
-                              {game.quantity === 1 ? (
+                          <div className='btn-group fs-5 my-2'>
+                            {game.quantity === 1 ? <>
+                              <button onClick={(e) => {
+                                e.stopPropagation();
+                                setGameToDelete(game);
+                                setOpenDeleteModal(true);
+                              }} type="button" className="btn btn-light py-0 px-1" data-bs-dismiss='offcanvas'>
                                 <i className="bi bi-trash text-danger"></i>
-                              ) : (
-                                <i className="bi bi-dash"></i>
-                              )}
-                            </button>
-                            <p className="m-0 px-2 border border-light">{game.quantity}</p>
-                            <button
-                              onClick={() => addToCart(game)}
-                              className="btn btn-light py-0 px-1"
-                            >
-                              <i className="bi bi-plus p-0 m-0"></i>
-                            </button>
+                              </button>
+                            </> : <>
+                              <button onClick={() => removeFromCart(game.id)} className='btn btn-light py-0 px-1'><i className="bi bi-dash"></i></button>
+                            </>}
+                            <p className='m-0 px-2 border border-light'>{game.quantity}</p>
+                            <button onClick={() => addToCart(game)} className='btn btn-light py-0 px-1'><i className="bi bi-plus p-0 m-0"></i></button>
                           </div>
 
                           <div className="form-check mt-2">
@@ -130,6 +129,8 @@ export default function OffcanvasCart() {
       </div>
 
       {openForm && <CheckoutForm openForm={openForm} setOpenForm={setOpenForm} />}
+      {openDeleteModal && <DeleteFromCartModal gameToDelete={gameToDelete} setOpenDeleteModal={setOpenDeleteModal} />}
+
     </>
   );
 }

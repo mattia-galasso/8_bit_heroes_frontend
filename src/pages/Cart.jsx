@@ -1,10 +1,14 @@
-import { useState } from "react";
-import CheckoutForm from "../components/CheckoutForm.jsx";
-import { useCart } from "../contexts/CartContext.jsx";
-import { useNavigate } from "react-router";
+
+import { useState } from 'react';
+import CheckoutForm from '../components/CheckoutForm.jsx';
+import { useCart } from '../contexts/CartContext.jsx';
+import { useNavigate } from 'react-router';
+import DeleteFromCartModal from '../components/DeleteFromCartModal.jsx';
 
 export default function Cart() {
   const [openForm, setOpenForm] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [gameToDelete, setGameToDelete] = useState();
   const { cart, addToCart, removeFromCart, toggleDigitalCopy } = useCart();
   const navigateTo = useNavigate();
 
@@ -12,10 +16,12 @@ export default function Cart() {
     return total + Number(item.final_price) * item.quantity;
   }, 0);
 
-  // blocca lo scroll del documento quando la modale del form si apre
+  
+  
   if (openForm) {
-    document.body.style.overflow = "hidden";
-    document.body.style.paddingRight = "15px"; // compensa la larghezza della scrollbar
+    // blocca lo scroll del documento quando la modale del form si apre
+    document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = '15px'; // compensa la larghezza della scrollbar
   } else {
     document.body.style.overflow = "auto";
     document.body.style.paddingRight = "0";
@@ -58,24 +64,20 @@ export default function Cart() {
                         <h4 className="mb-2">{game.name}</h4>
                         <p className="mb-0">{game.description}</p>
                         <div>
-                          <div className="btn-group fs-4 mt-2">
-                            <button
-                              onClick={() => removeFromCart(game.id)}
-                              className="btn btn-light py-0 px-1"
-                            >
-                              {game.quantity === 1 ? (
+                          <div className='btn-group fs-4 mt-2'>
+                            {game.quantity === 1 ? <>
+                              <button onClick={(e) => {
+                                e.stopPropagation();
+                                setGameToDelete(game);
+                                setOpenDeleteModal(true);
+                              }}type="button" className="btn btn-light py-0 px-1">
                                 <i className="bi bi-trash text-danger"></i>
-                              ) : (
-                                <i className="bi bi-dash"></i>
-                              )}
-                            </button>
-                            <p className="m-0 px-2 border border-light">{game.quantity}</p>
-                            <button
-                              onClick={() => addToCart(game)}
-                              className="btn btn-light py-0 px-1"
-                            >
-                              <i className="bi bi-plus p-0 m-0"></i>
-                            </button>
+                              </button>
+                            </> : <>
+                              <button onClick={() => removeFromCart(game.id)} className='btn btn-light py-0 px-1'><i className="bi bi-dash"></i></button>
+                            </>}
+                            <p className='m-0 px-2 border border-light'>{game.quantity}</p>
+                            <button onClick={() => addToCart(game)} className='btn btn-light py-0 px-1'><i className="bi bi-plus p-0 m-0"></i></button>
                           </div>
                           <div className="d-flex justify-content-center align-items-between flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
                             <div className="form-check mt-2 fs-4">
@@ -108,14 +110,16 @@ export default function Cart() {
           </div>
         )}
 
-        <div className="d-flex justify-content-end mt-2">
-          <button onClick={() => setOpenForm(true)} className="btn btn-primary">
-            Effettua ordine
-          </button>
+        }
+
+
+        <div className='d-flex justify-content-end mt-2'>
+          <button onClick={() => setOpenForm(true)} className='btn btn-primary btn-lg'>Effettua ordine</button>
         </div>
       </div>
 
       {openForm && <CheckoutForm openForm={openForm} setOpenForm={setOpenForm} />}
+      {openDeleteModal && <DeleteFromCartModal gameToDelete={gameToDelete} setOpenDeleteModal={setOpenDeleteModal}/>}
     </>
   );
 }

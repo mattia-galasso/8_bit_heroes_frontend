@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useCart } from "../contexts/CartContext";
 import GameCard from "../components/GameCard";
+import { useFavorites } from "../contexts/FavoritesContext";
 
 export default function GameDetails() {
   const { slug } = useParams();
@@ -10,6 +11,8 @@ export default function GameDetails() {
   const [product, setProduct] = useState(null);
   const [error, setError] = useState("");
   const { addToCart } = useCart();
+
+  const  {toggleFavorite,isFavorite} =useFavorites()
 
   useEffect(() => {
     axios
@@ -27,7 +30,9 @@ export default function GameDetails() {
   if (!product) return <p className="container mt-4">Caricamento...</p>;
 
   const trailerEmbed = product.trailer
-    ? product.trailer.replace("youtu.be/", "www.youtube.com/embed/").split("?")[0]
+    ? product.trailer
+        .replace("youtu.be/", "www.youtube.com/embed/")
+        .split("?")[0]
     : null;
 
   return (
@@ -53,29 +58,69 @@ export default function GameDetails() {
         <section className="col-11 col-md-7 col-lg-8">
           <h1 className="mb-3 text-warning">{product.name}</h1>
 
+          <button
+           type="button"
+           className="btn p-0"
+           onClick={() => toggleFavorite(product)}>                   
+           <i
+            className={`bi ${
+           isFavorite(product.id)
+           ? "bi-heart-fill text-danger"
+           : "bi-heart text-light"
+           } fs-3`}>
+           </i>
+            </button>
+            </div>
+
           <p>{product.description}</p>
 
-          <ul className="list-group list-group list-group-flush mb-3">
-            <li className="list-group-item bg-dark text-light border-secondary">
-              <strong>PEGI:</strong> {product.pegi}
+          <ul className="list-group list-group-flush mb-3 rounded shadow-sm">
+            {/* Riga PEGI */}
+            <li className="list-group-item bg-dark text-light border-secondary py-2 d-flex align-items-center">
+              <strong className="me-2">PEGI:</strong>
+              <img
+                src={`http://localhost:3000/videogame_pegi/PEGI_${product.pegi}.png`}
+                alt={`PEGI ${product.pegi}`}
+                style={{ width: "30px", height: "auto", display: "block" }}
+                onError={(e) => {
+                  e.target.style.display = "none";
+                }}
+              />
             </li>
-            <li className="list-group-item bg-dark text-light border-secondary">
-              <strong>Copia digitale </strong>{" "}
-              {product.digital_copy ? "Disponibile" : "Non Disponibile"}
+
+            {/* Riga Copia Digitale */}
+            <li className="list-group-item bg-dark text-light border-secondary py-2">
+              <strong className="me-2">Copia digitale:</strong>
+              <span
+                className={
+                  product.digital_copy ? "text-success" : "text-danger"
+                }
+              >
+                {product.digital_copy ? "Disponibile" : "Non Disponibile"}
+              </span>
             </li>
           </ul>
 
           {product.price !== product.final_price ? (
             <div className="mb-3">
-              <p className="text-decoration-line-through text-danger mb-1">€ {product.price}</p>
-              <p className="fs-3 fw-bold text-success mb-2">€ {product.final_price}</p>
-              <span className="badge bg-info">-{product.discount_percentage}%</span>
+              <p className="text-decoration-line-through text-danger mb-1">
+                € {product.price}
+              </p>
+              <p className="fs-3 fw-bold text-success mb-2">
+                € {product.final_price}
+              </p>
+              <span className="badge bg-warning">
+                -{product.discount_percentage}%
+              </span>
             </div>
           ) : (
             <p className="fs-3 fw-bold">€ {product.price}</p>
           )}
 
-          <button className="btn btn-warning btn-lg" onClick={() => addToCart(product)}>
+          <button
+            className="btn btn-primary btn-lg"
+            onClick={() => addToCart(product)}
+          >
             Aggiungi al carrello
           </button>
         </section>
@@ -93,6 +138,7 @@ export default function GameDetails() {
           </ul>
         </div>
       </section>
+
       {/* trailer */}
       {trailerEmbed && (
         <section className="mt-5 mb-4">
