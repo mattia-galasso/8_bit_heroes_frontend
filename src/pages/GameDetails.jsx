@@ -107,80 +107,78 @@ export default function GameDetails() {
             Aggiungi al carrello
           </button>
         </section>
+      </div>
 
-        {/* related */}
-        <section className="card card-bg mt-4">
-          <h2 className="card-section-title h1 text-center text-warning my-3">
-            Prodotti Correlati
-          </h2>
-          <div className="card card-bg p-4">
-            <ul className="row row-cols-2 row-cols-md-4 g-4 mb-0 list-unstyled">
-              {product.relatedProducts.map((related) => (
-                <li className="col" key={related.id}>
-                  <GameCard product={related} enableHoverOverlay={true} />
-                </li>
-              ))}
-            </ul>
+      {/* related */}
+      <section className="card card-bg my-4">
+        <h2 className="card-section-title h1 text-center text-warning my-3">OFFERTE EPICHE</h2>
+        <div className="row-border rounded-3">
+          <div className="row row-cols-2 row-cols-md-4 g-4 mb-3 mt-05 mx-2">
+            {product.relatedProducts.map((related) => (
+              <div className="col" key={related.id}>
+                <GameCard product={related} enableHoverOverlay={true} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* trailer */}
+      {trailerEmbed && (
+        <section className="mt-5 pb-4 border-top border-bottom">
+          <h2 className="ms-1 pt-2 mb-3">Trailer</h2>
+          <div className="ratio ratio-16x9">
+            <iframe
+              src={trailerEmbed}
+              title={product.name}
+              className="rounded-4"
+              allowFullScreen
+            ></iframe>
           </div>
         </section>
+      )}
 
-        {/* trailer */}
-        {trailerEmbed && (
-          <section className="mt-5 pb-4 border-bottom">
-            <h2 className="ms-1 pt-2 mb-3 border-top">Trailer</h2>
-            <div className="ratio ratio-16x9">
-              <iframe
-                src={trailerEmbed}
-                title={product.name}
-                className="rounded-4"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </section>
-        )}
-
-        {/* requirements */}
-        {product.requirements && (
-          <div className="accordion" data-bs-theme="dark" id="accordionExample">
-            <div className="accordion-item">
-              <h2 className="accordion-header">
-                <button
-                  className="accordion-button collapsed fw-semibold fs-5"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseOne"
-                  aria-expanded="false"
-                  aria-controls="collapseOne"
-                >
-                  <span className="ms-1">Requisiti minimi</span>
-                </button>
-              </h2>
-              <div
-                id="collapseOne"
-                className="accordion-collapse collapse"
-                data-bs-parent="#accordionExample"
+      {/* requirements */}
+      {product.requirements && (
+        <div className="accordion" data-bs-theme="dark" id="accordionExample">
+          <div className="accordion-item">
+            <h2 className="accordion-header">
+              <button
+                className="accordion-button collapsed fw-semibold fs-5"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="false"
+                aria-controls="collapseOne"
               >
-                <div className="accordion-body">
-                  <ul className="list-group list-group-flush">
-                    <li className="list-group-item bg-dark text-light border-secondary">
-                      <strong>Sistema operativo:</strong> {product.requirements.os}
-                    </li>
-                    <li className="list-group-item bg-dark text-light border-secondary">
-                      <strong>GPU:</strong> {product.requirements.gpu}
-                    </li>
-                    <li className="list-group-item bg-dark text-light border-secondary">
-                      <strong>RAM:</strong> {product.requirements.ram}
-                    </li>
-                    <li className="list-group-item bg-dark text-light border-secondary">
-                      <strong>Archiviazione:</strong> {product.requirements.storage}
-                    </li>
-                  </ul>
-                </div>
+                <span className="ms-1">Requisiti minimi</span>
+              </button>
+            </h2>
+            <div
+              id="collapseOne"
+              className="accordion-collapse collapse"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body">
+                <ul className="list-group list-group-flush">
+                  <li className="list-group-item bg-dark text-light border-secondary">
+                    <strong>Sistema operativo:</strong> {product.requirements.os}
+                  </li>
+                  <li className="list-group-item bg-dark text-light border-secondary">
+                    <strong>GPU:</strong> {product.requirements.gpu}
+                  </li>
+                  <li className="list-group-item bg-dark text-light border-secondary">
+                    <strong>RAM:</strong> {product.requirements.ram}
+                  </li>
+                  <li className="list-group-item bg-dark text-light border-secondary">
+                    <strong>Archiviazione:</strong> {product.requirements.storage}
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
