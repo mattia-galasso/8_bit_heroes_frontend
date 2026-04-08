@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNotificationContext } from "../contexts/NotificationContext";
 
 export default function WelcomePopUp({ onClose }) {
   const [inputData, setInputData] = useState("");
-
+  const { showNotification } = useNotificationContext();
   const [status, setStatus] = useState("welcome");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -18,11 +19,23 @@ export default function WelcomePopUp({ onClose }) {
 
     axios
       .post("http://localhost:3000/newsletter", { email: email })
-      .then(() => setStatus("thanks"))
+      .then(() => {
+        setStatus("thanks");
+        showNotification(`Registrazione avvenuta con successo!`, "success");
+      })
       .catch((err) => {
-        setStatus("error");
-        if (err.response.status === 409)
-          setErrorMessage(`L'indirizzo email "${email}" risulta già registrato!`);
+        /* setStatus("error"); */
+        if (err.response.status === 409) {
+          /* setErrorMessage(
+            `L'indirizzo email "${email}" risulta già registrato!`,
+          ); */
+          showNotification(
+            `L'indirizzo email "${email}" risulta già registrato!`,
+            "warning",
+          );
+          return setInputData("");
+        }
+        showNotification(`Qualcosa è andato storto!`, "danger");
         setInputData("");
       });
   };
@@ -30,11 +43,17 @@ export default function WelcomePopUp({ onClose }) {
   return (
     <>
       {status === "welcome" && (
-        <div className="welcome-popup modal show d-block" tabIndex="-1" data-bs-theme="dark">
+        <div
+          className="welcome-popup modal show d-block"
+          tabIndex="-1"
+          data-bs-theme="dark"
+        >
           <div className="modal-dialog modal-lg modal-dialog-centered">
             <div className="modal-content">
               <div className="modal-header position-relative py-4">
-                <h1 className="modal-title text-warning text-center fw-bold m-0">Welcome!</h1>
+                <h1 className="modal-title text-warning text-center fw-bold m-0">
+                  Welcome!
+                </h1>
                 <button
                   onClick={onClose}
                   type="button"
@@ -45,12 +64,13 @@ export default function WelcomePopUp({ onClose }) {
               </div>
               <div className="modal-body">
                 <p className="text-center fs-5">
-                  Benvenuto su <strong className="text-warning">8-Bit Heroes</strong> Videogame
-                  Store
+                  Benvenuto su{" "}
+                  <strong className="text-warning">8-Bit Heroes</strong>{" "}
+                  Videogame Store
                 </p>
                 <p className="text-center">
-                  Iscriviti alla nostra Newsletter per rimanere aggiornato su nuove uscite e
-                  promozioni esclusive!
+                  Iscriviti alla nostra Newsletter per rimanere aggiornato su
+                  nuove uscite e promozioni esclusive!
                 </p>
                 <label htmlFor="newsletter-input" className="form-label">
                   Inserisci il tuo indirizzo email
@@ -68,7 +88,11 @@ export default function WelcomePopUp({ onClose }) {
                       aria-describedby="visible-addon"
                       required
                     />
-                    <button className="btn btn-success" type="submit" id="button-addon2">
+                    <button
+                      className="btn btn-success"
+                      type="submit"
+                      id="button-addon2"
+                    >
                       Iscrivimi
                     </button>
                   </div>
@@ -88,7 +112,7 @@ export default function WelcomePopUp({ onClose }) {
           </div>
         </div>
       )}
-      {status === "error" && (
+      {/* {status === "error" && (
         <div
           className="welcome-popup thanks-modal modal show d-block"
           tabIndex="-1"
@@ -109,7 +133,10 @@ export default function WelcomePopUp({ onClose }) {
                 <h1 className="text-warning">Qualcosa è andato storto</h1>
                 <p className="mb-2">{errorMessage}</p>
                 <form onSubmit={handleFormSubmit}>
-                  <label htmlFor="newsletter-input-retry" className="form-label mb-3">
+                  <label
+                    htmlFor="newsletter-input-retry"
+                    className="form-label mb-3"
+                  >
                     Provane un altro oppure procedi al sito
                   </label>
                   <div className="input-group">
@@ -124,7 +151,11 @@ export default function WelcomePopUp({ onClose }) {
                       aria-describedby="visible-addon"
                       required
                     />
-                    <button className="btn btn-success" type="submit" id="button-addon2">
+                    <button
+                      className="btn btn-success"
+                      type="submit"
+                      id="button-addon2"
+                    >
                       Riprova
                     </button>
                   </div>
@@ -143,7 +174,7 @@ export default function WelcomePopUp({ onClose }) {
             </div>
           </div>
         </div>
-      )}
+      )} */}
       {status === "thanks" && (
         <div
           className="welcome-popup thanks-modal modal show d-block"
@@ -164,7 +195,8 @@ export default function WelcomePopUp({ onClose }) {
               <div className="modal-body text-center">
                 <h1 className="text-warning mb-3">Ottima scelta!</h1>
                 <p className="mb-1">
-                  Verrai informato/a su tutte le novità su l'indirizzo email "{email}"
+                  Verrai informato/a su tutte le novità su l'indirizzo email "
+                  {email}"
                 </p>
               </div>
               <div className="modal-footer">
