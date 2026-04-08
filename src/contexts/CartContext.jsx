@@ -36,15 +36,20 @@ function CartProvider({ children }) {
   };
 
   // Rimuove un elemento dal carrello
-  const removeFromCart = (gameId) => {
-    setCart((oldCart) =>
-      oldCart
-        .map((game) =>
-          game.id === gameId
-            ? { ...game, quantity: (game.quantity || 1) - 1 }
-            : game,
-        )
-        .filter((game) => game.quantity > 0),
+  const removeFromCart = (gameId, gameName) => {
+    setCart(
+      (oldCart) =>
+        oldCart
+          .map((game) =>
+            game.id === gameId
+              ? { ...game, quantity: (game.quantity || 1) - 1 }
+              : game,
+          )
+          .filter((game) => game.quantity > 0),
+      showNotification(
+        `"${gameName}" Diminuita quantità nel carrello!`,
+        "danger",
+      ),
     );
   };
 

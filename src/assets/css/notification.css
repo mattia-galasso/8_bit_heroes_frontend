@@ -7,7 +7,7 @@
   padding: 18px 26px;
   border-radius: 14px;
   color: white;
-  z-index: 100;
+  z-index: 9999;
   min-width: 320px;
   background: linear-gradient(145deg, #020617, #050a18);
   border: 1px solid rgba(255, 255, 255, 0.25);

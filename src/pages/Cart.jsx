@@ -28,7 +28,8 @@ export default function Cart() {
     <>
       <div className="paddingpage">
         <h1 className="text-white text-center mb-3">
-          Il tuo <span className="text-warning card-section-title">carrello</span>
+          Il tuo{" "}
+          <span className="text-warning card-section-title">carrello</span>
         </h1>
         <p className="fs-4 fw-bold text-white">{`Totale: \u20AC ${totalPrice.toFixed(2)}`}</p>
 
@@ -38,7 +39,10 @@ export default function Cart() {
           <div className="d-flex flex-column gap-3 my-4">
             {cart.map((game) => {
               return (
-                <div key={game.id} className="card cart-list-item cart-item border-secondary p-3">
+                <div
+                  key={game.id}
+                  className="card cart-list-item cart-item border-secondary p-3"
+                >
                   <div
                     onClick={(e) => {
                       if (e.target.closest("button, input, label")) return;
@@ -79,14 +83,18 @@ export default function Cart() {
                             ) : (
                               <>
                                 <button
-                                  onClick={() => removeFromCart(game.id)}
+                                  onClick={() =>
+                                    removeFromCart(game.id, game.name)
+                                  }
                                   className="btn btn-light py-0 px-1"
                                 >
                                   <i className="bi bi-dash"></i>
                                 </button>
                               </>
                             )}
-                            <p className="m-0 px-2 border border-light">{game.quantity}</p>
+                            <p className="m-0 px-2 border border-light">
+                              {game.quantity}
+                            </p>
                             <button
                               onClick={() => addToCart(game)}
                               className="btn btn-light py-0 px-1"
@@ -126,15 +134,23 @@ export default function Cart() {
         )}
 
         <div className="d-flex justify-content-end mt-2">
-          <button onClick={() => setOpenForm(true)} className="btn btn-primary btn-lg">
+          <button
+            onClick={() => setOpenForm(true)}
+            className="btn btn-primary btn-lg"
+          >
             Effettua ordine
           </button>
         </div>
       </div>
 
-      {openForm && <CheckoutForm openForm={openForm} setOpenForm={setOpenForm} />}
+      {openForm && (
+        <CheckoutForm openForm={openForm} setOpenForm={setOpenForm} />
+      )}
       {openDeleteModal && (
-        <DeleteFromCartModal gameToDelete={gameToDelete} setOpenDeleteModal={setOpenDeleteModal} />
+        <DeleteFromCartModal
+          gameToDelete={gameToDelete}
+          setOpenDeleteModal={setOpenDeleteModal}
+        />
       )}
     </>
   );
