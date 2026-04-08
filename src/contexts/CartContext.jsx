@@ -19,7 +19,7 @@ function CartProvider({ children }) {
 
   // aggiunge un prodotto al carrello
   const addToCart = (game) => {
-    showNotification(`${game.name} aggiunto al carrello!`, "success");
+    showNotification(`"${game.name}" Aggiunto al carrello!`, "success");
     setCart((oldCart) => {
       const existing = oldCart.find((item) => item.id === game.id);
 
