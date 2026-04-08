@@ -3,21 +3,25 @@ import { useNotificationContext } from "../contexts/NotificationContext";
 export default function Notification() {
   const { notification } = useNotificationContext();
 
-  if (!notification) return;
+  if (!notification.visible) return;
 
   return (
     <>
-      <div className={`notification notification-${notification.type}`}>
-        <div className="d-flex align-items-center">
-          {notification.type === "success" && <i class="bi bi-bell" />}
-          {notification.type === "danger" && <i class="bi bi-info-circle" />}
-          {notification.type === "warning" && <i class="bi bi-check-circle" />}
-          {notification.type === "info" && (
-            <i class="bi bi-exclamation-triangle" />
+      <div
+        className={`notification notification-${notification.type} ${notification.hide ? "hiding" : ""}`}
+      >
+        <div className="d-flex align-items-center gap-3">
+          {notification.type === "success" && (
+            <i className="bi bi-check-circle" />
           )}
-          {notification.type === "primary" && (
-            <i class="bi bi-exclamation-circle" />
+          {notification.type === "danger" && (
+            <i className="bi bi-exclamation-circle" />
           )}
+          {notification.type === "warning" && (
+            <i className="bi bi-exclamation-triangle" />
+          )}
+          {notification.type === "info" && <i className="bi bi-info-circle" />}
+          {notification.type === "primary" && <i className="bi bi-bell" />}
           <span>{notification.message}</span>
         </div>
       </div>
