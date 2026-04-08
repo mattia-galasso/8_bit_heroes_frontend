@@ -51,6 +51,8 @@ function CartProvider({ children }) {
     );
   };
 
+  const clearCart = () => setCart([]);
+
   const toggleDigitalCopy = (gameId) => {
     setCart((oldCart) =>
       oldCart.map((game) =>
@@ -68,6 +70,7 @@ function CartProvider({ children }) {
 
   const value = {
     cart,
+    clearCart,
     addToCart,
     removeFromCart,
     toggleDigitalCopy,

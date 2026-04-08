@@ -3,10 +3,10 @@ import { useCart } from "../contexts/CartContext";
 import axios from "axios";
 import { Link } from "react-router";
 
-export default function CheckoutForm({ openForm, setOpenForm }) {
+export default function CheckoutForm({ setOpenForm }) {
 
     // CUSTOM HOOK
-    const { cart, setCart } = useCart();
+    const { cart, clearCart } = useCart();
 
     const initialData = {
         "name": "",
@@ -146,11 +146,14 @@ export default function CheckoutForm({ openForm, setOpenForm }) {
 
         axios.post('http://localhost:3000/orders', formData)
             .then((res) => {
-                if (res.data) {
+                console.log("Response from backend:", res.data);
+                if ( res.data?.success === true) {
                     setOrderSuccess(true);
                     console.log(res.data);
+                    setTimeout(() => {clearCart()}, 50);
+                }else{
+                    setOrderSuccess(false);
                 }
-                setCart([]);
             })
             .catch((err) => {
                 if (err) {
