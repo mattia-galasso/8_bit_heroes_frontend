@@ -14,10 +14,11 @@ import DefaultLayout from "./layouts/DefaultLayout";
 // CONTEXT PROVIDERS
 import { LoadingProvider } from "./contexts/LoadingContext";
 import { CartProvider } from "./contexts/CartContext.jsx";
-import { WishlistProvider } from "./contexts/WishlistContext.jsx";
+import { FavoritesProvider } from "./contexts/FavoritesContext.jsx";
 
 export default function App() {
   return (
+    <FavoritesProvider>
     <LoadingProvider>
       <CartProvider>
         <WishlistProvider>
@@ -36,5 +37,6 @@ export default function App() {
         </WishlistProvider>
       </CartProvider>
     </LoadingProvider>
+    </FavoritesProvider>
   );
 }
