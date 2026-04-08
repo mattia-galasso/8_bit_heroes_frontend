@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+8_bit_heroes_updated.sql
 
 # Editor directories and files
 .vscode/*
