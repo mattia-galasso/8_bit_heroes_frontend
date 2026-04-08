@@ -18,23 +18,23 @@ import { FavoritesProvider } from "./contexts/FavoritesContext.jsx";
 
 export default function App() {
   return (
-    <FavoritesProvider>
     <LoadingProvider>
       <CartProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route Component={DefaultLayout}>
-              <Route path="/" element={<Homepage />} />
-              <Route path="/games" element={<Games />} />
-              <Route path="/products/:slug" element={<GameDetails />} />
-              <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="*" element={<Page404 />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+        <FavoritesProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route Component={DefaultLayout}>
+                <Route path="/" element={<Homepage />} />
+                <Route path="/games" element={<Games />} />
+                <Route path="/products/:slug" element={<GameDetails />} />
+                <Route path="/wishlist" element={<Wishlist />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="*" element={<Page404 />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </FavoritesProvider>
       </CartProvider>
     </LoadingProvider>
-    </FavoritesProvider>
   );
 }

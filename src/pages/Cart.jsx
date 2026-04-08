@@ -101,7 +101,7 @@ export default function Cart() {
                                 type="checkbox"
                                 checked={game.copyInDigital || false}
                                 onClick={(e) => {
-                                  e.stopPropagation;
+                                  e.stopPropagation();
                                 }}
                                 onChange={() => toggleDigitalCopy(game.id)}
                                 id={`digital-${game.id}`}
