@@ -69,13 +69,13 @@ export default function GameDetails() {
             <div className="mb-3">
               <p className="text-decoration-line-through text-danger mb-1">€ {product.price}</p>
               <p className="fs-3 fw-bold text-success mb-2">€ {product.final_price}</p>
-              <span className="badge bg-warning">-{product.discount_percentage}%</span>
+              <span className="badge bg-info">-{product.discount_percentage}%</span>
             </div>
           ) : (
             <p className="fs-3 fw-bold">€ {product.price}</p>
           )}
 
-          <button className="btn btn-primary btn-lg" onClick={() => addToCart(product)}>
+          <button className="btn btn-warning btn-lg" onClick={() => addToCart(product)}>
             Aggiungi al carrello
           </button>
         </section>
@@ -95,7 +95,7 @@ export default function GameDetails() {
       </section>
       {/* trailer */}
       {trailerEmbed && (
-        <section className="mt-5">
+        <section className="mt-5 mb-4">
           <h2 className="ms-1 pt-2 mb-3 border-top">Trailer</h2>
           <div className="ratio ratio-16x9">
             <iframe
@@ -109,22 +109,45 @@ export default function GameDetails() {
       )}
       {/* requirements */}
       {product.requirements && (
-        <section className="mt-5 pt-2 border-top">
-          <h3 className="mb-3">Requisiti minimi</h3>
-          <ul className="list-group list-group-flush w-75">
-            <li className="list-group-item bg-dark text-light border-secondary">
-              <strong>Sistema operativo:</strong> {product.requirements.os}
-            </li>
-            <li className="list-group-item bg-dark text-light border-secondary">
-              <strong>GPU:</strong> {product.requirements.gpu}
-            </li>
-            <li className="list-group-item bg-dark text-light border-secondary">
-              <strong>RAM:</strong> {product.requirements.ram}
-            </li>
-            <li className="list-group-item bg-dark text-light border-secondary">
-              <strong>Storage:</strong> {product.requirements.storage}
-            </li>
-          </ul>
+        <section className="requirements-accordion border-top pt-4">
+          <div className="accordion" data-bs-theme="dark" id="accordionExample">
+            <div className="accordion-item">
+              <h2 className="accordion-header">
+                <button
+                  className="accordion-button collapsed fw-semibold fs-5"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne"
+                  aria-expanded="false"
+                  aria-controls="collapseOne"
+                >
+                  <span className="ms-1">Requisiti minimi</span>
+                </button>
+              </h2>
+              <div
+                id="collapseOne"
+                className="accordion-collapse collapse"
+                data-bs-parent="#accordionExample"
+              >
+                <div className="accordion-body">
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item bg-dark text-light border-secondary">
+                      <strong>Sistema operativo:</strong> {product.requirements.os}
+                    </li>
+                    <li className="list-group-item bg-dark text-light border-secondary">
+                      <strong>GPU:</strong> {product.requirements.gpu}
+                    </li>
+                    <li className="list-group-item bg-dark text-light border-secondary">
+                      <strong>RAM:</strong> {product.requirements.ram}
+                    </li>
+                    <li className="list-group-item bg-dark text-light border-secondary">
+                      <strong>Archiviazione:</strong> {product.requirements.storage}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
       )}
     </div>
