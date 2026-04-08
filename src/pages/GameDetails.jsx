@@ -139,7 +139,7 @@ export default function GameDetails() {
 
       {/* requirements */}
       {product.requirements && (
-        <div className="accordion" data-bs-theme="dark" id="accordionExample">
+        <div className="accordion mt-3" data-bs-theme="dark" id="accordionExample">
           <div className="accordion-item">
             <h2 className="accordion-header">
               <button
