@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useCart } from "../contexts/CartContext";
+import GameCard from "../components/GameCard";
 
 export default function GameDetails() {
   const { slug } = useParams();
@@ -30,7 +31,7 @@ export default function GameDetails() {
     : null;
 
   return (
-    <div className="container my-5 text-light">
+    <div className="details-container container my-5 text-light">
       <div className="row g-4 justify-content-center">
         {/* banner */}
         <div className="col-12">
@@ -49,7 +50,7 @@ export default function GameDetails() {
           />
         </div>
         {/* infos */}
-        <div className="col-11 col-md-7 col-lg-8">
+        <section className="col-11 col-md-7 col-lg-8">
           <h1 className="mb-3 text-warning">{product.name}</h1>
 
           <p>{product.description}</p>
@@ -77,11 +78,24 @@ export default function GameDetails() {
           <button className="btn btn-primary btn-lg" onClick={() => addToCart(product)}>
             Aggiungi al carrello
           </button>
-        </div>
+        </section>
       </div>
+      {/* related */}
+      <section className="card card-bg my-4">
+        <h2 className="card-section-title h1 text-center text-warning my-3">Prodotti Correlati</h2>
+        <div className="card card-bg p-4">
+          <ul className="row row-cols-2 row-cols-md-4 g-4 mb-0 list-unstyled">
+            {product.relatedProducts.map((related) => (
+              <div className="col" key={related.id}>
+                <GameCard product={related} enableHoverOverlay={true} />
+              </div>
+            ))}
+          </ul>
+        </div>
+      </section>
       {/* trailer */}
       {trailerEmbed && (
-        <div className="mt-5">
+        <section className="mt-5">
           <h2 className="ms-1 pt-2 mb-3 border-top">Trailer</h2>
           <div className="ratio ratio-16x9">
             <iframe
@@ -91,11 +105,11 @@ export default function GameDetails() {
               allowFullScreen
             ></iframe>
           </div>
-        </div>
+        </section>
       )}
       {/* requirements */}
       {product.requirements && (
-        <div className="mt-5 pt-2 border-top">
+        <section className="mt-5 pt-2 border-top">
           <h3 className="mb-3">Requisiti minimi</h3>
           <ul className="list-group list-group-flush w-75">
             <li className="list-group-item bg-dark text-light border-secondary">
@@ -111,7 +125,7 @@ export default function GameDetails() {
               <strong>Storage:</strong> {product.requirements.storage}
             </li>
           </ul>
-        </div>
+        </section>
       )}
     </div>
   );
