@@ -37,32 +37,31 @@ export default function GameDetails() {
     <div className="details-container my-5 text-light">
       <div className="row g-4 justify-content-center">
         {/* banner */}
-        <div className="col-12">
+        <div className="col-12 border-bottom pb-3">
           <img
             src={`http://localhost:3000/videogame_banners/${product.banner_image}`}
             alt={product.name}
             className="img-fluid rounded w-100"
           />
         </div>
+
         {/* cover */}
-        <div className="col-8 col-md-5 col-lg-4">
+        <div className="col-8 col-md-5 col-lg-4 mt-3">
           <img
             src={`http://localhost:3000/videogame_covers/${product.cover_image}`}
             alt={product.name}
             className="img-fluid rounded shadow"
           />
         </div>
+
         {/* infos */}
         <section className="col-11 col-md-7 col-lg-8">
           <div className="d-flex justify-content-between align-items-center mb-3">
-            <h1 className="product-title mb-3 text-warning">{product.name}</h1>
-
+            <h1 className="product-title mt-2 text-warning">{product.name}</h1>
             <button type="button" className="btn p-0" onClick={() => toggleFavorite(product)}>
               <i
-                className={`bi ${
-                  isFavorite(product.id) ? "bi-heart-fill text-danger" : "bi-heart text-light"
-                } fs-3`}
-              ></i>
+                className={`bi ${isFavorite(product.id) ? "bi-heart-fill text-danger" : "bi-heart text-light"} fs-3`}
+              />
             </button>
           </div>
 
@@ -75,7 +74,7 @@ export default function GameDetails() {
               <img
                 src={`http://localhost:3000/videogame_pegi/PEGI_${product.pegi}.png`}
                 alt={`PEGI ${product.pegi}`}
-                style={{ width: "30px", height: "auto", display: "block" }}
+                style={{ width: "40px", height: "auto", display: "block" }}
                 onError={(e) => {
                   e.target.style.display = "none";
                 }}
