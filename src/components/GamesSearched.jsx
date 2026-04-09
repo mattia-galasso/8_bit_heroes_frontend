@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import GameCard from "./GameCard";
 import { Link, useSearchParams } from "react-router";
 import axios from "axios";
-
+import { useFavorites } from "../contexts/FavoritesContext";
 const baseURL = "http://localhost:3000/products/find";
 
 export default function GamesSearched() {
@@ -12,7 +12,7 @@ export default function GamesSearched() {
   const [error, setError] = useState("");
   const [onlyDiscounted, setOnlyDiscounted] = useState(false);
   const [viewMode, setViewMode] = useState("grid");
-
+  const { toggleFavorite, isFavorite } = useFavorites();
   //* Query Param
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get("search");
@@ -126,6 +126,14 @@ export default function GamesSearched() {
           </div>
         </div>
 
+        <p className = "text-light mb-3 fs-4 ms-2">
+          <strong>
+          {visibleGames.length===1
+          ? "1 risultato trovato"
+          : `${visibleGames.length} risultati trovati`}
+          </strong>
+        </p>
+
         {viewMode === "grid" ? (
           <section className="card card-bg my-4">
             <div className="card card-bg p-4">
@@ -150,6 +158,23 @@ export default function GamesSearched() {
                   key={game.id}
                   className="card card-bg border-secondary p-3"
                 >
+                  <button
+                    type="button"
+                    className="btn position-absolute top-0 end-0 m-2 z-3"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      toggleFavorite(game);
+                    }}
+                  >
+                    <i
+                      className={`bi ${
+                        isFavorite(game.id)
+                          ? "bi-heart-fill text-danger"
+                          : "bi-heart text-light"
+                      } fs-4`}
+                    ></i>
+                  </button>
                   <Link
                     to={`/products/${game.slug}`}
                     className=" d-block text-decoration-none"

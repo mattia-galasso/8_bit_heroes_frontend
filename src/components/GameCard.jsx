@@ -3,8 +3,7 @@ import { Link } from "react-router";
 import { useFavorites } from "../contexts/FavoritesContext";
 
 export default function GameCard({ product, enableHoverOverlay }) {
-
-  const  {toggleFavorite,isFavorite} =useFavorites()
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   // PER OVERLAY
   const [isHovered, setIsHovered] = useState(false);
@@ -27,23 +26,18 @@ export default function GameCard({ product, enableHoverOverlay }) {
       onMouseLeave={handleMouseLeave}
     >
       <div className="position-relative">
-
         <button
-        type="button"
-        className="btn position-absolute top-0 end-0 m-2 z-3"
-        onClick={(e)=>{
-          e.preventDefault()
-          e.stopPropagation()
-          toggleFavorite(product)
-        }}
+          type="button"
+          className="btn position-absolute top-0 end-0 m-2 z-3"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleFavorite(product);
+          }}
         >
-          <i className= 
-          {`bi ${isFavorite(product.id)
-            ? "bi-heart-fill text-danger"
-            : "bi-heart text-light"
-          } fs-4`}>
-          </i>
-
+          <i
+            className={`bi ${isFavorite(product.id) ? "bi-heart-fill text-danger" : "bi-heart text-light"} fs-4`}
+          />
         </button>
         {product.percentage > 0 && (
           <div className="discount-flag fw-bold py-1 px-2">-{product.percentage}%</div>
@@ -53,24 +47,24 @@ export default function GameCard({ product, enableHoverOverlay }) {
           src={`http://localhost:3000/videogame_covers/${product.cover_image}`}
           alt={product.name}
         />
-        {isHovered && (
-          <ul className="card-overlay list-unstyled text-white text-center text-decoration-none p-3 mb-5 d-flex flex-column gap-3 align-items-center justify-content-center">
-            <li className="bg-warning fw-semibold rounded-3 py-1 px-3">{product.name}</li>
-            {product.percentage > 0 ? (
-              <>
-                <li className="text-decoration-line-through bg-danger rounded-3 py-1 px-3">
+        {/* {isHovered && ( */}
+        <div className="card-overlay d-flex flex-column justify-content-center align-items-center text-white text-center text-decoration-none py-1 px-2">
+          <span className="bg-warning fw-semibold rounded-3 py-1 px-2">{product.name}</span>
+          {product.percentage > 0 ? (
+            <>
+              <div className="d-flex align-items-center gap-1">
+                <span className="text-decoration-line-through bg-danger badge py-1 px-2">
                   €{product.price}
-                </li>
-                <li className="bg-success rounded-3 fs-5 py-1 px-3">
-                  €{discountedPrice.toFixed(2)}
-                </li>
-                <li className="bg-info fw-semibold rounded-3 py-1 px-3">-{product.percentage}%</li>
-              </>
-            ) : (
-              <li className="bg-success rounded-3 py-1 px-3">€{product.price}</li>
-            )}
-          </ul>
-        )}
+                </span>
+                <span className="bg-info fw-semibold badge py-1 px-2">-{product.percentage}%</span>
+              </div>
+              <span className="bg-success rounded-3 py-1 px-2">€{discountedPrice.toFixed(2)}</span>
+            </>
+          ) : (
+            <span className="bg-success badge py-1 px-2">€{product.price}</span>
+          )}
+        </div>
+        {/* )} */}
       </div>
     </Link>
   );

@@ -37,10 +37,18 @@ export default function OffcanvasCart() {
                 aria-label="CartOffcanvas"
                 data-bs-dismiss="offcanvas"
               >
-                <Link to={`/cart`} className="btn btn-outline-light" type="button">
+                <Link
+                  to={`/cart`}
+                  className="btn btn-outline-light"
+                  type="button"
+                >
                   <i className="bi bi-box-arrow-up-right"></i>
                 </Link>
-                <button type="button" className="btn btn-outline-light" aria-label="Close">
+                <button
+                  type="button"
+                  className="btn btn-outline-light"
+                  aria-label="Close"
+                >
                   <i className="bi bi-x-lg"></i>
                 </button>
               </div>
@@ -52,7 +60,10 @@ export default function OffcanvasCart() {
           <div className="flex-grow-1 overflow-auto cart-offcanvas-body">
             {cart.map((game) => {
               return (
-                <div key={game.id} className="card card-bg cart-list-item border-secondary p-3">
+                <div
+                  key={game.id}
+                  className="card card-bg cart-list-item border-secondary p-3"
+                >
                   <div
                     onClick={(e) => {
                       if (e.target.closest("button, input, label")) return;
@@ -75,20 +86,43 @@ export default function OffcanvasCart() {
                       <div className="col-8 text-white align-self-start mt-4">
                         <h4 className="title-offcanvas">{game.name}</h4>
                         <div>
-                          <div className='btn-group fs-5 my-2'>
-                            {game.quantity === 1 ? <>
-                              <button onClick={(e) => {
-                                e.stopPropagation();
-                                setGameToDelete(game);
-                                setOpenDeleteModal(true);
-                              }} type="button" className="btn btn-light py-0 px-1" data-bs-dismiss='offcanvas'>
-                                <i className="bi bi-trash text-danger"></i>
-                              </button>
-                            </> : <>
-                              <button onClick={() => removeFromCart(game.id)} className='btn btn-light py-0 px-1'><i className="bi bi-dash"></i></button>
-                            </>}
-                            <p className='m-0 px-2 border border-light'>{game.quantity}</p>
-                            <button onClick={() => addToCart(game)} className='btn btn-light py-0 px-1'><i className="bi bi-plus p-0 m-0"></i></button>
+                          <div className="btn-group fs-5 my-2">
+                            {game.quantity === 1 ? (
+                              <>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setGameToDelete(game);
+                                    setOpenDeleteModal(true);
+                                  }}
+                                  type="button"
+                                  className="btn btn-light py-0 px-1"
+                                  data-bs-dismiss="offcanvas"
+                                >
+                                  <i className="bi bi-trash text-danger"></i>
+                                </button>
+                              </>
+                            ) : (
+                              <>
+                                <button
+                                  onClick={() =>
+                                    removeFromCart(game.id, game.name)
+                                  }
+                                  className="btn btn-light py-0 px-1"
+                                >
+                                  <i className="bi bi-dash"></i>
+                                </button>
+                              </>
+                            )}
+                            <p className="m-0 px-2 border border-light">
+                              {game.quantity}
+                            </p>
+                            <button
+                              onClick={() => addToCart(game)}
+                              className="btn btn-light py-0 px-1"
+                            >
+                              <i className="bi bi-plus p-0 m-0"></i>
+                            </button>
                           </div>
 
                           <div className={game.digital_copy? "form-check mt-2" : "d-none"}>
@@ -110,7 +144,7 @@ export default function OffcanvasCart() {
                             </label>
                           </div>
                           <div className="p-relative">
-                            <p className="text-end fs-4 price-offcanvas">{`\u20AC ${game.final_price}`}</p>
+                            <p className="text-end fs-4 price-offcanvas">{`\u20AC${game.final_price}`}</p>
                           </div>
                         </div>
                       </div>
@@ -121,16 +155,28 @@ export default function OffcanvasCart() {
             })}
           </div>
           <div className="division-offcanvas-bottom"></div>
-          <p className="fs-5 fw-bold text-white m-2">{`Totale: \u20AC ${totalPrice.toFixed(2)}`}</p>
-          <div className="d-flex justify-content-end">
-            <button onClick={() => setOpenForm(true)} className="btn btn-primary" data-bs-dismiss='offcanvas'>Effettua ordine</button>
+          <div className="d-flex justify-content-between my-2 align-items-center">
+            <div className="fs-5 fw-bold text-white ms-1">{`Totale: \u20AC${totalPrice.toFixed(2)}`}</div>
+            <button
+              onClick={() => setOpenForm(true)}
+              className="btn btn-warning me-2"
+              data-bs-dismiss="offcanvas"
+            >
+              Effettua ordine
+            </button>
           </div>
         </div>
       </div>
 
-      {openForm && <CheckoutForm openForm={openForm} setOpenForm={setOpenForm} />}
-      {openDeleteModal && <DeleteFromCartModal gameToDelete={gameToDelete} setOpenDeleteModal={setOpenDeleteModal} />}
-
+      {openForm && (
+        <CheckoutForm openForm={openForm} setOpenForm={setOpenForm} />
+      )}
+      {openDeleteModal && (
+        <DeleteFromCartModal
+          gameToDelete={gameToDelete}
+          setOpenDeleteModal={setOpenDeleteModal}
+        />
+      )}
     </>
   );
 }

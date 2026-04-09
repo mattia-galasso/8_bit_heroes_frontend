@@ -1,17 +1,16 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import Notification from "../components/Notification"; // Import aggiornato
+import { useNotificationContext } from "./NotificationContext";
 
 const CartContext = createContext();
 
 function CartProvider({ children }) {
+  const { showNotification } = useNotificationContext();
+
   const [cart, setCart] = useState(() => {
     // recupera i dati dal local storage all'avvio
     const savedCart = localStorage.getItem("cart");
     return savedCart ? JSON.parse(savedCart) : [];
   });
-
-  // Stato per gestire il messaggio della notifica
-  const [notification, setNotification] = useState(null);
 
   // aggiorna il local storage quando il carrello cambia
   useEffect(() => {
@@ -20,9 +19,7 @@ function CartProvider({ children }) {
 
   // aggiunge un prodotto al carrello
   const addToCart = (game) => {
-    // Mostra la notifica popup
-    setNotification(`${game.name} aggiunto al carrello!`);
-
+    showNotification(`"${game.name}" Aggiunto al carrello!`, "success");
     setCart((oldCart) => {
       const existing = oldCart.find((item) => item.id === game.id);
 
@@ -39,17 +36,24 @@ function CartProvider({ children }) {
   };
 
   // Rimuove un elemento dal carrello
-  const removeFromCart = (gameId) => {
-    setCart((oldCart) =>
-      oldCart
-        .map((game) =>
-          game.id === gameId
-            ? { ...game, quantity: (game.quantity || 1) - 1 }
-            : game,
-        )
-        .filter((game) => game.quantity > 0),
+  const removeFromCart = (gameId, gameName) => {
+    setCart(
+      (oldCart) =>
+        oldCart
+          .map((game) =>
+            game.id === gameId
+              ? { ...game, quantity: (game.quantity || 1) - 1 }
+              : game,
+          )
+          .filter((game) => game.quantity > 0),
+      showNotification(
+        `"${gameName}" Diminuita quantità nel carrello!`,
+        "danger",
+      ),
     );
   };
+
+  const clearCart = () => setCart([]);
 
   const toggleDigitalCopy = (gameId) => {
     setCart((oldCart) =>
@@ -68,25 +72,14 @@ function CartProvider({ children }) {
 
   const value = {
     cart,
+    clearCart,
     addToCart,
     removeFromCart,
     toggleDigitalCopy,
     totalQuantity,
   };
 
-  return (
-    <CartContext.Provider value={value}>
-      {children}
-
-      {/* Mostra la notifica se presente */}
-      {notification && (
-        <Notification
-          message={notification}
-          onClose={() => setNotification(null)}
-        />
-      )}
-    </CartContext.Provider>
-  );
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
 function useCart() {
