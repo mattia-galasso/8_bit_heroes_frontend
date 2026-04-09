@@ -15,26 +15,29 @@ import DefaultLayout from "./layouts/DefaultLayout";
 import { LoadingProvider } from "./contexts/LoadingContext";
 import { CartProvider } from "./contexts/CartContext.jsx";
 import { FavoritesProvider } from "./contexts/FavoritesContext.jsx";
+import { NotificationContextProvider } from "./contexts/NotificationContext.jsx";
 
 export default function App() {
   return (
     <LoadingProvider>
-      <CartProvider>
+      <NotificationContextProvider>
         <FavoritesProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route Component={DefaultLayout}>
-                <Route path="/" element={<Homepage />} />
-                <Route path="/games" element={<Games />} />
-                <Route path="/products/:slug" element={<GameDetails />} />
-                <Route path="/wishlist" element={<Wishlist />} />
-                <Route path="/cart" element={<Cart />} />
-                <Route path="*" element={<Page404 />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
+          <CartProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route Component={DefaultLayout}>
+                  <Route path="/" element={<Homepage />} />
+                  <Route path="/games" element={<Games />} />
+                  <Route path="/products/:slug" element={<GameDetails />} />
+                  <Route path="/wishlist" element={<Wishlist />} />
+                  <Route path="/cart" element={<Cart />} />
+                  <Route path="*" element={<Page404 />} />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </CartProvider>
         </FavoritesProvider>
-      </CartProvider>
+      </NotificationContextProvider>
     </LoadingProvider>
   );
 }

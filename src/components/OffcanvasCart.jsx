@@ -37,10 +37,18 @@ export default function OffcanvasCart() {
                 aria-label="CartOffcanvas"
                 data-bs-dismiss="offcanvas"
               >
-                <Link to={`/cart`} className="btn btn-outline-light" type="button">
+                <Link
+                  to={`/cart`}
+                  className="btn btn-outline-light"
+                  type="button"
+                >
                   <i className="bi bi-box-arrow-up-right"></i>
                 </Link>
-                <button type="button" className="btn btn-outline-light" aria-label="Close">
+                <button
+                  type="button"
+                  className="btn btn-outline-light"
+                  aria-label="Close"
+                >
                   <i className="bi bi-x-lg"></i>
                 </button>
               </div>
@@ -52,7 +60,10 @@ export default function OffcanvasCart() {
           <div className="flex-grow-1 overflow-auto cart-offcanvas-body">
             {cart.map((game) => {
               return (
-                <div key={game.id} className="card card-bg cart-list-item border-secondary p-3">
+                <div
+                  key={game.id}
+                  className="card card-bg cart-list-item border-secondary p-3"
+                >
                   <div
                     onClick={(e) => {
                       if (e.target.closest("button, input, label")) return;
@@ -94,14 +105,18 @@ export default function OffcanvasCart() {
                             ) : (
                               <>
                                 <button
-                                  onClick={() => removeFromCart(game.id)}
+                                  onClick={() =>
+                                    removeFromCart(game.id, game.name)
+                                  }
                                   className="btn btn-light py-0 px-1"
                                 >
                                   <i className="bi bi-dash"></i>
                                 </button>
                               </>
                             )}
-                            <p className="m-0 px-2 border border-light">{game.quantity}</p>
+                            <p className="m-0 px-2 border border-light">
+                              {game.quantity}
+                            </p>
                             <button
                               onClick={() => addToCart(game)}
                               className="btn btn-light py-0 px-1"
@@ -153,9 +168,14 @@ export default function OffcanvasCart() {
         </div>
       </div>
 
-      {openForm && <CheckoutForm openForm={openForm} setOpenForm={setOpenForm} />}
+      {openForm && (
+        <CheckoutForm openForm={openForm} setOpenForm={setOpenForm} />
+      )}
       {openDeleteModal && (
-        <DeleteFromCartModal gameToDelete={gameToDelete} setOpenDeleteModal={setOpenDeleteModal} />
+        <DeleteFromCartModal
+          gameToDelete={gameToDelete}
+          setOpenDeleteModal={setOpenDeleteModal}
+        />
       )}
     </>
   );
