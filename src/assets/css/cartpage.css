@@ -2,6 +2,7 @@
   background-color: #140c1c;
   border-color: #1e1e30;
   transition: scale 0.15s ease;
+  cursor: pointer;
 }
 
 .cart-list-item.cart-item:hover {
