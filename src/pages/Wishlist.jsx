@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useFavorites } from "../contexts/FavoritesContext";
-import { useNavigate, Link } from "react-router";
+import { useNavigate } from "react-router";
 import ClearFavoritesModal from "../components/ClearFavoritesModal";
 
 export default function Wishlist() {
@@ -42,7 +42,7 @@ export default function Wishlist() {
           const final_price = Number(game.price) - Number(game.price) * (percentage / 100);
 
           return (
-            <>
+            
               <div
                 key={game.id}
                 className="card card-bg cart-list-item cart-item border-secondary p-3"
@@ -106,7 +106,6 @@ export default function Wishlist() {
                   </div>
                 </div>
               </div>
-            </div>
           );
         })
   )}
