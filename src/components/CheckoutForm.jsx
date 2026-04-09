@@ -149,8 +149,9 @@ export default function CheckoutForm({ setOpenForm }) {
       .catch((err) => {
         if (err) {
           setOrderSuccess(false);
-          showNotification("Qualcosa è andato storto!", "danger");
+          return showNotification("Qualcosa è andato storto!", "danger");
         }
+        showNotification("Qualcosa è andato storto!", "danger");
       });
   };
 
@@ -164,7 +165,7 @@ export default function CheckoutForm({ setOpenForm }) {
         data-bs-theme="dark"
       >
         <div className="modal-dialog modal-lg modal-dialog-centered">
-          <div className="modal-content">
+          <div className="modal-content" style={{ marginTop: "4rem" }}>
             <div className="modal-header">
               <button
                 onClick={() => setOpenForm(false)}
@@ -185,13 +186,6 @@ export default function CheckoutForm({ setOpenForm }) {
                     onSubmit={(e) => handleSubmit(e)}
                     className="row g-3 p-2"
                   >
-                    {error && (
-                      <>
-                        <div className="col-12 alert alert-danger">
-                          {errorMessage}
-                        </div>
-                      </>
-                    )}
                     <div className="col-12 col-sm-6">
                       <label htmlFor="name" className="form-label">
                         Nome
@@ -225,7 +219,7 @@ export default function CheckoutForm({ setOpenForm }) {
                       <input
                         value={formData.email}
                         onChange={(e) => handleInputChange(e)}
-                        type="email"
+                        type="text"
                         name="email"
                         className="form-control"
                         id="email"
