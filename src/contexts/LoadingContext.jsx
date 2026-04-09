@@ -5,18 +5,23 @@ const LoadingContext = createContext();
 function LoadingProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
 
-  const setLoading = (value) => {
-    setIsLoading(value);
-    return isLoading;
+  const startLoading = () => setIsLoading(true);
+  const endLoading = () => setIsLoading(false);
+
+  const dataValue = {
+    isLoading,
+    startLoading,
+    endLoading,
   };
   return (
-    <LoadingContext.Provider value={{ setLoading, isLoading }}>{children}</LoadingContext.Provider>
+    <LoadingContext.Provider value={dataValue}>
+      {children}
+    </LoadingContext.Provider>
   );
 }
 
 function useLoading() {
-  const context = useContext(LoadingContext);
-  return context;
+  return useContext(LoadingContext);
 }
 
 export { LoadingProvider, useLoading };
