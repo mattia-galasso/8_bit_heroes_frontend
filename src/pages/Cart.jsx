@@ -28,7 +28,8 @@ export default function Cart() {
     <>
       <div className="paddingpage">
         <h1 className="text-white text-center mb-3">
-          Il tuo <span className="text-warning card-section-title">carrello</span>
+          Il tuo
+          <span className="text-warning card-section-title">carrello</span>
         </h1>
 
         <div className="d-flex justify-content-between align-items-center">
@@ -41,9 +42,9 @@ export default function Cart() {
         {cart.length === 0 ? (
           <h2 className="text-white text-center mt-5">Il tuo carrello è vuoto</h2>
         ) : (
-          <>
-            <div className="d-flex flex-column gap-3 my-4">
-              {cart.map((game) => (
+          <div className="d-flex flex-column gap-3 my-4">
+            {cart.map((game) => {
+              return (
                 <div key={game.id} className="card cart-list-item cart-item border-secondary p-3">
                   <div
                     onClick={(e) => {
@@ -85,7 +86,7 @@ export default function Cart() {
                             ) : (
                               <>
                                 <button
-                                  onClick={() => removeFromCart(game.id)}
+                                  onClick={() => removeFromCart(game.id, game.name)}
                                   className="btn btn-light py-0 px-1"
                                 >
                                   <i className="bi bi-dash"></i>
@@ -126,15 +127,9 @@ export default function Cart() {
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
-            <div className="d-flex justify-content-between align-items-center">
-              <div className="fs-4 fw-bold text-white">{`Totale: \u20AC${totalPrice.toFixed(2)}`}</div>
-              <button onClick={() => setOpenForm(true)} className="btn btn-warning btn-lg">
-                Effettua ordine
-              </button>
-            </div>
-          </>
+              );
+            })}
+          </div>
         )}
       </div>
 

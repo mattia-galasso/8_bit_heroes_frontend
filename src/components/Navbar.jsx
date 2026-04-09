@@ -114,14 +114,16 @@ export default function Navbar() {
                 </form>
               </div>
               <div className="navbar-icons">
-                <button
-                  className="btn btn-outline-light my-3"
-                  onClick={closeNav}
-                >
-                  <NavLink to="/wishlist" className="nav-link fs-5">
-                    <i className="bi bi-heart"></i>
-                  </NavLink>
-                </button>
+                <NavLink to="/wishlist">
+                  <button
+                    className="btn btn-outline-light my-3"
+                    onClick={closeNav}
+                  >
+                    <div className="nav-link fs-5">
+                      <i className=" bi bi-heart "></i>
+                    </div>
+                  </button>
+                </NavLink>
                 <button
                   className="btn btn-outline-light my-3 position-relative"
                   type="button"

@@ -1,33 +1,30 @@
-import React, { useEffect } from "react";
+import { useNotificationContext } from "../contexts/NotificationContext";
 
-const Notification = ({ message, onClose }) => {
-  useEffect(() => {
-    // Il popup scompare automaticamente dopo 3 secondi
-    const timer = setTimeout(onClose, 3000);
-    return () => clearTimeout(timer);
-  }, [onClose]);
+export default function Notification() {
+  const { notification } = useNotificationContext();
+
+  if (!notification.visible) return;
 
   return (
-    <div className="position-fixed bottom-0 end-0 p-3" style={{ zIndex: 1100 }}>
+    <>
       <div
-        className="toast show align-items-center text-white bg-success border-0 shadow-lg"
-        role="alert"
+        className={`notification notification-${notification.type} ${notification.hide ? "hiding" : ""}`}
       >
-        <div className="d-flex">
-          <div className="toast-body">
-            <i className="bi bi-check-circle-fill me-2"></i>{" "}
-            {/* Icona opzionale se usi Bootstrap Icons */}
-            {message}
-          </div>
-          <button
-            type="button"
-            className="btn-close btn-close-white me-2 m-auto"
-            onClick={onClose}
-          ></button>
+        <div className="d-flex align-items-center gap-3">
+          {notification.type === "success" && (
+            <i className="bi bi-check-circle" />
+          )}
+          {notification.type === "danger" && (
+            <i className="bi bi-exclamation-circle" />
+          )}
+          {notification.type === "warning" && (
+            <i className="bi bi-exclamation-triangle" />
+          )}
+          {notification.type === "info" && <i className="bi bi-info-circle" />}
+          {notification.type === "primary" && <i className="bi bi-bell" />}
+          <span>{notification.message}</span>
         </div>
       </div>
-    </div>
+    </>
   );
-};
-
-export default Notification;
+}
