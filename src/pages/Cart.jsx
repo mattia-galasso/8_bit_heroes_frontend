@@ -3,22 +3,26 @@ import CheckoutForm from "../components/CheckoutForm.jsx";
 import { useCart } from "../contexts/CartContext.jsx";
 import { useNavigate } from "react-router";
 import DeleteFromCartModal from "../components/DeleteFromCartModal.jsx";
+import ClearModal from "../components/ClearModal.jsx";
 
 export default function Cart() {
   const [openForm, setOpenForm] = useState(false);
+  const [openClearModal, setOpenClearModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [gameToDelete, setGameToDelete] = useState();
-  const { cart, addToCart, removeFromCart, toggleDigitalCopy } = useCart();
+  const { cart, addToCart, removeFromCart, toggleDigitalCopy, clearCart } = useCart();
+
   const navigateTo = useNavigate();
+
+  const handleClear = () => setOpenClearModal(true);
 
   const totalPrice = cart.reduce((total, item) => {
     return total + Number(item.final_price) * item.quantity;
   }, 0);
 
   if (openForm) {
-    // blocca lo scroll del documento quando la modale del form si apre
     document.body.style.overflow = "hidden";
-    document.body.style.paddingRight = "15px"; // compensa la larghezza della scrollbar
+    document.body.style.paddingRight = "15px";
   } else {
     document.body.style.overflow = "auto";
     document.body.style.paddingRight = "0";
@@ -27,10 +31,18 @@ export default function Cart() {
   return (
     <>
       <div>
-        <h1 className="text-white text-center mb-3">
-          Il tuo
-          <span className="text-warning card-section-title"> carrello</span>
-        </h1>
+        <div className="d-flex justify-content-between align-items-start">
+          <h1 className="text-white mb-3">
+            Il tuo
+            <span className="text-warning card-section-title"> carrello</span>
+          </h1>
+          {cart.length > 0 && (
+            <button type="button" className="btn btn-outline-danger mt-2" onClick={handleClear}>
+              <i className="bi bi-trash3 me-2"></i>
+              Svuota carrello
+            </button>
+          )}
+        </div>
 
         <div className="d-flex justify-content-between align-items-center">
           <div className="fs-4 fw-bold text-white">{`Totale: \u20AC${totalPrice.toFixed(2)}`}</div>
@@ -142,6 +154,16 @@ export default function Cart() {
       {openForm && <CheckoutForm openForm={openForm} setOpenForm={setOpenForm} />}
       {openDeleteModal && (
         <DeleteFromCartModal gameToDelete={gameToDelete} setOpenDeleteModal={setOpenDeleteModal} />
+      )}
+      {/* clear modal */}
+      {openClearModal && (
+        <ClearModal
+          setOpenClearModal={setOpenClearModal}
+          onClear={clearCart}
+          itemName="Carrello"
+          successMessage="Carrello svuotato con successo!"
+          notificationType="warning"
+        />
       )}
     </>
   );

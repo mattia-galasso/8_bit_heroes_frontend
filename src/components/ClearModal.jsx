@@ -1,19 +1,25 @@
-import { useFavorites } from "../contexts/FavoritesContext";
 import { useNotificationContext } from "../contexts/NotificationContext";
 
-export default function ClearFavoritesModal({ setOpenClearModal }) {
-  const { clearFavorites } = useFavorites();
+export default function ClearModal({
+  setOpenClearModal,
+  onClear,
+  itemName = "elemento",
+  successMessage,
+  notificationType = "warning",
+}) {
   const { showNotification } = useNotificationContext();
-  
+
+  const handleClear = () => {
+    onClear();
+    if (successMessage) showNotification(successMessage, notificationType);
+    else showNotification(`${itemName} svuotato con successo!`, notificationType);
+    setOpenClearModal(false);
+  };
 
   return (
     <>
       <div className="modal-backdrop fade show"></div>
-      <div
-        className="modal fade show d-block"
-        tabIndex="-1"
-        data-bs-theme="dark"
-      >
+      <div className="modal fade show d-block" tabIndex="-1" data-bs-theme="dark">
         <div className="modal-dialog modal-lg modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
@@ -24,30 +30,19 @@ export default function ClearFavoritesModal({ setOpenClearModal }) {
                 aria-label="Close"
               ></button>
             </div>
-
             <div className="modal-body text-center">
               <p className="fs-5">
-                Sei sicuro di voler svuotare tutta la{" "}
-                <span className="text-warning">wishlist</span>?
+                Sei sicuro di voler svuotare <span className="text-warning">{itemName}</span>?
               </p>
-
               <div className="d-flex gap-4 justify-content-center">
-                <button
-                  onClick={() => {
-                    clearFavorites();
-                    showNotification("Wishlist svuotata con successo!", "warning")
-                    setOpenClearModal(false)
-                  }}
-                  className="btn btn-primary btn-lg"
-                >
-                  SI
+                <button onClick={handleClear} className="btn btn-warning btn-lg py-1 px-3">
+                  Sì
                 </button>
-
                 <button
                   onClick={() => setOpenClearModal(false)}
-                  className="btn btn-secondary btn-lg"
+                  className="btn btn-secondary btn-lg py-1 px-3"
                 >
-                  NO
+                  No
                 </button>
               </div>
             </div>
@@ -55,5 +50,5 @@ export default function ClearFavoritesModal({ setOpenClearModal }) {
         </div>
       </div>
     </>
-  )
+  );
 }

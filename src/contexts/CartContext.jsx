@@ -25,9 +25,7 @@ function CartProvider({ children }) {
 
       if (existing) {
         return oldCart.map((item) =>
-          item.id === game.id
-            ? { ...item, quantity: (item.quantity || 1) + 1 }
-            : item,
+          item.id === game.id ? { ...item, quantity: (item.quantity || 1) + 1 } : item,
         );
       }
 
@@ -41,26 +39,17 @@ function CartProvider({ children }) {
       (oldCart) =>
         oldCart
           .map((game) =>
-            game.id === gameId
-              ? { ...game, quantity: (game.quantity || 1) - 1 }
-              : game,
+            game.id === gameId ? { ...game, quantity: (game.quantity || 1) - 1 } : game,
           )
           .filter((game) => game.quantity > 0),
-      showNotification(
-        `"${gameName}" Diminuita quantità nel carrello!`,
-        "danger",
-      ),
+      showNotification(`"${gameName}" Diminuita quantità nel carrello!`, "danger"),
     );
   };
-
-  const clearCart = () => setCart([]);
 
   const toggleDigitalCopy = (gameId) => {
     setCart((oldCart) =>
       oldCart.map((game) =>
-        game.id === gameId
-          ? { ...game, copyInDigital: !game.copyInDigital }
-          : game,
+        game.id === gameId ? { ...game, copyInDigital: !game.copyInDigital } : game,
       ),
     );
   };
@@ -70,13 +59,18 @@ function CartProvider({ children }) {
     return acc + (game.quantity || 1);
   }, 0);
 
+  function clearCart() {
+    setCart([]);
+    showNotification("Carrello svuotato con successo!", "warning");
+  }
+
   const value = {
     cart,
-    clearCart,
     addToCart,
     removeFromCart,
     toggleDigitalCopy,
     totalQuantity,
+    clearCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
