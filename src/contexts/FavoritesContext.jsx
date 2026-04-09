@@ -18,10 +18,10 @@ function FavoritesProvider({ children }) {
 
     if (alreadyFavorite) {
       setFavorites(favorites.filter((item) => item.id !== game.id));
-      showNotification(`"${game.name}" Rimosso dalla Favorites!`, "danger");
+      showNotification(`"${game.name}" Rimosso dalla Whishlist!`, "danger");
     } else {
       setFavorites([...favorites, game]);
-      showNotification(`"${game.name}" Aggiunto nella Favorites!`, "success");
+      showNotification(`"${game.name}" Aggiunto nella Whishlist!`, "success");
     }
   }
 
