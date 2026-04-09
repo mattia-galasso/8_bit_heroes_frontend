@@ -29,7 +29,7 @@ export default function Cart() {
       <div className="paddingpage">
         <h1 className="text-white text-center mb-3">
           Il tuo
-          <span className="text-warning card-section-title">carrello</span>
+          <span className="text-warning card-section-title"> carrello</span>
         </h1>
 
         <div className="d-flex justify-content-between align-items-center">
