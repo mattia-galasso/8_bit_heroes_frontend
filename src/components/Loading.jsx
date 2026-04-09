@@ -11,8 +11,6 @@ export default function Loading() {
             className="loading-logo"
           />
         </div>
-        {/*         <div className="loading-title">8 Bit Heroes</div>
-        <div className="loading-subtitle">Caricamento in corso...</div> */}
       </div>
     </>
   );
