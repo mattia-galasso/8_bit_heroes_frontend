@@ -13,8 +13,6 @@ import { useLoading } from "../contexts/LoadingContext";
 export default function GamesSearched() {
   //* useState Constants
   const [searchGamesList, setSearchGamesList] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const [onlyDiscounted, setOnlyDiscounted] = useState(false);
   const [viewMode, setViewMode] = useState("grid");
   const { toggleFavorite, isFavorite } = useFavorites();
@@ -26,13 +24,12 @@ export default function GamesSearched() {
 
   //* Function Search Axios
   function searchNavbar() {
+    startLoading();
     if (!search) {
       setSearchGamesList([]);
-      setLoading(false);
+      endLoading();
       return;
     }
-
-    startLoading();
 
     axios
       .get(baseURL + `?search=${search}`)

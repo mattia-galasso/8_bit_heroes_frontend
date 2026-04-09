@@ -33,6 +33,8 @@ export default function GameDetails() {
       });
   }, [slug]);
 
+  if (!product) return;
+
   const trailerEmbed = product.trailer
     ? product.trailer
         .replace("youtu.be/", "www.youtube.com/embed/")

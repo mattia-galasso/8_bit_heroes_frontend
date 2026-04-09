@@ -13,8 +13,6 @@ export default function VideogamesList() {
   const [viewMode, setViewMode] = useState("grid");
   const [onlyDiscounted, setOnlyDiscounted] = useState(false);
   const [games, setGames] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const { showNotification } = useNotificationContext();
@@ -82,6 +80,8 @@ export default function VideogamesList() {
   };
 
   useEffect(viewsParams, [searchParams]);
+
+  if (!games) return;
 
   const visibleGames = onlyDiscounted
     ? games.filter((game) => (game.percentage || 0) > 0)
