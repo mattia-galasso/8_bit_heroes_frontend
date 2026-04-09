@@ -144,7 +144,7 @@ export default function OffcanvasCart() {
                             </label>
                           </div>
                           <div className="p-relative">
-                            <p className="text-end fs-4 price-offcanvas">{`\u20AC ${game.final_price}`}</p>
+                            <p className="text-end fs-4 price-offcanvas">{`\u20AC${game.final_price}`}</p>
                           </div>
                         </div>
                       </div>
@@ -155,11 +155,11 @@ export default function OffcanvasCart() {
             })}
           </div>
           <div className="division-offcanvas-bottom"></div>
-          <div className="d-flex justify-content-between mt-1">
-            <div className="fs-5 fw-bold text-white m-2">{`Totale: \u20AC ${totalPrice.toFixed(2)}`}</div>
+          <div className="d-flex justify-content-between my-2 align-items-center">
+            <div className="fs-5 fw-bold text-white ms-1">{`Totale: \u20AC${totalPrice.toFixed(2)}`}</div>
             <button
               onClick={() => setOpenForm(true)}
-              className="btn btn-warning"
+              className="btn btn-warning me-2"
               data-bs-dismiss="offcanvas"
             >
               Effettua ordine

@@ -28,10 +28,16 @@ export default function Cart() {
     <>
       <div className="paddingpage">
         <h1 className="text-white text-center mb-3">
-          Il tuo{" "}
+          Il tuo
           <span className="text-warning card-section-title">carrello</span>
         </h1>
-        <p className="fs-4 fw-bold text-white">{`Totale: \u20AC ${totalPrice.toFixed(2)}`}</p>
+
+        <div className="d-flex justify-content-between align-items-center">
+          <div className="fs-4 fw-bold text-white">{`Totale: \u20AC${totalPrice.toFixed(2)}`}</div>
+          <button onClick={() => setOpenForm(true)} className="btn btn-warning btn-lg">
+            Effettua ordine
+          </button>
+        </div>
 
         {cart.length === 0 ? (
           <h2 className="text-white text-center">Il tuo carrello è vuoto</h2>

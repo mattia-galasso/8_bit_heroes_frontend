@@ -12,11 +12,13 @@
 /* game card */
 .game-card img {
   aspect-ratio: 9/13;
+  cursor: pointer;
 }
 
 .game-card {
   display: inline-block;
   transition: scale 0.1s ease;
+  cursor: pointer;
 }
 
 .game-card:hover {

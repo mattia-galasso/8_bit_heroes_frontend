@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link } from "react-router";
 import { useNotificationContext } from "../contexts/NotificationContext";
 
-export default function CheckoutForm({ openForm, setOpenForm }) {
+export default function CheckoutForm({ setOpenForm }) {
   // CUSTOM HOOK
   const { cart, setCart } = useCart();
 
