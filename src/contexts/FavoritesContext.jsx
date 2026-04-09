@@ -7,7 +7,7 @@ function FavoritesProvider({ children }) {
   const [favorites, setFavorites] = useState(() => {
     const savedFavorites = localStorage.getItem("favorites");
     return savedFavorites ? JSON.parse(savedFavorites) : [];
-  },);
+  });
   const { showNotification } = useNotificationContext();
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -33,6 +33,8 @@ function FavoritesProvider({ children }) {
     setFavorites([]);
   }
 
+  const totalFavorites = favorites.length;
+
   return (
     <FavoritesContext.Provider
       value={{
@@ -40,6 +42,7 @@ function FavoritesProvider({ children }) {
         toggleFavorite,
         isFavorite,
         clearFavorites,
+        totalFavorites,
       }}
     >
       {children}
