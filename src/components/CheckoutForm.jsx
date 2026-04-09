@@ -7,7 +7,7 @@ import { useLoading } from "../contexts/LoadingContext";
 
 export default function CheckoutForm({ setOpenForm }) {
   // CUSTOM HOOK
-  const { cart, setCart } = useCart();
+  const { cart, clearCart } = useCart();
 
   const initialData = {
     name: "",
@@ -148,7 +148,7 @@ export default function CheckoutForm({ setOpenForm }) {
           showNotification("Ordine effettuato con successo!", "success");
           console.log(res.data);
         }
-        setCart([]);
+        setTimeout(() => clearCart(), 50);
       })
       .catch((err) => {
         endLoading();
