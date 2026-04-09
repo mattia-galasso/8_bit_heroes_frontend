@@ -126,6 +126,14 @@ export default function GamesSearched() {
           </div>
         </div>
 
+        <p className = "text-light mb-3 fs-4 ms-2">
+          <strong>
+          {visibleGames.length===1
+          ? "1 risultato trovato"
+          : `${visibleGames.length} risultati trovati`}
+          </strong>
+        </p>
+
         {viewMode === "grid" ? (
           <section className="card card-bg my-4">
             <div className="card card-bg p-4">
