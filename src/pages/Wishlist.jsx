@@ -1,15 +1,43 @@
+import { useState } from "react";
 import { useFavorites } from "../contexts/FavoritesContext";
 import { useNavigate } from "react-router";
+import ClearFavoritesModal from "../components/ClearFavoritesModal";
+
 export default function Wishlist() {
-  const { favorites, toggleFavorite, isFavorite } = useFavorites();
+
+  const { favorites, toggleFavorite, isFavorite,clearFavorites } = useFavorites();
   const navigateTo = useNavigate();
+  const [openClearModal, setOpenClearModal] = useState(false)
+
+  function handleClearFavorites(){
+   setOpenClearModal(true)
+  }
 
   return (
     <div>
-      <h1 className="text-warning wishlist-section-title text-center">Wishlist</h1>
+      <div className="d-flex justify-content-between align-items-center">
+    <h1 className="text-warning wishlist-section-title m-0">Wishlist</h1>
+    {favorites.length > 0 && (
+      <button
+        type="button"
+        className="btn btn-outline-danger"
+        onClick={handleClearFavorites}>
+        <i className="bi bi-trash3 me-2"></i>
+        Svuota wishlist
+      </button>
+    )}
+  </div>
 
       <div className="d-flex flex-column gap-3 my-4">
-        {favorites.map((game) => {
+         {favorites.length === 0 ? (
+    <div className="text-center text-light py-5">
+      <h3 className="text-warning mb-3">La tua wishlist è vuota</h3>
+      <p className="mb-0">
+        Aggiungi qualche gioco ai preferiti per vederlo qui 🎮
+      </p>
+    </div>
+  ) : (
+        favorites.map((game) => {
           const percentage = game.percentage || 0;
           const final_price = Number(game.price) - Number(game.price) * (percentage / 100);
 
@@ -77,8 +105,15 @@ export default function Wishlist() {
               </div>
             </div>
           );
-        })}
+        })
+  )}
       </div>
+      {openClearModal && (
+  <ClearFavoritesModal
+    setOpenClearModal={setOpenClearModal}
+    clearFavorites={clearFavorites}
+  />
+)}
     </div>
   );
 }

@@ -30,7 +30,8 @@ function FavoritesProvider({ children }) {
   }
 
   function clearFavorites() {
-    setFavorites([]);
+    setFavorites([])
+    showNotification("Wishlist svuotata con successo!", "warning")
   }
 
   const totalFavorites = favorites.length;
