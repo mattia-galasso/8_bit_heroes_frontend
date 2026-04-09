@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import { useCart } from "../contexts/CartContext";
+import { useFavorites } from "../contexts/FavoritesContext";
 
 export default function Navbar() {
   const [userInput, setUserInput] = useState("");
   const searchNavigate = useNavigate();
   const { totalQuantity } = useCart();
+  const { totalFavorites } = useFavorites();
   const [navOpen, setNavOpen] = useState(false);
 
   const navRef = useRef(null);
@@ -158,27 +160,53 @@ export default function Navbar() {
                   </button>
                 </NavLink>
                 <button
-                  className="btn btn-outline-light my-3 position-relative"
-                  type="button"
-                  data-bs-toggle="offcanvas"
-                  data-bs-target="#cartOffcanvas"
-                  aria-controls="cartOffcanvas"
-                  onClick={closeNav}
+                  className="btn btn-outline-secondary"
+                  id="search-navbar"
+                  onClick={() => {
+                    handleClickButton();
+                    closeNav();
+                  }}
                 >
-                  <span className="nav-link fs-5 p-0">
-                    <i className="bi bi-cart"></i>
-                  </span>
-                  {totalQuantity > 0 && (
+                  Cerca
+                </button>
+              </form>
+            </div>
+            <div className="navbar-icons">
+              {/* wishlist */}
+              <NavLink to="/wishlist" className="me-1">
+                <button className="btn btn-outline-light my-3 position-relative" onClick={closeNav}>
+                  <div className="nav-link fs-5">
+                    <i className=" bi bi-heart" />
+                  </div>
+                  {totalFavorites > 0 && (
                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                      {totalQuantity}
+                      {totalFavorites}
                     </span>
                   )}
                 </button>
-              </div>
+              </NavLink>
+              {/* cart */}
+              <button
+                className="btn btn-outline-light my-3 position-relative"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#cartOffcanvas"
+                aria-controls="cartOffcanvas"
+                onClick={closeNav}
+              >
+                <span className="nav-link fs-5 p-0">
+                  <i className="bi bi-cart" />
+                </span>
+                {totalQuantity > 0 && (
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {totalQuantity}
+                  </span>
+                )}
+              </button>
             </div>
           </div>
-        </nav>
-      </div>
-    </>
+        </div>
+      </nav>
+    </div>
   );
 }
