@@ -91,7 +91,7 @@ export default function OffcanvasCart() {
                             <button onClick={() => addToCart(game)} className='btn btn-light py-0 px-1'><i className="bi bi-plus p-0 m-0"></i></button>
                           </div>
 
-                          <div className="form-check mt-2">
+                          <div className={game.digital_copy? "form-check mt-2" : "d-none"}>
                             <input
                               className="form-check-input"
                               type="checkbox"
