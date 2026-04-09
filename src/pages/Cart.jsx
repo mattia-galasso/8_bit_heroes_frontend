@@ -26,7 +26,7 @@ export default function Cart() {
 
   return (
     <>
-      <div className="paddingpage">
+      <div>
         <h1 className="text-white text-center mb-3">
           Il tuo
           <span className="text-warning card-section-title"> carrello</span>
@@ -101,29 +101,33 @@ export default function Cart() {
                               <i className="bi bi-plus p-0 m-0"></i>
                             </button>
                           </div>
-                         {game.digital_copy? <>
-                          <div className="d-flex justify-content-center align-items-between flex-column flex-sm-row justify-content-sm-between align-items-sm-center mt-2">
-                            <div className="form-check fs-4">
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                checked={game.copyInDigital || false}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                }}
-                                onChange={() => toggleDigitalCopy(game.id)}
-                                id={`digital-${game.id}`}
-                              />
-                              <label
-                                className="form-check-label text-light"
-                                htmlFor={`digital-${game.id}`}
-                              >
-                                Copia digitale
-                              </label>
-                            </div>
-                            <p className="fs-4 fw-bold m-0">{`\u20AC ${game.final_price}`}</p>
-                          </div>
-                          </> : <p className="text-end fs-4 fw-bold m-0 mt-2">{`\u20AC ${game.final_price}`}</p>}
+                          {game.digital_copy ? (
+                            <>
+                              <div className="d-flex justify-content-center align-items-between flex-column flex-sm-row justify-content-sm-between align-items-sm-center mt-2">
+                                <div className="form-check fs-4">
+                                  <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    checked={game.copyInDigital || false}
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                    }}
+                                    onChange={() => toggleDigitalCopy(game.id)}
+                                    id={`digital-${game.id}`}
+                                  />
+                                  <label
+                                    className="form-check-label text-light"
+                                    htmlFor={`digital-${game.id}`}
+                                  >
+                                    Copia digitale
+                                  </label>
+                                </div>
+                                <p className="fs-4 fw-bold m-0">{`\u20AC ${game.final_price}`}</p>
+                              </div>
+                            </>
+                          ) : (
+                            <p className="text-end fs-4 fw-bold m-0 mt-2">{`\u20AC ${game.final_price}`}</p>
+                          )}
                         </div>
                       </div>
                     </div>

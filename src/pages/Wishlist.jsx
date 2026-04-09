@@ -5,7 +5,7 @@ export default function Wishlist() {
   const navigateTo = useNavigate();
 
   return (
-    <div className="paddingpage">
+    <div>
       <h1 className="text-warning wishlist-section-title text-center">Wishlist</h1>
 
       <div className="d-flex flex-column gap-3 my-4">
