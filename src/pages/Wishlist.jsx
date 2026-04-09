@@ -65,7 +65,7 @@ export default function Wishlist() {
                       <h4 className="mb-2">{game.name}</h4>
                       <button
                         type="button"
-                        className="btn position-absolute top-0 end-0"
+                        className="btn position-absolute top-0 end-0 me-1"
                         onClick={(e) => {
                           e.stopPropagation();
                           toggleFavorite(game);
