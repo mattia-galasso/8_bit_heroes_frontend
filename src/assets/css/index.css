@@ -6,7 +6,8 @@
 
 .avatar {
   width: 80px;
-  aspect-ratio: 1;
+  position: relative;
+  bottom: 2.7px;
 }
 
 /* game card */
