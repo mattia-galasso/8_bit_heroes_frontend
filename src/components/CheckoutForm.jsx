@@ -3,6 +3,7 @@ import { useCart } from "../contexts/CartContext";
 import axios from "axios";
 import { Link } from "react-router";
 import { useNotificationContext } from "../contexts/NotificationContext";
+import { useLoading } from "../contexts/LoadingContext";
 
 export default function CheckoutForm({ setOpenForm }) {
   // CUSTOM HOOK
@@ -26,9 +27,9 @@ export default function CheckoutForm({ setOpenForm }) {
   // USE STATES
   const [formData, setFormData] = useState(initialData);
   const [sameAddress, setSameAddress] = useState(true);
-  const [error, setError] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(undefined);
   const { showNotification } = useNotificationContext();
+  const { startLoading, endLoading } = useLoading();
 
   useEffect(() => {
     if (sameAddress) {
@@ -136,9 +137,12 @@ export default function CheckoutForm({ setOpenForm }) {
       );
     }
 
+    startLoading();
+
     axios
       .post("http://localhost:3000/orders", formData)
       .then((res) => {
+        endLoading();
         if (res.data) {
           setOrderSuccess(true);
           showNotification("Ordine effettuato con successo!", "success");
@@ -147,6 +151,7 @@ export default function CheckoutForm({ setOpenForm }) {
         setCart([]);
       })
       .catch((err) => {
+        endLoading();
         if (err) {
           setOrderSuccess(false);
           return showNotification("Qualcosa è andato storto!", "danger");
