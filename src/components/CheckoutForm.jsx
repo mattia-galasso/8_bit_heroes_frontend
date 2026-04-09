@@ -170,7 +170,10 @@ export default function CheckoutForm({ setOpenForm }) {
         data-bs-theme="dark"
       >
         <div className="modal-dialog modal-lg modal-dialog-centered">
-          <div className="modal-content" style={{ marginTop: "4rem" }}>
+          <div
+            className="modal-content"
+            style={{ marginTop: "4rem", paddingBottom: "1rem" }}
+          >
             <div className="modal-header">
               <button
                 onClick={() => setOpenForm(false)}
@@ -382,7 +385,11 @@ export default function CheckoutForm({ setOpenForm }) {
                     <i className="bi bi-check-circle-fill text-success fs-1"></i>
                     <h2>Grazie per aver acquistato da noi.</h2>
                     <div className="d-flex gap-3">
-                      <Link to="/" onClick={() => setOpenForm(false)} className="btn btn-warning fw-bold px-4">
+                      <Link
+                        to="/"
+                        onClick={() => setOpenForm(false)}
+                        className="btn btn-warning fw-bold px-4"
+                      >
                         🏠 Torna alla Home
                       </Link>
 
@@ -408,7 +415,11 @@ export default function CheckoutForm({ setOpenForm }) {
                     <i className="bi bi-x-octagon-fill text-danger fs-1"></i>
                     <h2>Riprova.</h2>
                     <div className="d-flex gap-3">
-                      <Link to="/" onClick={() => setOpenForm(false)} className="btn btn-warning fw-bold px-4">
+                      <Link
+                        to="/"
+                        onClick={() => setOpenForm(false)}
+                        className="btn btn-warning fw-bold px-4"
+                      >
                         🏠 Torna alla Home
                       </Link>
 
