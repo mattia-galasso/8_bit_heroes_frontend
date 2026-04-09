@@ -101,8 +101,9 @@ export default function Cart() {
                               <i className="bi bi-plus p-0 m-0"></i>
                             </button>
                           </div>
-                          <div className="d-flex justify-content-center align-items-between flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                            <div className="form-check mt-2 fs-4">
+                         {game.digital_copy? <>
+                          <div className="d-flex justify-content-center align-items-between flex-column flex-sm-row justify-content-sm-between align-items-sm-center mt-2">
+                            <div className="form-check fs-4">
                               <input
                                 className="form-check-input"
                                 type="checkbox"
@@ -120,8 +121,9 @@ export default function Cart() {
                                 Copia digitale
                               </label>
                             </div>
-                            <p className="text-end fs-4 fw-bold m-0">{`\u20AC ${game.final_price}`}</p>
+                            <p className="fs-4 fw-bold m-0">{`\u20AC ${game.final_price}`}</p>
                           </div>
+                          </> : <p className="text-end fs-4 fw-bold m-0 mt-2">{`\u20AC ${game.final_price}`}</p>}
                         </div>
                       </div>
                     </div>

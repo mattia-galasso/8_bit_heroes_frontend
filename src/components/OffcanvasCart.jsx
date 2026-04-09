@@ -125,7 +125,7 @@ export default function OffcanvasCart() {
                             </button>
                           </div>
 
-                          <div className="form-check mt-2">
+                          <div className={game.digital_copy? "form-check mt-2" : "d-none"}>
                             <input
                               className="form-check-input"
                               type="checkbox"
