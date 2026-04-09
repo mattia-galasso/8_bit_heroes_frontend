@@ -382,7 +382,7 @@ export default function CheckoutForm({ setOpenForm }) {
                     <i className="bi bi-check-circle-fill text-success fs-1"></i>
                     <h2>Grazie per aver acquistato da noi.</h2>
                     <div className="d-flex gap-3">
-                      <Link to="/" className="btn btn-warning fw-bold px-4">
+                      <Link to="/" onClick={() => setOpenForm(false)} className="btn btn-warning fw-bold px-4">
                         🏠 Torna alla Home
                       </Link>
 
@@ -408,7 +408,7 @@ export default function CheckoutForm({ setOpenForm }) {
                     <i className="bi bi-x-octagon-fill text-danger fs-1"></i>
                     <h2>Riprova.</h2>
                     <div className="d-flex gap-3">
-                      <Link to="/" className="btn btn-warning fw-bold px-4">
+                      <Link to="/" onClick={() => setOpenForm(false)} className="btn btn-warning fw-bold px-4">
                         🏠 Torna alla Home
                       </Link>
 
