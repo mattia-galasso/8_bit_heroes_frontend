@@ -5,9 +5,12 @@ export default function Loading() {
         <div className="loading-spinner-wrap">
           <div className="loading-ring1"></div>
           <div className="loading-ring2"></div>
+          <img
+            src="/8bit_heroes_loading.png"
+            alt="8BitHeroes Loading"
+            className="loading-logo"
+          />
         </div>
-        <div className="loading-title">8 Bit Heroes</div>
-        <div className="loading-subtitle">Caricamento in corso...</div>
       </div>
     </>
   );

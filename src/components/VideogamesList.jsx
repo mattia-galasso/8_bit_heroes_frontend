@@ -4,6 +4,10 @@ import { Link, useSearchParams } from "react-router";
 import GameCard from "../components/GameCard";
 import { useFavorites } from "../contexts/FavoritesContext";
 
+// CONTEXT
+import { useNotificationContext } from "../contexts/NotificationContext";
+import { useLoading } from "../contexts/LoadingContext";
+
 export default function VideogamesList() {
   //* useState Constant
   const [viewMode, setViewMode] = useState("grid");
@@ -13,11 +17,12 @@ export default function VideogamesList() {
   const [error, setError] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const {toggleFavorite,isFavorite} = useFavorites()
+  const { showNotification } = useNotificationContext();
+  const { startLoading, endLoading } = useLoading();
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   useEffect(() => {
-    setLoading(true);
+    startLoading();
 
     let url = "http://localhost:3000/products";
 
@@ -34,12 +39,15 @@ export default function VideogamesList() {
       .get(url)
       .then((res) => {
         setGames(res.data.result);
-        setLoading(false);
+        endLoading();
       })
       .catch((err) => {
-        console.log(err);
-        setError("Errore nel recupero dei videogiochi");
-        setLoading(false);
+        console.log(err.message);
+        endLoading();
+        showNotification(
+          `Qualcosa è andato storto con il caricamento!`,
+          "danger",
+        );
       });
   }, [sortBy]);
 
@@ -74,9 +82,6 @@ export default function VideogamesList() {
   };
 
   useEffect(viewsParams, [searchParams]);
-
-  if (loading) return <p className="container mt-4">Caricamento...</p>;
-  if (error) return <p className="container mt-4">{error}</p>;
 
   const visibleGames = onlyDiscounted
     ? games.filter((game) => (game.percentage || 0) > 0)
@@ -159,24 +164,31 @@ export default function VideogamesList() {
                 Number(game.price) - Number(game.price) * (percentage / 100);
 
               return (
-                <div key={game.id} className="card card-bg border-secondary p-3 position-relative">
+                <div
+                  key={game.id}
+                  className="card card-bg border-secondary p-3 position-relative"
+                >
                   <button
-                  type="button"
-                  className="btn position-absolute top-0 end-0 m-2 z-3"
-                  onClick={(e)=>{
-                    e.preventDefault()
-                    e.stopPropagation()
-                    toggleFavorite(game)
-                  }}>
+                    type="button"
+                    className="btn position-absolute top-0 end-0 m-2 z-3"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      toggleFavorite(game);
+                    }}
+                  >
                     <i
-                    className={`bi ${isFavorite(game.id)
-                      ? "bi-heart-fill text-danger"
-                      : "bi-heart text-light"
-                    } fs-4`}>
-                    </i>
-
+                      className={`bi ${
+                        isFavorite(game.id)
+                          ? "bi-heart-fill text-danger"
+                          : "bi-heart text-light"
+                      } fs-4`}
+                    ></i>
                   </button>
-                  <Link to={`/products/${game.slug}`} className=" d-block text-decoration-none">
+                  <Link
+                    to={`/products/${game.slug}`}
+                    className=" d-block text-decoration-none"
+                  >
                     <div className="row g-4 align-items-center">
                       <div className="col-12 col-sm-4 col-md-2 game-card">
                         <div className="position-relative">
