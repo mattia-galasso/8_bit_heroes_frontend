@@ -90,7 +90,7 @@ export default function Cart() {
                       </div>
 
                       <div className="col-12 col-sm-8 col-md-10 text-white">
-                        <h4 className="mb-2">{game.name}</h4>
+                        <h4 className="mb-2 fs-2">{game.name}</h4>
                         <p className="mb-0">{game.description}</p>
                         <div>
                           <div className="btn-group fs-4 mt-2">
