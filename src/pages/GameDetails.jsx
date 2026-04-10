@@ -128,7 +128,7 @@ export default function GameDetails() {
             className="btn btn-warning btn-lg"
             onClick={() => addToCart(product)}
           >
-            Aggiungi al carrello <i className="bi bi-cart" />
+            Aggiungi al carrello
           </button>
         </section>
       </div>
