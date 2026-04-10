@@ -32,7 +32,9 @@ export default function VideogamesList() {
 
     if (sortBy === "name_desc") url += "?field=name&order=desc";
 
-    if (sortBy === "default") url += "";
+    if (sortBy === "default") url += "?field=default";
+
+    sortBy || !sortBy === "default" ? onlyDiscounted ? url += "&onlyDiscounted=true" : url += "&onlyDiscounted=false" : onlyDiscounted ? url += "?onlyDiscounted=true" : url += "?onlyDiscounted=false";
 
     //* Axios
     axios
@@ -46,7 +48,7 @@ export default function VideogamesList() {
         endLoading();
         showNotification(`Qualcosa è andato storto con il caricamento!`, "danger");
       });
-  }, [sortBy]);
+  }, [sortBy, onlyDiscounted]);
 
   //* Function Query Params Ordering
   const handleClickViewMode = (viewMode) => {
