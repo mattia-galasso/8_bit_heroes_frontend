@@ -58,7 +58,7 @@ export default function Wishlist() {
                   className=" d-block text-decoration-none"
                 >
                   <div className="row g-4 align-items-center">
-                    <div className="col-12 col-sm-4 col-md-2 game-card">
+                    <div className="col-12 col-sm-4 col-md-4 game-card">
                       <div className="position-relative">
                         {isProductDiscounted(game) && (
                           <div className="discount-flag fw-bold fs-5 bg-danger py-1 px-3">
@@ -73,8 +73,8 @@ export default function Wishlist() {
                       </div>
                     </div>
 
-                    <div className="col-12 col-sm-8 col-md-10 text-light">
-                      <h3 className="mb-2">{game.name}</h3>
+                    <div className="col-12 col-sm-8 col-md-8 text-light">
+                      <h3 className="mb-2 list-card-title">{game.name}</h3>
                       <button
                         type="button"
                         className="btn position-absolute top-0 end-0 m-2 d-none d-sm-block"

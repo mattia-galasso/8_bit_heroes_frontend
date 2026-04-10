@@ -40,10 +40,7 @@ export default function GamesSearched() {
       .catch((err) => {
         console.log(err.message);
         endLoading();
-        showNotification(
-          `Qualcosa è andato storto con il caricamento!`,
-          "danger",
-        );
+        showNotification(`Qualcosa è andato storto con il caricamento!`, "danger");
       });
   }
 
@@ -76,9 +73,7 @@ export default function GamesSearched() {
     return (
       <div className="container mt-4 text-center">
         <h2 className="text-warning">Nessun risultato per “{search}”</h2>
-        <p className="text-light">
-          Prova con un altro nome oppure esplora i nostri giochi 🎮
-        </p>
+        <p className="text-light">Prova con un altro nome oppure esplora i nostri giochi 🎮</p>
         <div className="d-flex justify-content-center mt-5 gap-3">
           <Link to="/" className="btn btn-warning fw-bold px-4">
             🏠 Torna alla Home
@@ -117,9 +112,7 @@ export default function GamesSearched() {
     <>
       <section className="homepage-container">
         <div className="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 my-4">
-          <h1 className="text-warning ms-1 mb-0">
-            Risultati di ricerca per “{search}”
-          </h1>
+          <h1 className="text-warning ms-1 mb-0">Risultati di ricerca per “{search}”</h1>
 
           <div className="d-flex flex-wrap align-items-center gap-2">
             <button
@@ -184,10 +177,7 @@ export default function GamesSearched() {
                 ? Number(game.price) - Number(game.price) * (percentage / 100)
                 : Number(game.price);
               return (
-                <div
-                  key={game.id}
-                  className="card card-bg border-secondary p-3"
-                >
+                <div key={game.id} className="card card-bg border-secondary p-3">
                   <button
                     type="button"
                     className="btn position-absolute top-0 end-0 m-2 z-3"
@@ -199,18 +189,13 @@ export default function GamesSearched() {
                   >
                     <i
                       className={`bi ${
-                        isFavorite(game.id)
-                          ? "bi-heart-fill text-danger"
-                          : "bi-heart text-light"
+                        isFavorite(game.id) ? "bi-heart-fill text-danger" : "bi-heart text-light"
                       } fs-4`}
                     ></i>
                   </button>
-                  <Link
-                    to={`/products/${game.slug}`}
-                    className=" d-block text-decoration-none"
-                  >
+                  <Link to={`/products/${game.slug}`} className=" d-block text-decoration-none">
                     <div className="row g-4 align-items-center">
-                      <div className="col-12 col-sm-4 col-md-2 game-card">
+                      <div className="col-12 col-sm-4 col-md-4 game-card">
                         <div className="position-relative">
                           {isProductDiscounted(game) && (
                             <div className="discount-flag fw-bold fs-5 bg-danger py-1 px-3">
@@ -225,8 +210,8 @@ export default function GamesSearched() {
                         </div>
                       </div>
 
-                      <div className="col-12 col-sm-8 col-md-10 text-light">
-                        <h4 className="mb-2">{game.name}</h4>
+                      <div className="col-12 col-sm-8 col-md-8 text-light">
+                        <h4 className="mb-2 list-card-title">{game.name}</h4>
                         <p className="mb-0">{game.description}</p>
                         <div>
                           {isProductDiscounted(game) ? (
@@ -237,9 +222,7 @@ export default function GamesSearched() {
                               <p className="fs-3 fw-bold text-success mb-2">
                                 € {final_price.toFixed(2)}
                               </p>
-                              <span className="badge bg-warning">
-                                -{percentage}%
-                              </span>
+                              <span className="badge bg-warning">-{percentage}%</span>
                             </div>
                           ) : (
                             <p className="fs-3 fw-bold">€ {game.price}</p>

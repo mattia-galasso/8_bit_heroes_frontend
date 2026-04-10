@@ -44,10 +44,7 @@ export default function VideogamesList() {
       .catch((err) => {
         console.log(err.message);
         endLoading();
-        showNotification(
-          `Qualcosa è andato storto con il caricamento!`,
-          "danger",
-        );
+        showNotification(`Qualcosa è andato storto con il caricamento!`, "danger");
       });
   }, [sortBy]);
 
@@ -113,27 +110,26 @@ export default function VideogamesList() {
           <h1 className="text-warning ms-1 mb-0">Tutti i videogiochi</h1>
 
           <div className="d-flex flex-wrap align-items-center gap-2 me-1">
-            
             <select
-               className="form-select bg-dark text-light border-warning"
-               value={sortBy === "default" ? "" : sortBy}
-               onChange={(e) => {
-               const value = e.target.value;
-               setSortBy(value === "" ? "default" : value);
-               handleOrderingProducts(value === "" ? "default" : value);
+              className="form-select bg-dark text-light border-warning"
+              value={sortBy === "default" ? "" : sortBy}
+              onChange={(e) => {
+                const value = e.target.value;
+                setSortBy(value === "" ? "default" : value);
+                handleOrderingProducts(value === "" ? "default" : value);
               }}
               style={{ width: "130px" }}
-              >
+            >
               <option value="" hidden>
-               Ordina
+                Ordina
               </option>
 
-                <option value="default">Default</option>
-                <option value="price_asc">Prezzo ↑</option>
-                <option value="price_desc">Prezzo ↓</option>
-                <option value="name_asc">Nome A-Z</option>
-                <option value="name_desc">Nome Z-A</option>
-              </select>
+              <option value="default">Default</option>
+              <option value="price_asc">Prezzo ↑</option>
+              <option value="price_desc">Prezzo ↓</option>
+              <option value="name_asc">Nome A-Z</option>
+              <option value="name_desc">Nome Z-A</option>
+            </select>
             <button
               className={`btn ${onlyDiscounted ? "btn-warning" : "btn-outline-warning"}`}
               onClick={() => {
@@ -189,10 +185,7 @@ export default function VideogamesList() {
                 : Number(game.price);
 
               return (
-                <div
-                  key={game.id}
-                  className="card card-bg border-secondary p-3 position-relative"
-                >
+                <div key={game.id} className="card card-bg border-secondary p-3 position-relative">
                   <button
                     type="button"
                     className="btn position-absolute top-0 end-0 m-2 z-3"
@@ -204,18 +197,13 @@ export default function VideogamesList() {
                   >
                     <i
                       className={`bi ${
-                        isFavorite(game.id)
-                          ? "bi-heart-fill text-danger"
-                          : "bi-heart text-light"
+                        isFavorite(game.id) ? "bi-heart-fill text-danger" : "bi-heart text-light"
                       } fs-4`}
-                    ></i>
+                    />
                   </button>
-                  <Link
-                    to={`/products/${game.slug}`}
-                    className=" d-block text-decoration-none"
-                  >
+                  <Link to={`/products/${game.slug}`} className=" d-block text-decoration-none">
                     <div className="row g-4 align-items-center">
-                      <div className="col-12 col-sm-4 col-md-2 game-card">
+                      <div className="col-12 col-sm-4 col-md-4 game-card">
                         <div className="position-relative">
                           {isProductDiscounted(game) && (
                             <div className="discount-flag fw-bold fs-5 bg-danger py-1 px-3">
@@ -230,8 +218,8 @@ export default function VideogamesList() {
                         </div>
                       </div>
 
-                      <div className="col-12 col-sm-8 col-md-10 text-light">
-                        <h4 className="mb-2">{game.name}</h4>
+                      <div className="col-12 col-sm-8 col-md-8 text-light">
+                        <h4 className="mb-2 list-card-title">{game.name}</h4>
                         <p className="mb-0">{game.description}</p>
                         <div>
                           {isProductDiscounted(game) ? (
@@ -242,9 +230,7 @@ export default function VideogamesList() {
                               <p className="fs-3 fw-bold text-success mb-2">
                                 € {final_price.toFixed(2)}
                               </p>
-                              <span className="badge bg-warning">
-                                -{percentage}%
-                              </span>
+                              <span className="badge bg-warning">-{percentage}%</span>
                             </div>
                           ) : (
                             <p className="fs-3 fw-bold">€ {game.price}</p>
