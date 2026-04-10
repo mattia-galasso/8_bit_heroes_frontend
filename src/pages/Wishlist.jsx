@@ -4,7 +4,8 @@ import { useNavigate } from "react-router";
 import ClearModal from "../components/ClearModal";
 
 export default function Wishlist() {
-  const { favorites, toggleFavorite, isFavorite, clearFavorites } = useFavorites();
+  const { favorites, toggleFavorite, isFavorite, clearFavorites } =
+    useFavorites();
   const [openClearModal, setOpenClearModal] = useState(false);
   const navigateTo = useNavigate();
 
@@ -15,7 +16,11 @@ export default function Wishlist() {
       <div className="d-flex justify-content-between align-items-center">
         <h1 className="text-warning wishlist-section-title m-0">Wishlist</h1>
         {favorites.length > 0 && (
-          <button type="button" className="btn btn-outline-danger mt-1" onClick={handleClear}>
+          <button
+            type="button"
+            className="btn btn-outline-danger mt-1"
+            onClick={handleClear}
+          >
             <i className="bi bi-trash3 me-2"></i>
             Svuota wishlist
           </button>
@@ -26,12 +31,15 @@ export default function Wishlist() {
         {favorites.length === 0 ? (
           <div className="text-center text-light py-5">
             <h3 className="text-warning mb-3">La tua wishlist è vuota</h3>
-            <p className="mb-0">Aggiungi qualche gioco ai preferiti per vederlo qui 🎮</p>
+            <p className="mb-0">
+              Aggiungi qualche gioco ai preferiti per vederlo qui 🎮
+            </p>
           </div>
         ) : (
           favorites.map((game) => {
             const percentage = game.percentage || 0;
-            const final_price = Number(game.price) - Number(game.price) * (percentage / 100);
+            const final_price =
+              Number(game.price) - Number(game.price) * (percentage / 100);
 
             return (
               <div
@@ -87,7 +95,9 @@ export default function Wishlist() {
                             <p className="fs-3 fw-bold text-success mb-2">
                               € {final_price.toFixed(2)}
                             </p>
-                            <span className="badge bg-info fw-semibold">-{percentage}%</span>
+                            <span className="badge bg-info fw-semibold">
+                              -{percentage}%
+                            </span>
                           </div>
                         ) : (
                           <p className="fs-3 fw-bold">€ {game.price}</p>
@@ -108,7 +118,7 @@ export default function Wishlist() {
           onClear={clearFavorites}
           itemName="Wishlist"
           successMessage="Wishlist svuotata con successo!"
-          notificationType="warning"
+          notificationType="info"
         />
       )}
     </div>
