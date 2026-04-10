@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-// Aggiungi useLocation qui sotto
+
 import { Link, NavLink, useNavigate, useLocation } from "react-router";
 import { useCart } from "../contexts/CartContext";
 import { useFavorites } from "../contexts/FavoritesContext";
@@ -79,14 +79,32 @@ export default function Navbar() {
           <button
             onClick={() => setNavOpen(!navOpen)}
             className={
-              navOpen ? "navbar-toggler me-2" : "navbar-toggler collapsed me-2"
+              navOpen
+                ? "navbar-toggler me-2 position-relative"
+                : "navbar-toggler collapsed me-2 position-relative"
             }
             type="button"
             aria-expanded={navOpen}
             aria-label="Toggle navigation"
+            style={{ overflow: "visible" }}
           >
             <span className="navbar-toggler-icon"></span>
+
+            {!navOpen && (totalFavorites > 0 || totalQuantity > 0) && (
+              <span
+                className="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger"
+                style={{
+                  width: "18px", // Stessa dimensione visiva dei badge con numero
+                  height: "18px",
+                  padding: "0",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              ></span>
+            )}
           </button>
+
           <div
             className={
               navOpen
@@ -146,7 +164,6 @@ export default function Navbar() {
               </form>
             </div>
             <div className="navbar-icons">
-              {/* wishlist e cart rimasti invariati */}
               <NavLink to="/wishlist" className="me-1">
                 <button
                   className="btn btn-outline-light my-3 position-relative"
