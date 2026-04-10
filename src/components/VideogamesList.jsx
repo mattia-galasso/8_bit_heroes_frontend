@@ -68,6 +68,16 @@ export default function VideogamesList() {
     setSearchParams(params);
   };
 
+  const isProductDiscounted = (product) => {
+    if (!product.start_date || !product.end_date) return false;
+
+    const today = new Date();
+    const startDate = new Date(product.start_date);
+    const endDate = new Date(product.end_date);
+
+    return product.percentage > 0 && today >= startDate && today <= endDate;
+  };
+
   const viewsParams = () => {
     const viewmode = searchParams.get("viewmode") || "grid";
     setViewMode(viewmode);
@@ -83,8 +93,15 @@ export default function VideogamesList() {
 
   if (!games) return;
 
+  const today = new Date();
+
   const visibleGames = onlyDiscounted
-    ? games.filter((game) => (game.percentage || 0) > 0)
+    ? games.filter(
+        (game) =>
+          (game.percentage || 0) > 0 &&
+          today >= new Date(game.start_date) &&
+          today <= new Date(game.end_date),
+      )
     : games;
 
   return (
@@ -160,8 +177,9 @@ export default function VideogamesList() {
           <div className="list-view d-flex flex-column gap-3 my-4">
             {visibleGames.map((game) => {
               const percentage = game.percentage || 0;
-              const final_price =
-                Number(game.price) - Number(game.price) * (percentage / 100);
+              const final_price = isProductDiscounted(game)
+                ? Number(game.price) - Number(game.price) * (percentage / 100)
+                : Number(game.price);
 
               return (
                 <div
@@ -192,7 +210,7 @@ export default function VideogamesList() {
                     <div className="row g-4 align-items-center">
                       <div className="col-12 col-sm-4 col-md-2 game-card">
                         <div className="position-relative">
-                          {percentage > 0 && (
+                          {isProductDiscounted(game) && (
                             <div className="discount-flag fw-bold fs-5 bg-danger py-1 px-3">
                               -{percentage}%
                             </div>
@@ -209,7 +227,7 @@ export default function VideogamesList() {
                         <h4 className="mb-2">{game.name}</h4>
                         <p className="mb-0">{game.description}</p>
                         <div>
-                          {percentage > 0 ? (
+                          {isProductDiscounted(game) ? (
                             <div className="mb-3">
                               <p className="text-decoration-line-through text-danger mb-1">
                                 € {game.price}

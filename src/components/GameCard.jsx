@@ -15,8 +15,20 @@ export default function GameCard({ product, enableHoverOverlay }) {
     if (enableHoverOverlay) setIsHovered(false);
   };
 
+  const isProductDiscounted = (product) => {
+    if (!product.start_date || !product.end_date) return false;
+
+    const today = new Date();
+    const startDate = new Date(product.start_date);
+    const endDate = new Date(product.end_date);
+
+    return product.percentage > 0 && today >= startDate && today <= endDate;
+  };
+
   // prezzo scontato
-  const discountedPrice = product.price - product.price * (product.percentage / 100);
+  const discountedPrice = isProductDiscounted(product)
+    ? product.price - product.price * (product.percentage / 100)
+    : product.price;
 
   return (
     <Link
@@ -39,8 +51,10 @@ export default function GameCard({ product, enableHoverOverlay }) {
             className={`bi ${isFavorite(product.id) ? "bi-heart-fill text-danger" : "bi-heart text-light"} fs-4`}
           />
         </button>
-        {product.percentage > 0 && (
-          <div className="discount-flag fw-bold py-1 px-2">-{product.percentage}%</div>
+        {isProductDiscounted(product) && (
+          <div className="discount-flag fw-bold py-1 px-2">
+            -{product.percentage}%
+          </div>
         )}
         <img
           className="img-fluid rounded-2"
@@ -49,8 +63,10 @@ export default function GameCard({ product, enableHoverOverlay }) {
         />
         {isHovered && (
           <div className="card-overlay d-flex flex-column justify-content-center align-items-center text-white text-center text-decoration-none py-1 px-2">
-            <span className="bg-warning fw-semibold rounded-3 py-1 px-2">{product.name}</span>
-            {product.percentage > 0 ? (
+            <span className="bg-warning fw-semibold rounded-3 py-1 px-2">
+              {product.name}
+            </span>
+            {isProductDiscounted(product) ? (
               <>
                 <div className="d-flex align-items-center gap-1">
                   <span className="text-decoration-line-through bg-danger badge py-1 px-2">
@@ -65,7 +81,9 @@ export default function GameCard({ product, enableHoverOverlay }) {
                 </span>
               </>
             ) : (
-              <span className="bg-success badge py-1 px-2">€{product.price}</span>
+              <span className="bg-success badge py-1 px-2">
+                €{product.price}
+              </span>
             )}
           </div>
         )}
