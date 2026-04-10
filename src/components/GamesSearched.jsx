@@ -51,10 +51,7 @@ export default function GamesSearched() {
       .catch((err) => {
         console.log(err.message);
         endLoading();
-        showNotification(
-          `Qualcosa è andato storto con il caricamento!`,
-          "danger",
-        );
+        showNotification(`Qualcosa è andato storto con il caricamento!`, "danger");
       });
   }
 
@@ -90,9 +87,7 @@ export default function GamesSearched() {
     return (
       <div className="mt-4 text-center">
         <h2 className="text-warning">Nessun risultato per “{search}”</h2>
-        <p className="text-light">
-          Prova con un altro nome oppure esplora i nostri giochi 🎮
-        </p>
+        <p className="text-light">Prova con un altro nome oppure esplora i nostri giochi 🎮</p>
         <div className="d-flex justify-content-center mt-5 gap-3">
           <Link to="/" className="btn btn-warning fw-bold px-4">
             🏠 Torna alla Home
@@ -130,11 +125,9 @@ export default function GamesSearched() {
   return (
     <section className="page-container">
       <div className="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 my-4">
-        <h1 className="text-warning ms-1 mb-0">
-          Risultati di ricerca per “{search}”
-        </h1>
+        <h1 className="text-warning ms-1 mb-0">Risultati di ricerca per “{search}”</h1>
 
-        <div className="d-flex flex-wrap align-items-center gap-2 mt-2">
+        <div className="d-flex flex-wrap align-items-center gap-2 mt-2 flex-shrink-0">
           <select
             className="form-select bg-dark text-light border-warning"
             value={sortBy}
@@ -229,10 +222,7 @@ export default function GamesSearched() {
                     className={`bi ${isFavorite(game.id) ? "bi-heart-fill text-danger" : "bi-heart text-light"} fs-4`}
                   />
                 </button>
-                <Link
-                  to={`/products/${game.slug}`}
-                  className=" d-block text-decoration-none"
-                >
+                <Link to={`/products/${game.slug}`} className=" d-block text-decoration-none">
                   <div className="row g-4 align-items-center">
                     <div className="col-12 col-sm-4 col-md-4 col-lg-3 game-card">
                       <div className="position-relative">
@@ -261,9 +251,7 @@ export default function GamesSearched() {
                             <p className="fs-3 fw-bold text-success mb-2">
                               € {final_price.toFixed(2)}
                             </p>
-                            <span className="badge bg-warning">
-                              -{percentage}%
-                            </span>
+                            <span className="badge bg-warning">-{percentage}%</span>
                           </div>
                         ) : (
                           <p className="fs-3 fw-bold">€ {game.price}</p>

@@ -11,8 +11,7 @@ export default function Cart() {
   const [openClearModal, setOpenClearModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [gameToDelete, setGameToDelete] = useState();
-  const { cart, addToCart, removeFromCart, toggleDigitalCopy, clearCart } =
-    useCart();
+  const { cart, addToCart, removeFromCart, toggleDigitalCopy, clearCart } = useCart();
   const { showNotification } = useNotificationContext();
 
   const navigateTo = useNavigate();
@@ -34,17 +33,13 @@ export default function Cart() {
   return (
     <>
       <div>
-        <div className="d-flex justify-content-between align-items-start">
-          <h1 className="text-white mb-3">
+        <div className="d-flex justify-content-between align-items-start mb-3">
+          <h1 className="text-white mb-0">
             Il tuo
             <span className="text-warning card-section-title"> carrello</span>
           </h1>
           {cart.length > 0 && (
-            <button
-              type="button"
-              className="btn btn-outline-danger mt-2"
-              onClick={handleClear}
-            >
+            <button type="button" className="btn btn-outline-danger mt-1" onClick={handleClear}>
               <i className="bi bi-trash3 me-2"></i>
               Svuota carrello
             </button>
@@ -54,7 +49,17 @@ export default function Cart() {
         <div className="d-flex justify-content-between align-items-center">
           <div className="fs-4 fw-bold text-white">{`Totale: \u20AC${totalPrice.toFixed(2)}`}</div>
           <button
-            onClick={() => { if (cart.length === 0) { setOpenForm(false); showNotification("Il carrello è vuoto. Non puoi effettuare ordini se non ci sono elementi nel carrello.", "warning") } else { setOpenForm(true) } }}
+            onClick={() => {
+              if (cart.length === 0) {
+                setOpenForm(false);
+                showNotification(
+                  "Il carrello è vuoto. Non puoi effettuare ordini se non ci sono elementi nel carrello.",
+                  "warning",
+                );
+              } else {
+                setOpenForm(true);
+              }
+            }}
             className="btn btn-warning btn-lg"
           >
             Effettua ordine
@@ -62,17 +67,12 @@ export default function Cart() {
         </div>
 
         {cart.length === 0 ? (
-          <h2 className="text-white text-center mt-5">
-            Il tuo carrello è vuoto
-          </h2>
+          <h2 className="text-white text-center mt-5">Il tuo carrello è vuoto</h2>
         ) : (
           <div className="d-flex flex-column gap-3 my-4">
             {cart.map((game) => {
               return (
-                <div
-                  key={game.id}
-                  className="card cart-list-item cart-item border-secondary p-3"
-                >
+                <div key={game.id} className="card cart-list-item cart-item border-secondary p-3">
                   <div
                     onClick={(e) => {
                       if (e.target.closest("button, input, label")) return;
@@ -113,18 +113,14 @@ export default function Cart() {
                             ) : (
                               <>
                                 <button
-                                  onClick={() =>
-                                    removeFromCart(game.id, game.name)
-                                  }
+                                  onClick={() => removeFromCart(game.id, game.name)}
                                   className="btn btn-light py-0 px-1"
                                 >
                                   <i className="bi bi-dash"></i>
                                 </button>
                               </>
                             )}
-                            <p className="m-0 px-2 border border-light">
-                              {game.quantity}
-                            </p>
+                            <p className="m-0 px-2 border border-light">{game.quantity}</p>
                             <button
                               onClick={() => addToCart(game)}
                               className="btn btn-light py-0 px-1"
@@ -170,14 +166,9 @@ export default function Cart() {
         )}
       </div>
 
-      {openForm && (
-        <CheckoutForm openForm={openForm} setOpenForm={setOpenForm} />
-      )}
+      {openForm && <CheckoutForm openForm={openForm} setOpenForm={setOpenForm} />}
       {openDeleteModal && (
-        <DeleteFromCartModal
-          gameToDelete={gameToDelete}
-          setOpenDeleteModal={setOpenDeleteModal}
-        />
+        <DeleteFromCartModal gameToDelete={gameToDelete} setOpenDeleteModal={setOpenDeleteModal} />
       )}
       {/* clear modal */}
       {openClearModal && (
