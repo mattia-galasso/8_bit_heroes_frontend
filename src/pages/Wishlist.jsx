@@ -11,6 +11,16 @@ export default function Wishlist() {
 
   const handleClear = () => setOpenClearModal(true);
 
+  const isProductDiscounted = (product) => {
+    if (!product.start_date || !product.end_date) return false;
+
+    const today = new Date();
+    const startDate = new Date(product.start_date);
+    const endDate = new Date(product.end_date);
+
+    return product.percentage > 0 && today >= startDate && today <= endDate;
+  };
+
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center">
@@ -38,8 +48,9 @@ export default function Wishlist() {
         ) : (
           favorites.map((game) => {
             const percentage = game.percentage || 0;
-            const final_price =
-              Number(game.price) - Number(game.price) * (percentage / 100);
+            const final_price = isProductDiscounted(game)
+              ? Number(game.price) - Number(game.price) * (percentage / 100)
+              : Number(game.price);
 
             return (
               <div
@@ -56,7 +67,7 @@ export default function Wishlist() {
                   <div className="row g-4 align-items-center">
                     <div className="col-12 col-sm-4 col-md-2 game-card">
                       <div className="position-relative">
-                        {percentage > 0 && (
+                        {isProductDiscounted(game) && (
                           <div className="discount-flag fw-bold fs-5 bg-danger py-1 px-3">
                             -{percentage}%
                           </div>
@@ -88,7 +99,7 @@ export default function Wishlist() {
                       <p className="mb-0">{game.description}</p>
 
                       <div>
-                        {percentage > 0 ? (
+                        {isProductDiscounted(game) ? (
                           <div className="mb-3">
                             <p className="text-decoration-line-through text-danger mb-1">
                               € {game.price}
