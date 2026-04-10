@@ -394,11 +394,11 @@ export default function CheckoutForm({ setOpenForm }) {
                       </Link>
 
                       <Link
-                        to="/cart"
+                        to="/games"
                         onClick={() => setOpenForm(false)}
                         className="btn btn-outline-warning px-4"
                       >
-                        🛒 Vai al Carrello
+                        🎮 Vai allo Store
                       </Link>
                     </div>
                   </div>

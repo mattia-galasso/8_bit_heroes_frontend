@@ -4,6 +4,7 @@ import { useCart } from "../contexts/CartContext.jsx";
 import { useNavigate } from "react-router";
 import DeleteFromCartModal from "../components/DeleteFromCartModal.jsx";
 import ClearModal from "../components/ClearModal.jsx";
+import { useNotificationContext } from "../contexts/NotificationContext.jsx";
 
 export default function Cart() {
   const [openForm, setOpenForm] = useState(false);
@@ -12,6 +13,7 @@ export default function Cart() {
   const [gameToDelete, setGameToDelete] = useState();
   const { cart, addToCart, removeFromCart, toggleDigitalCopy, clearCart } =
     useCart();
+  const { showNotification } = useNotificationContext();
 
   const navigateTo = useNavigate();
 
@@ -52,7 +54,7 @@ export default function Cart() {
         <div className="d-flex justify-content-between align-items-center">
           <div className="fs-4 fw-bold text-white">{`Totale: \u20AC${totalPrice.toFixed(2)}`}</div>
           <button
-            onClick={() => setOpenForm(true)}
+            onClick={() => { if (cart.length === 0) { setOpenForm(false); showNotification("Il carrello è vuoto. Non puoi effettuare ordini se non ci sono elementi nel carrello.", "warning") } else { setOpenForm(true) } }}
             className="btn btn-warning btn-lg"
           >
             Effettua ordine

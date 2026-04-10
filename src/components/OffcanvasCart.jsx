@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router";
 
 import { useCart } from "../contexts/CartContext.jsx";
+import { useNotificationContext } from "../contexts/NotificationContext.jsx";
 import { useState } from "react";
 import CheckoutForm from "./CheckoutForm.jsx";
 import DeleteFromCartModal from "./DeleteFromCartModal.jsx";
@@ -10,6 +11,7 @@ export default function OffcanvasCart() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [gameToDelete, setGameToDelete] = useState();
   const { cart, addToCart, removeFromCart, toggleDigitalCopy } = useCart();
+  const {showNotification} = useNotificationContext();
   const navigateTo = useNavigate();
   const totalPrice = cart.reduce((total, item) => {
     return total + Number(item.final_price) * item.quantity;
@@ -158,7 +160,7 @@ export default function OffcanvasCart() {
           <div className="d-flex justify-content-between my-2 align-items-center">
             <div className="fs-5 fw-bold text-white ms-1">{`Totale: \u20AC${totalPrice.toFixed(2)}`}</div>
             <button
-              onClick={() => setOpenForm(true)}
+              onClick={() =>{ if(cart.length === 0) {setOpenForm(false); showNotification("Il carrello è vuoto. Non puoi effettuare ordini se non ci sono elementi nel carrello.", "warning") } else{setOpenForm(true)}}}
               className="btn btn-warning me-2"
               data-bs-dismiss="offcanvas"
             >
