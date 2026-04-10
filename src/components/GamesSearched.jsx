@@ -32,7 +32,7 @@ export default function GamesSearched() {
     }
 
     axios
-      .get(baseURL + `?search=${search}`)
+      .get(baseURL + `?search=${search}&onlyDiscounted=${onlyDiscounted}`)
       .then((res) => {
         setSearchGamesList(res.data.result);
         endLoading();
@@ -47,7 +47,7 @@ export default function GamesSearched() {
       });
   }
 
-  useEffect(searchNavbar, [search]);
+  useEffect(searchNavbar, [search, onlyDiscounted]);
 
   //* Function View Mode Query Param
   const handleClickViewMode = (viewMode) => {
