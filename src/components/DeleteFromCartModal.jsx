@@ -42,7 +42,7 @@ export default function DeleteFromCartModal({
                     );
                     setOpenDeleteModal(false);
                   }}
-                  className="btn btn-primary btn-lg"
+                  className="btn btn-warning btn-lg"
                 >
                   SI
                 </button>
