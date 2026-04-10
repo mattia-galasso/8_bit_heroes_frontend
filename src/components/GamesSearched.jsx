@@ -21,6 +21,7 @@ export default function GamesSearched() {
   const search = searchParams.get("search");
   const { showNotification } = useNotificationContext();
   const { startLoading, endLoading } = useLoading();
+  const [sortBy, setSortBy] = useState("");
 
   //* Function Search Axios
   function searchNavbar() {
@@ -31,8 +32,18 @@ export default function GamesSearched() {
       return;
     }
 
+    let url = baseURL + `?search=${search}`;
+
+    if (sortBy === "price_asc") url += "&field=price&order=asc";
+
+    if (sortBy === "price_desc") url += "&field=price&order=desc";
+
+    if (sortBy === "name_asc") url += "&field=name&order=asc";
+
+    if (sortBy === "name_desc") url += "&field=name&order=desc";
+
     axios
-      .get(baseURL + `?search=${search}`)
+      .get(url)
       .then((res) => {
         setSearchGamesList(res.data.result);
         endLoading();
@@ -47,7 +58,7 @@ export default function GamesSearched() {
       });
   }
 
-  useEffect(searchNavbar, [search]);
+  useEffect(searchNavbar, [search, sortBy]);
 
   //* Function View Mode Query Param
   const handleClickViewMode = (viewMode) => {
@@ -68,6 +79,9 @@ export default function GamesSearched() {
 
     const discounted = searchParams.get("discounted") === "true";
     setOnlyDiscounted(discounted);
+
+    const ordering = searchParams.get("ordering") || "";
+    setSortBy(ordering);
   };
 
   useEffect(viewsParams, [searchParams]);
@@ -122,6 +136,24 @@ export default function GamesSearched() {
           </h1>
 
           <div className="d-flex flex-wrap align-items-center gap-2">
+            <select
+              className="form-select bg-dark text-light border-warning"
+              value={sortBy}
+              onChange={(e) => {
+                setSortBy(e.target.value);
+                const params = new URLSearchParams(searchParams);
+                params.set("ordering", e.target.value);
+                setSearchParams(params);
+              }}
+              style={{ width: "130px" }}
+            >
+              <option value="">Ordina ↑↓</option>
+              <option value="price_asc">Prezzo ↑</option>
+              <option value="price_desc">Prezzo ↓</option>
+              <option value="name_asc">Nome A-Z</option>
+              <option value="name_desc">Nome Z-A</option>
+            </select>
+
             <button
               className={`btn ${onlyDiscounted ? "btn-warning" : "btn-outline-warning"}`}
               onClick={() => {
