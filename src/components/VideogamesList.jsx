@@ -105,7 +105,7 @@ export default function VideogamesList() {
 
   return (
     <>
-      <section className="homepage-container">
+      <section className="page-container">
         <div className="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 gap-lg-2 my-4">
           <h1 className="text-warning ms-1 mb-0">Tutti i videogiochi</h1>
 
