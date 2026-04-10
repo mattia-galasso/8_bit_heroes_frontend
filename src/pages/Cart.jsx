@@ -4,6 +4,7 @@ import { useCart } from "../contexts/CartContext.jsx";
 import { useNavigate } from "react-router";
 import DeleteFromCartModal from "../components/DeleteFromCartModal.jsx";
 import ClearModal from "../components/ClearModal.jsx";
+import { useNotificationContext } from "../contexts/NotificationContext.jsx";
 
 export default function Cart() {
   const [openForm, setOpenForm] = useState(false);
@@ -12,6 +13,7 @@ export default function Cart() {
   const [gameToDelete, setGameToDelete] = useState();
   const { cart, addToCart, removeFromCart, toggleDigitalCopy, clearCart } =
     useCart();
+  const { showNotification } = useNotificationContext();
 
   const navigateTo = useNavigate();
 
