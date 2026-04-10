@@ -3,14 +3,13 @@ import "../assets/css/page404.css";
 
 export default function Page404() {
   return (
-    <div className="container d-flex flex-column justify-content-center align-items-center text-center card-bg hv-80">
+    <div className="d-flex flex-column justify-content-center align-items-center text-center card-bg hv-80 mb-4">
       <h1 className="display-1 fw-bold text-warning glow-text">404</h1>
 
       <h2 className="text-light mb-3">Livello non trovato 🎮</h2>
 
       <p className="text-secondary mb-4">
-        Sembra che questa pagina sia stata sconfitta... oppure non è mai
-        esistita 👀
+        Sembra che questa pagina sia stata sconfitta... oppure non è mai esistita 👀
       </p>
 
       <div className="mb-4">
