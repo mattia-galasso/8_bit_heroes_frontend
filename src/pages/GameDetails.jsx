@@ -26,19 +26,14 @@ export default function GameDetails() {
       .catch((err) => {
         endLoading();
         console.log(err.message);
-        showNotification(
-          `Qualcosa è andato storto con il caricamento!`,
-          "danger",
-        );
+        showNotification(`Qualcosa è andato storto con il caricamento!`, "danger");
       });
   }, [slug]);
 
   if (!product) return;
 
   const trailerEmbed = product.trailer
-    ? product.trailer
-        .replace("youtu.be/", "www.youtube.com/embed/")
-        .split("?")[0]
+    ? product.trailer.replace("youtu.be/", "www.youtube.com/embed/").split("?")[0]
     : null;
 
   return (
@@ -66,11 +61,7 @@ export default function GameDetails() {
         <section className="col-11 col-md-7 col-lg-8">
           <div className="d-flex justify-content-between align-items-center mb-3">
             <h1 className="product-title mt-2 text-warning">{product.name}</h1>
-            <button
-              type="button"
-              className="btn p-0"
-              onClick={() => toggleFavorite(product)}
-            >
+            <button type="button" className="btn p-0" onClick={() => toggleFavorite(product)}>
               <i
                 className={`bi ${isFavorite(product.id) ? "bi-heart-fill text-danger" : "bi-heart text-light"} fs-3`}
               />
@@ -96,11 +87,7 @@ export default function GameDetails() {
             {/* Riga Copia Digitale */}
             <li className="list-group-item bg-dark text-light border-secondary py-2">
               <strong className="me-2">Copia digitale:</strong>
-              <span
-                className={
-                  product.digital_copy ? "text-success" : "text-danger"
-                }
-              >
+              <span className={product.digital_copy ? "text-success" : "text-danger"}>
                 {product.digital_copy ? "Disponibile" : "Non Disponibile"}
               </span>
             </li>
@@ -108,36 +95,25 @@ export default function GameDetails() {
 
           {product.price !== product.final_price ? (
             <div className="mb-3">
-              <p className="text-decoration-line-through text-danger mb-1">
-                € {product.price}
-              </p>
+              <p className="text-decoration-line-through text-danger mb-1">€ {product.price}</p>
               <div className="d-flex align-items-center gap-3">
-                <p className="fs-3 fw-bold text-success mb-1">
-                  € {product.final_price}
-                </p>
-                <span className="badge bg-info fw-semibold">
-                  -{product.discount_percentage}%
-                </span>
+                <p className="fs-3 fw-bold text-success mb-1">€ {product.final_price}</p>
+                <span className="badge bg-info fw-semibold">-{product.discount_percentage}%</span>
               </div>
             </div>
           ) : (
             <p className="fs-3 fw-bold">€ {product.price}</p>
           )}
 
-          <button
-            className="btn btn-warning btn-lg"
-            onClick={() => addToCart(product)}
-          >
-            Aggiungi al carrello
+          <button className="btn btn-warning btn-lg" onClick={() => addToCart(product)}>
+            Aggiungi al carrello <i className="bi bi-cart-check ms-1" />
           </button>
         </section>
       </div>
 
       {/* related */}
       <section className="card card-bg my-4">
-        <h2 className="card-section-title h1 text-center text-warning my-3">
-          Prodotti Correlati
-        </h2>
+        <h2 className="card-section-title h1 text-center text-warning my-3">Prodotti Correlati</h2>
         <div className="row-border rounded-3">
           <div className="row row-cols-2 row-cols-md-4 g-4 mb-3 mt-05 mx-2">
             {product.relatedProducts.map((related) => (
@@ -166,11 +142,7 @@ export default function GameDetails() {
 
       {/* requirements */}
       {product.requirements && (
-        <div
-          className="accordion mt-3"
-          data-bs-theme="dark"
-          id="accordionExample"
-        >
+        <div className="accordion mt-3" data-bs-theme="dark" id="accordionExample">
           <div className="accordion-item">
             <h2 className="accordion-header">
               <button
@@ -192,8 +164,7 @@ export default function GameDetails() {
               <div className="accordion-body">
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item bg-dark text-light border-secondary">
-                    <strong>Sistema operativo:</strong>{" "}
-                    {product.requirements.os}
+                    <strong>Sistema operativo:</strong> {product.requirements.os}
                   </li>
                   <li className="list-group-item bg-dark text-light border-secondary">
                     <strong>GPU:</strong> {product.requirements.gpu}
@@ -202,8 +173,7 @@ export default function GameDetails() {
                     <strong>RAM:</strong> {product.requirements.ram}
                   </li>
                   <li className="list-group-item bg-dark text-light border-secondary">
-                    <strong>Archiviazione:</strong>{" "}
-                    {product.requirements.storage}
+                    <strong>Archiviazione:</strong> {product.requirements.storage}
                   </li>
                 </ul>
               </div>
