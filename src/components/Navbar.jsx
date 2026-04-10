@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, NavLink, useNavigate } from "react-router";
+// Aggiungi useLocation qui sotto
+import { Link, NavLink, useNavigate, useLocation } from "react-router";
 import { useCart } from "../contexts/CartContext";
 import { useFavorites } from "../contexts/FavoritesContext";
 
 export default function Navbar() {
   const [userInput, setUserInput] = useState("");
   const searchNavigate = useNavigate();
+  const location = useLocation();
   const { totalQuantity } = useCart();
   const { totalFavorites } = useFavorites();
   const [navOpen, setNavOpen] = useState(false);
@@ -13,26 +15,30 @@ export default function Navbar() {
   const navRef = useRef(null);
 
   function closeNav() {
-    setNavOpen((state) => !state);
+    setNavOpen(false);
   }
 
-  // Automatic menu close
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const searchQuery = params.get("search");
+    if (searchQuery) {
+      setUserInput(searchQuery);
+    } else {
+      setUserInput("");
+    }
+  }, [location.search]);
+
   useEffect(() => {
     const forceClose = () => setNavOpen(false);
-
     const handleOutsideInteraction = (event) => {
       if (navOpen && navRef.current && !navRef.current.contains(event.target)) {
         forceClose();
       }
     };
-
     const handleScroll = () => {
-      if (navOpen) {
-        forceClose();
-      }
+      if (navOpen) forceClose();
     };
 
-    // listeners
     document.addEventListener("mousedown", handleOutsideInteraction);
     document.addEventListener("touchstart", handleOutsideInteraction);
     window.addEventListener("wheel", handleScroll);
@@ -47,49 +53,65 @@ export default function Navbar() {
   }, [navOpen]);
 
   const handleClickButton = () => {
+    if (userInput.trim() === "") return;
     const params = new URLSearchParams();
     params.set("search", userInput);
     searchNavigate(`/games?${params.toString()}`);
-    setUserInput("");
   };
 
   return (
     <div className="navbar-container" ref={navRef}>
-      <nav className="navbar navbar-expand-lg ps-1 pe-1 pe-lg-4 py-1" data-bs-theme="dark">
+      <nav
+        className="navbar navbar-expand-lg ps-1 pe-1 pe-lg-4 py-1"
+        data-bs-theme="dark"
+      >
         <div className="container-fluid" id="container-navbar">
           <Link to="/" className="navbar-brand m-0 p-0">
             <div className="d-flex gap-1 align-items-center">
-              <img src="/8bit_heroes_logo.png" alt="8bit_heroes_logo" className="avatar" />
+              <img
+                src="/8bit_heroes_logo.png"
+                alt="8bit_heroes_logo"
+                className="avatar"
+              />
               <div className="navbar-division"></div>
             </div>
           </Link>
           <button
-            onClick={closeNav}
-            className={navOpen ? "navbar-toggler me-2" : "navbar-toggler collapsed me-2"}
+            onClick={() => setNavOpen(!navOpen)}
+            className={
+              navOpen ? "navbar-toggler me-2" : "navbar-toggler collapsed me-2"
+            }
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
+            aria-expanded={navOpen}
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
           </button>
           <div
             className={
-              navOpen ? "collapse navbar-collapse show gap-5" : "collapse navbar-collapse gap-5"
+              navOpen
+                ? "collapse navbar-collapse show gap-5"
+                : "collapse navbar-collapse gap-5"
             }
             id="navbarNav"
           >
             <div>
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <NavLink to="/" className="nav-link fs-5 fw-bold" onClick={closeNav}>
+                  <NavLink
+                    to="/"
+                    className="nav-link fs-5 fw-bold"
+                    onClick={closeNav}
+                  >
                     Home
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/games" className="nav-link fs-5 fw-bold" onClick={closeNav}>
+                  <NavLink
+                    to="/games"
+                    className="nav-link fs-5 fw-bold"
+                    onClick={closeNav}
+                  >
                     Videogames
                   </NavLink>
                 </li>
@@ -100,10 +122,11 @@ export default function Navbar() {
                 className="input-group d-flex"
                 onSubmit={(e) => {
                   e.preventDefault();
+                  handleClickButton();
+                  closeNav();
                 }}
               >
                 <input
-                  //
                   value={userInput}
                   onChange={(e) => setUserInput(e.target.value)}
                   name="search-input"
@@ -115,20 +138,20 @@ export default function Navbar() {
                 />
                 <button
                   className="btn btn-outline-secondary"
-                  id="search-navbar"
-                  onClick={() => {
-                    handleClickButton();
-                    closeNav();
-                  }}
+                  type="submit"
+                  id="search-button-navbar"
                 >
                   Cerca
                 </button>
               </form>
             </div>
             <div className="navbar-icons">
-              {/* wishlist */}
+              {/* wishlist e cart rimasti invariati */}
               <NavLink to="/wishlist" className="me-1">
-                <button className="btn btn-outline-light my-3 position-relative" onClick={closeNav}>
+                <button
+                  className="btn btn-outline-light my-3 position-relative"
+                  onClick={closeNav}
+                >
                   <div className="nav-link fs-5">
                     <i className=" bi bi-heart" />
                   </div>
@@ -139,7 +162,6 @@ export default function Navbar() {
                   )}
                 </button>
               </NavLink>
-              {/* cart */}
               <button
                 className="btn btn-outline-light my-3 position-relative"
                 type="button"
