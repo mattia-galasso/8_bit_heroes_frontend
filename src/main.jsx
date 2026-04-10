@@ -25,6 +25,9 @@ import "./assets/css/cartpage.css";
 // NOTIFICATION CSS
 import "./assets/css/notification.css";
 
+// LOADING CSS
+import "./assets/css/loading.css";
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <App />

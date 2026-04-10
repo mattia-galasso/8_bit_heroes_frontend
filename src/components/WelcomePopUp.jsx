@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNotificationContext } from "../contexts/NotificationContext";
+import { useLoading } from "../contexts/LoadingContext";
 
 export default function WelcomePopUp({ onClose }) {
   const [inputData, setInputData] = useState("");
   const { showNotification } = useNotificationContext();
   const [status, setStatus] = useState("welcome");
+  const { startLoading, endLoading } = useLoading();
 
   const email = inputData.trim().toLowerCase();
 
@@ -30,13 +32,17 @@ export default function WelcomePopUp({ onClose }) {
       return showNotification(`L'indirizzo email non è valido!`, "warning");
     }
 
+    startLoading();
+
     axios
       .post("http://localhost:3000/newsletter", { email: email })
       .then(() => {
+        endLoading();
         setStatus("thanks");
         showNotification(`Registrazione avvenuta con successo!`, "success");
       })
       .catch((err) => {
+        endLoading();
         if (err.response.status === 409) {
           showNotification(
             `L'indirizzo email "${email}" risulta già registrato!`,

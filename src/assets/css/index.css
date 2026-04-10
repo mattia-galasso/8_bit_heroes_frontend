@@ -6,7 +6,8 @@
 
 .avatar {
   width: 80px;
-  aspect-ratio: 1;
+  position: relative;
+  bottom: 2.7px;
 }
 
 /* game card */
@@ -71,6 +72,11 @@ html,
 
 .details-container .product-title {
   max-width: 85%;
+}
+
+.wishlist-section-title {
+  text-shadow: 0px 0px 10px grey;
+  margin-bottom: 2.5rem;
 }
 
 /* container */

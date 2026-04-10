@@ -53,8 +53,6 @@ function CartProvider({ children }) {
     );
   };
 
-  const clearCart = () => setCart([]);
-
   const toggleDigitalCopy = (gameId) => {
     setCart((oldCart) =>
       oldCart.map((game) =>
@@ -70,13 +68,17 @@ function CartProvider({ children }) {
     return acc + (game.quantity || 1);
   }, 0);
 
+  function clearCart() {
+    setCart([]);
+  }
+
   const value = {
     cart,
-    clearCart,
     addToCart,
     removeFromCart,
     toggleDigitalCopy,
     totalQuantity,
+    clearCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

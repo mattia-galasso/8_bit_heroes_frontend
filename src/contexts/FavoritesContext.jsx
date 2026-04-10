@@ -7,7 +7,7 @@ function FavoritesProvider({ children }) {
   const [favorites, setFavorites] = useState(() => {
     const savedFavorites = localStorage.getItem("favorites");
     return savedFavorites ? JSON.parse(savedFavorites) : [];
-  },);
+  });
   const { showNotification } = useNotificationContext();
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -18,10 +18,10 @@ function FavoritesProvider({ children }) {
 
     if (alreadyFavorite) {
       setFavorites(favorites.filter((item) => item.id !== game.id));
-      showNotification(`"${game.name}" Rimosso dalla Favorites!`, "danger");
+      showNotification(`"${game.name}" Rimosso dalla Whishlist!`, "danger");
     } else {
       setFavorites([...favorites, game]);
-      showNotification(`"${game.name}" Aggiunto nella Favorites!`, "success");
+      showNotification(`"${game.name}" Aggiunto nella Whishlist!`, "success");
     }
   }
 
@@ -31,7 +31,10 @@ function FavoritesProvider({ children }) {
 
   function clearFavorites() {
     setFavorites([]);
+    showNotification("Wishlist svuotata con successo!", "info");
   }
+
+  const totalFavorites = favorites.length;
 
   return (
     <FavoritesContext.Provider
@@ -40,6 +43,7 @@ function FavoritesProvider({ children }) {
         toggleFavorite,
         isFavorite,
         clearFavorites,
+        totalFavorites,
       }}
     >
       {children}

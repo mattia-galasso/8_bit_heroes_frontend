@@ -3,40 +3,47 @@ import GameCard from "./GameCard";
 import { Link, useSearchParams } from "react-router";
 import axios from "axios";
 import { useFavorites } from "../contexts/FavoritesContext";
+
 const baseURL = "http://localhost:3000/products/find";
+
+// CONTEXT
+import { useNotificationContext } from "../contexts/NotificationContext";
+import { useLoading } from "../contexts/LoadingContext";
 
 export default function GamesSearched() {
   //* useState Constants
   const [searchGamesList, setSearchGamesList] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const [onlyDiscounted, setOnlyDiscounted] = useState(false);
   const [viewMode, setViewMode] = useState("grid");
   const { toggleFavorite, isFavorite } = useFavorites();
   //* Query Param
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get("search");
+  const { showNotification } = useNotificationContext();
+  const { startLoading, endLoading } = useLoading();
 
   //* Function Search Axios
   function searchNavbar() {
+    startLoading();
     if (!search) {
       setSearchGamesList([]);
-      setLoading(false);
+      endLoading();
       return;
     }
-
-    setLoading(true);
 
     axios
       .get(baseURL + `?search=${search}`)
       .then((res) => {
-        setLoading(false);
         setSearchGamesList(res.data.result);
+        endLoading();
       })
       .catch((err) => {
-        console.log(err);
-        setError("Errore nel recupero dei videogiochi");
-        setLoading(false);
+        console.log(err.message);
+        endLoading();
+        showNotification(
+          `Qualcosa è andato storto con il caricamento!`,
+          "danger",
+        );
       });
   }
 
@@ -64,9 +71,6 @@ export default function GamesSearched() {
   };
 
   useEffect(viewsParams, [searchParams]);
-
-  if (loading) return <p className="container mt-4">Caricamento...</p>;
-  if (error) return <p className="container mt-4">{error}</p>;
 
   if (searchGamesList.length === 0) {
     return (
@@ -135,11 +139,11 @@ export default function GamesSearched() {
           </div>
         </div>
 
-        <p className = "text-light mb-3 fs-4 ms-2">
+        <p className="text-light mb-3 fs-4 ms-2">
           <strong>
-          {visibleGames.length===1
-          ? "1 risultato trovato"
-          : `${visibleGames.length} risultati trovati`}
+            {visibleGames.length === 1
+              ? "1 risultato trovato"
+              : `${visibleGames.length} risultati trovati`}
           </strong>
         </p>
 

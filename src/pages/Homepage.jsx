@@ -5,9 +5,15 @@ import { useEffect, useState } from "react";
 import GameCard from "../components/GameCard";
 import WelcomePopUp from "../components/WelcomePopUp";
 
+// CONTEXT
+import { useNotificationContext } from "../contexts/NotificationContext";
+import { useLoading } from "../contexts/LoadingContext";
+
 export default function Homepage() {
   const [discountedProducts, setDiscountedProducts] = useState([]);
   const [mostSoldProducts, setMostSoldProducts] = useState([]);
+  const { showNotification } = useNotificationContext();
+  const { startLoading, endLoading } = useLoading();
 
   // PER WELCOME
   const [showWelcome, setShowWelcome] = useState(false);
@@ -22,16 +28,39 @@ export default function Homepage() {
 
   // CHIAMATA OFFERTE
   useEffect(() => {
+    startLoading();
     axios
       .get("http://localhost:3000/products/discounted")
-      .then((res) => setDiscountedProducts(res.data.result));
+      .then((res) => {
+        setDiscountedProducts(res.data.result);
+        endLoading();
+      })
+      .catch((err) => {
+        console.log(err.message);
+        endLoading();
+        showNotification(
+          `Qualcosa è andato storto con il caricamento!`,
+          "danger",
+        );
+      });
   }, []);
 
   // CHIAMATA PIU' VENDUTI
   useEffect(() => {
     axios
       .get("http://localhost:3000/products/sales")
-      .then((res) => setMostSoldProducts(res.data.result));
+      .then((res) => {
+        setMostSoldProducts(res.data.result);
+        endLoading();
+      })
+      .catch((err) => {
+        console.log(err.message);
+        endLoading();
+        showNotification(
+          `Qualcosa è andato storto con il caricamento!`,
+          "danger",
+        );
+      });
   }, []);
 
   return (
@@ -48,7 +77,8 @@ export default function Homepage() {
         <div className="card-bg hero-space">
           <div className="hero-space-text">
             <h1>
-              Il tuo <span className="text-warning">Videogame Store</span> di fiducia
+              Il tuo <span className="text-warning">Videogame Store</span> di
+              fiducia
             </h1>
             <p>Giochi fisici e digitali per tutte le piattaforme.</p>
             <p>Spedizione rapida e prezzi competitivi.</p>
@@ -60,7 +90,9 @@ export default function Homepage() {
 
         {/* OFFERTE */}
         <section className="card card-bg my-4">
-          <h2 className="card-section-title h1 text-center text-warning my-3">OFFERTE EPICHE</h2>
+          <h2 className="card-section-title h1 text-center text-warning my-3">
+            OFFERTE EPICHE
+          </h2>
           <div className="row-border rounded-3">
             <div className="row row-cols-2 row-cols-md-4 g-4 mb-3 mt-05 mx-2">
               {discountedProducts.map((product) => (
@@ -74,7 +106,9 @@ export default function Homepage() {
 
         {/* PIU' VENDUTI */}
         <section className="card card-bg my-4">
-          <h2 className="card-section-title h1 text-center text-warning my-3">PIÙ VENDUTI</h2>
+          <h2 className="card-section-title h1 text-center text-warning my-3">
+            PIÙ VENDUTI
+          </h2>
           <div className="row-border rounded-3">
             <div className="row row-cols-2 row-cols-md-4 g-4 mb-3 mt-05 mx-2 rounded-3">
               {mostSoldProducts.map((product) => (
