@@ -73,11 +73,11 @@ export default function Wishlist() {
                       </div>
                     </div>
 
-                    <div className="col-12 col-sm-8 col-md-8 col-lg-9 text-light position-relative">
+                    <div className="col-12 col-sm-8 col-md-8 col-lg-9 text-light">
                       <h3 className="mb-2 list-card-title">{game.name}</h3>
                       <button
                         type="button"
-                        className="btn position-absolute bottom-0 end-0 m-2 d-none d-sm-block favorite-btn"
+                        className="btn favorite-btn position-absolute bottom-0 end-0"
                         onClick={(e) => {
                           e.stopPropagation();
                           toggleFavorite(game);
@@ -108,25 +108,12 @@ export default function Wishlist() {
                     </div>
                   </div>
                 </div>
-
-                <button
-                  type="button"
-                  className="btn position-absolute bottom-0 end-0 m-2 d-block d-sm-none"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleFavorite(game);
-                  }}
-                >
-                  <i
-                    className={`bi ${isFavorite(game.id) ? "bi-heart-fill text-danger" : "bi-heart text-light"} fs-3`}
-                  />
-                </button>
               </div>
             );
           })
         )}
       </div>
-
+      {/* clear modal */}
       {openClearModal && (
         <ClearModal
           setOpenClearModal={setOpenClearModal}

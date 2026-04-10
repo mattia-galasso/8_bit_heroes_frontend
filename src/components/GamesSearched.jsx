@@ -176,10 +176,10 @@ export default function GamesSearched() {
               ? Number(game.price) - Number(game.price) * (percentage / 100)
               : Number(game.price);
             return (
-              <div key={game.id} className="card card-bg border-secondary p-3">
+              <div key={game.id} className="card card-bg border-secondary p-3 position-relative">
                 <button
                   type="button"
-                  className="btn position-absolute top-0 end-0 m-2 z-3"
+                  className="btn favorite-btn position-absolute bottom-0 end-0"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
