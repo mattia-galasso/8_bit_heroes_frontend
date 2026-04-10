@@ -10,7 +10,7 @@ import { useLoading } from "../contexts/LoadingContext";
 export default function GameDetails() {
   const { slug } = useParams();
   const [product, setProduct] = useState(null);
-  const { addToCart } = useCart();
+  const { cart,addToCart } = useCart();
   const { toggleFavorite, isFavorite } = useFavorites();
   const { showNotification } = useNotificationContext();
   const { startLoading, endLoading } = useLoading();
@@ -34,6 +34,8 @@ export default function GameDetails() {
   }, [slug]);
 
   if (!product) return;
+
+  const cartItem = cart.find((item)=>item.id===product.id)
 
   const trailerEmbed = product.trailer
     ? product.trailer
@@ -124,12 +126,22 @@ export default function GameDetails() {
             <p className="fs-3 fw-bold">€ {product.price}</p>
           )}
 
+         <>
           <button
             className="btn btn-warning btn-lg"
             onClick={() => addToCart(product)}
           >
             Aggiungi al carrello
           </button>
+          
+          {cartItem && (
+            <p className="text-success mt-2 mb-0 fw-semibold">
+              {cartItem.quantity > 1
+              ? `Prodotto nel carrello (${cartItem.quantity})`
+              : "Prodotto nel carrello!"}
+            </p>
+          )}
+          </>
         </section>
       </div>
 
