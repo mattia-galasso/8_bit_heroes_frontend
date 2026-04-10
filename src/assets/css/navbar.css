@@ -1,0 +1,39 @@
+.navbar-container {
+  width: 93%;
+  margin: 2rem auto 0 auto;
+  border: 1px solid #1e1e30;
+  border-radius: 50px;
+  overflow: hidden;
+  background: #2b3035;
+  background: linear-gradient(
+    180deg,
+    rgba(43, 48, 53, 1) 0%,
+    rgba(10, 10, 15, 1) 100%
+  );
+}
+
+.main-layout {
+  margin-top: 10rem;
+}
+
+.navbar-container img {
+  vertical-align: initial;
+}
+
+.navbar-division {
+  margin: 0 1.2rem 0 1.2rem;
+  width: 1px;
+  height: 55px;
+  background-color: white;
+}
+
+.search-input-navbar {
+  flex-grow: 1;
+}
+
+.navbar-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}

@@ -2,16 +2,16 @@ body {
   background-color: #0a0a0f;
 }
 
-.homepage-container {
-  padding: 2rem;
-  height: 100%;
-}
-
-.homepage-container .card-bg {
+.homepage-container .card-bg,
+.details-container .card-bg {
   border-color: #1e1e30;
   color: white;
   background: #000000;
   background: linear-gradient(180deg, #0f0f1a 0%, #140c1c 100%);
+}
+
+.row-border {
+  border: 1px solid #1e1e30;
 }
 
 .hero-space {
@@ -54,8 +54,41 @@ body {
   filter: blur(0.2rem);
 }
 
-.homepage-section-title {
+.card-section-title {
   text-shadow: 0px 0px 10px grey;
+}
+
+/* welcome popup */
+.welcome-popup .modal-title {
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  translate: -50% 0;
+  text-shadow: 0px 0px 10px grey;
+}
+
+.welcome-popup #newsletter-input,
+.welcome-popup #button-addon2 {
+  box-shadow: 0px 0px 5px grey;
+}
+
+.thanks-modal h1 {
+  text-shadow: 0px 0px 5px grey;
+}
+
+.welcome-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 20;
+}
+
+/* utils */
+.mt-05 {
+  margin-top: 0.01rem;
 }
 
 /* MEDIA QUERIES */
@@ -116,7 +149,7 @@ body {
 
 @media (min-width: 1200px) {
   .hero-space {
-    padding: 5rem 6rem;
+    padding: 5rem 5rem;
   }
 
   .hero-space-text {

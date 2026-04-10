@@ -1,66 +1,92 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { useNotificationContext } from "./NotificationContext";
 
 const CartContext = createContext();
 
 function CartProvider({ children }) {
-    const [cart, setCart] = useState(
-        // salva i dati in cart nel local storage
-        () => {
-            const savedCart = localStorage.getItem('cart');
-            return savedCart ? JSON.parse(savedCart) : [];
-        });
+  const { showNotification } = useNotificationContext();
 
-    // ogni volta che il cart cambia viene aggionato nel local storage
-    useEffect(() => {
-        localStorage.setItem('cart', JSON.stringify(cart));
-    }, [cart]);
+  const [cart, setCart] = useState(() => {
+    // recupera i dati dal local storage all'avvio
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
 
-    // aggiunge un prodotto al carrello
-    const addToCart = (game) => {
-        setCart((oldCart) => {
-            const existing = oldCart.find(item => item.id === game.id);
+  // aggiorna il local storage quando il carrello cambia
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
-            if (existing) {
-                return oldCart.map(item =>
-                    item.id === game.id
-                        ? { ...item, quantity: (item.quantity || 1) + 1 }
-                        : item
-                );
-            }
+  // aggiunge un prodotto al carrello
+  const addToCart = (game) => {
+    showNotification(`"${game.name}" Aggiunto al carrello!`, "success");
+    setCart((oldCart) => {
+      const existing = oldCart.find((item) => item.id === game.id);
 
-            return [...oldCart, { ...game, quantity: 1 }]
+      if (existing) {
+        return oldCart.map((item) =>
+          item.id === game.id
+            ? { ...item, quantity: (item.quantity || 1) + 1 }
+            : item,
+        );
+      }
 
-        });
+      return [...oldCart, { ...game, quantity: 1, copyInDigital: false }];
+    });
+  };
 
-    }
-
-    // Rimuove un elemento dal carrello
-    const removeFromCart = (gameId) => {
-        // il map decrementa la quantità del prodotto
-        setCart((oldCart) => oldCart.map(game =>
+  // Rimuove un elemento dal carrello
+  const removeFromCart = (gameId, gameName) => {
+    setCart(
+      (oldCart) =>
+        oldCart
+          .map((game) =>
             game.id === gameId
-                ? { ...game, quantity: (game.quantity || 1) - 1 }
-                : item)
-                // se la quantità è uguale o minore a 0 il prodotto viene rimosso dalla lista dei prodotti nel carrello
-            .filter(game => game.quantity > 0))
-    }
+              ? { ...game, quantity: (game.quantity || 1) - 1 }
+              : game,
+          )
+          .filter((game) => game.quantity > 0),
+      showNotification(
+        `"${gameName}" Diminuita quantità nel carrello!`,
+        "danger",
+      ),
+    );
+  };
 
-    const value = {
-        cart,
-        addToCart,
-        removeFromCart
-    }
+  const toggleDigitalCopy = (gameId) => {
+    setCart((oldCart) =>
+      oldCart.map((game) =>
+        game.id === gameId
+          ? { ...game, copyInDigital: !game.copyInDigital }
+          : game,
+      ),
+    );
+  };
 
-    return (
-        <CartContext.Provider value={value}>
-            {children}
-        </CartContext.Provider>
-    )
+  //* Calcolo totale pezzi nel carrello
+  const totalQuantity = cart.reduce((acc, game) => {
+    return acc + (game.quantity || 1);
+  }, 0);
+
+  function clearCart() {
+    setCart([]);
+  }
+
+  const value = {
+    cart,
+    addToCart,
+    removeFromCart,
+    toggleDigitalCopy,
+    totalQuantity,
+    clearCart,
+  };
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
 function useCart() {
-    const context = useContext(CartContext);
-    return context
+  const context = useContext(CartContext);
+  return context;
 }
 
 export { CartProvider, useCart };

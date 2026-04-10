@@ -1,22 +1,39 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useRef } from "react";
 
 const LoadingContext = createContext();
 
 function LoadingProvider({ children }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const timeoutRef = useRef(null);
 
-  const setLoading = (value) => {
-    setIsLoading(value);
-    return isLoading;
+  const startLoading = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+    timeoutRef.current = setTimeout(() => {
+      setIsLoading(true);
+      timeoutRef.current = null;
+    }, 200);
   };
-  return (
-    <LoadingContext.Provider value={{ setLoading, isLoading }}>{children}</LoadingContext.Provider>
-  );
+
+  const endLoading = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    setIsLoading(false);
+  };
+
+  const dataValue = {
+    isLoading,
+    startLoading,
+    endLoading,
+  };
+
+  return <LoadingContext.Provider value={dataValue}>{children}</LoadingContext.Provider>;
 }
 
 function useLoading() {
-  const context = useContext(LoadingContext);
-  return context;
+  return useContext(LoadingContext);
 }
 
 export { LoadingProvider, useLoading };

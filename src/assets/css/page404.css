@@ -1,0 +1,20 @@
+.glow-text {
+    text-shadow:
+        0 0 10px rgba(255, 193, 7, 0.8),
+        0 0 20px rgba(255, 193, 7, 0.6),
+        0 0 30px rgba(255, 193, 7, 0.4);
+}
+
+.card-bg {
+    background: linear-gradient(145deg, #0f172a, #020617);
+    border-radius: 16px;
+}
+
+.hv-80 {
+    min-height: 80vh
+}
+
+.logo {
+    max-width: 200px;
+    opacity: 0.8
+}
