@@ -13,7 +13,7 @@ export default function VideogamesList() {
   const [viewMode, setViewMode] = useState("grid");
   const [onlyDiscounted, setOnlyDiscounted] = useState(false);
   const [games, setGames] = useState([]);
-  const [sortBy, setSortBy] = useState("");
+  const [sortBy, setSortBy] = useState("default");
   const [searchParams, setSearchParams] = useSearchParams();
   const { showNotification } = useNotificationContext();
   const { startLoading, endLoading } = useLoading();
@@ -31,6 +31,8 @@ export default function VideogamesList() {
     if (sortBy === "name_asc") url += "?field=name&order=asc";
 
     if (sortBy === "name_desc") url += "?field=name&order=desc";
+
+    if (sortBy === "default") url += "";
 
     //* Axios
     axios
@@ -75,7 +77,7 @@ export default function VideogamesList() {
     const discounted = searchParams.get("discounted") === "true";
     setOnlyDiscounted(discounted);
 
-    const ordering = searchParams.get("ordering") || "";
+    const ordering = searchParams.get("ordering") || "default";
     setSortBy(ordering);
   };
 
@@ -94,22 +96,27 @@ export default function VideogamesList() {
           <h1 className="text-warning ms-1 mb-0">Tutti i videogiochi</h1>
 
           <div className="d-flex flex-wrap align-items-center gap-2 me-1">
+            
             <select
-              className="form-select bg-dark text-light border-warning"
-              value={sortBy}
-              onChange={(e) => {
-                setSortBy(e.target.value);
-                handleOrderingProducts(e.target.value);
+               className="form-select bg-dark text-light border-warning"
+               value={sortBy === "default" ? "" : sortBy}
+               onChange={(e) => {
+               const value = e.target.value;
+               setSortBy(value === "" ? "default" : value);
+               handleOrderingProducts(value === "" ? "default" : value);
               }}
               style={{ width: "130px" }}
-            >
-              <option value="">Ordina ↑↓</option>
-              <option value="price_asc">Prezzo ↑</option>
-              <option value="price_desc">Prezzo ↓</option>
-              <option value="name_asc">Nome A-Z</option>
-              <option value="name_desc">Nome Z-A</option>
-            </select>
+              >
+              <option value="" hidden>
+               Ordina
+              </option>
 
+                <option value="default">Default</option>
+                <option value="price_asc">Prezzo ↑</option>
+                <option value="price_desc">Prezzo ↓</option>
+                <option value="name_asc">Nome A-Z</option>
+                <option value="name_desc">Nome Z-A</option>
+              </select>
             <button
               className={`btn ${onlyDiscounted ? "btn-warning" : "btn-outline-warning"}`}
               onClick={() => {
