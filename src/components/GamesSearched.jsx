@@ -192,7 +192,7 @@ export default function GamesSearched() {
                 </button>
                 <Link to={`/products/${game.slug}`} className=" d-block text-decoration-none">
                   <div className="row g-4 align-items-center">
-                    <div className="col-12 col-sm-4 col-md-4 game-card">
+                    <div className="col-12 col-sm-4 col-md-4 col-lg-3 game-card">
                       <div className="position-relative">
                         {isProductDiscounted(game) && (
                           <div className="discount-flag fw-bold fs-5 bg-danger py-1 px-3">
@@ -207,7 +207,7 @@ export default function GamesSearched() {
                       </div>
                     </div>
 
-                    <div className="col-12 col-sm-8 col-md-8 text-light">
+                    <div className="col-12 col-sm-8 col-md-8 col-lg-9 text-light">
                       <h4 className="mb-2 list-card-title">{game.name}</h4>
                       <p className="mb-0">{game.description}</p>
                       <div>
