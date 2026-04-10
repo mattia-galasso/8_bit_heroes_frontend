@@ -75,6 +75,15 @@ export default function GamesSearched() {
         <p className="text-light">
           Prova con un altro nome oppure esplora i nostri giochi 🎮
         </p>
+        <div className="d-flex justify-content-center mt-5 gap-3">
+          <Link to="/" className="btn btn-warning fw-bold px-4">
+            🏠 Torna alla Home
+          </Link>
+
+          <Link to="/games" className="btn btn-outline-warning px-4">
+            🎮 Vai allo Store
+          </Link>
+        </div>
       </div>
     );
   }
@@ -168,11 +177,10 @@ export default function GamesSearched() {
                     }}
                   >
                     <i
-                      className={`bi ${
-                        isFavorite(game.id)
+                      className={`bi ${isFavorite(game.id)
                           ? "bi-heart-fill text-danger"
                           : "bi-heart text-light"
-                      } fs-4`}
+                        } fs-4`}
                     ></i>
                   </button>
                   <Link

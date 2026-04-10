@@ -34,7 +34,10 @@ export default function Cart() {
 
         <div className="d-flex justify-content-between align-items-center">
           <div className="fs-4 fw-bold text-white">{`Totale: \u20AC${totalPrice.toFixed(2)}`}</div>
-          <button onClick={() => setOpenForm(true)} className="btn btn-warning btn-lg">
+          <button
+            onClick={() => { if (cart.length === 0) { setOpenForm(false); showNotification("Il carrello è vuoto. Non puoi effettuare ordini se non ci sono elementi nel carrello.", "warning") } else { setOpenForm(true) } }}
+            className="btn btn-warning btn-lg"
+          >
             Effettua ordine
           </button>
         </div>

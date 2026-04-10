@@ -102,8 +102,11 @@ export default function GameDetails() {
             <p className="fs-3 fw-bold">€ {product.price}</p>
           )}
 
-          <button className="btn btn-warning btn-lg" onClick={() => addToCart(product)}>
-            Aggiungi al carrello
+          <button
+            className="btn btn-warning btn-lg"
+            onClick={() => addToCart(product)}
+          >
+            Aggiungi al carrello <i className="bi bi-cart" />
           </button>
         </section>
       </div>
