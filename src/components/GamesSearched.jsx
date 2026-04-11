@@ -130,16 +130,19 @@ export default function GamesSearched() {
         <div className="d-flex flex-wrap align-items-center gap-2 mt-2 flex-shrink-0">
           <select
             className="form-select bg-dark text-light border-warning"
-            value={sortBy}
+            value={sortBy === "default" ? "" : sortBy}
             onChange={(e) => {
-              setSortBy(e.target.value);
-              const params = new URLSearchParams(searchParams);
-              params.set("ordering", e.target.value);
-              setSearchParams(params);
+              const value = e.target.value;
+              setSortBy(value === "" ? "default" : value);
+              handleOrderingProducts(value === "" ? "default" : value);
             }}
             style={{ width: "130px" }}
           >
-            <option value="">Ordina ↑↓</option>
+            <option value="" hidden>
+              Ordina
+            </option>
+
+            <option value="default">Default</option>
             <option value="price_asc">Prezzo ↑</option>
             <option value="price_desc">Prezzo ↓</option>
             <option value="name_asc">Nome A-Z</option>
