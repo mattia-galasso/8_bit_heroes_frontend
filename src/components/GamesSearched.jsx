@@ -134,7 +134,6 @@ export default function GamesSearched() {
             onChange={(e) => {
               const value = e.target.value;
               setSortBy(value === "" ? "default" : value);
-              handleOrderingProducts(value === "" ? "default" : value);
             }}
             style={{ width: "130px" }}
           >
