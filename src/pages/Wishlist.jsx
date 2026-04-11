@@ -26,7 +26,7 @@ export default function Wishlist() {
         <h1 className="text-warning wishlist-section-title m-0">Wishlist</h1>
         {favorites.length > 0 && (
           <button type="button" className="btn btn-outline-danger mt-1" onClick={handleClear}>
-            <i className="bi bi-trash3 me-2"></i>
+            <i className="bi bi-trash3 me-2" />
             Svuota wishlist
           </button>
         )}

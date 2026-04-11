@@ -11,7 +11,7 @@ export default function OffcanvasCart() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [gameToDelete, setGameToDelete] = useState();
   const { cart, addToCart, removeFromCart, toggleDigitalCopy } = useCart();
-  const {showNotification} = useNotificationContext();
+  const { showNotification } = useNotificationContext();
   const navigateTo = useNavigate();
   const totalPrice = cart.reduce((total, item) => {
     return total + Number(item.final_price) * item.quantity;
@@ -39,19 +39,11 @@ export default function OffcanvasCart() {
                 aria-label="CartOffcanvas"
                 data-bs-dismiss="offcanvas"
               >
-                <Link
-                  to={`/cart`}
-                  className="btn btn-outline-light"
-                  type="button"
-                >
-                  <i className="bi bi-box-arrow-up-right"></i>
+                <Link to={`/cart`} className="btn btn-outline-light" type="button">
+                  <i className="bi bi-box-arrow-up-right" />
                 </Link>
-                <button
-                  type="button"
-                  className="btn btn-outline-light"
-                  aria-label="Close"
-                >
-                  <i className="bi bi-x-lg"></i>
+                <button type="button" className="btn btn-outline-light" aria-label="Close">
+                  <i className="bi bi-x-lg" />
                 </button>
               </div>
             </div>
@@ -62,10 +54,7 @@ export default function OffcanvasCart() {
           <div className="flex-grow-1 overflow-auto cart-offcanvas-body">
             {cart.map((game) => {
               return (
-                <div
-                  key={game.id}
-                  className="card card-bg cart-list-item border-secondary p-3"
-                >
+                <div key={game.id} className="card card-bg cart-list-item border-secondary p-3">
                   <div
                     onClick={(e) => {
                       if (e.target.closest("button, input, label")) return;
@@ -101,33 +90,29 @@ export default function OffcanvasCart() {
                                   className="btn btn-light py-0 px-1"
                                   data-bs-dismiss="offcanvas"
                                 >
-                                  <i className="bi bi-trash text-danger"></i>
+                                  <i className="bi bi-trash text-danger" />
                                 </button>
                               </>
                             ) : (
                               <>
                                 <button
-                                  onClick={() =>
-                                    removeFromCart(game.id, game.name)
-                                  }
+                                  onClick={() => removeFromCart(game.id, game.name)}
                                   className="btn btn-light py-0 px-1"
                                 >
-                                  <i className="bi bi-dash"></i>
+                                  <i className="bi bi-dash" />
                                 </button>
                               </>
                             )}
-                            <p className="m-0 px-2 border border-light">
-                              {game.quantity}
-                            </p>
+                            <p className="m-0 px-2 border border-light">{game.quantity}</p>
                             <button
                               onClick={() => addToCart(game)}
                               className="btn btn-light py-0 px-1"
                             >
-                              <i className="bi bi-plus p-0 m-0"></i>
+                              <i className="bi bi-plus p-0 m-0" />
                             </button>
                           </div>
 
-                          <div className={game.digital_copy? "form-check mt-2" : "d-none"}>
+                          <div className={game.digital_copy ? "form-check mt-2" : "d-none"}>
                             <input
                               className="form-check-input"
                               type="checkbox"
@@ -160,7 +145,17 @@ export default function OffcanvasCart() {
           <div className="d-flex justify-content-between my-2 align-items-center">
             <div className="fs-5 fw-bold text-white ms-1">{`Totale: \u20AC${totalPrice.toFixed(2)}`}</div>
             <button
-              onClick={() =>{ if(cart.length === 0) {setOpenForm(false); showNotification("Il carrello è vuoto. Non puoi effettuare ordini se non ci sono elementi nel carrello.", "warning") } else{setOpenForm(true)}}}
+              onClick={() => {
+                if (cart.length === 0) {
+                  setOpenForm(false);
+                  showNotification(
+                    "Il carrello è vuoto. Non puoi effettuare ordini se non ci sono elementi nel carrello.",
+                    "warning",
+                  );
+                } else {
+                  setOpenForm(true);
+                }
+              }}
               className="btn btn-warning me-2"
               data-bs-dismiss="offcanvas"
             >
@@ -170,14 +165,9 @@ export default function OffcanvasCart() {
         </div>
       </div>
 
-      {openForm && (
-        <CheckoutForm openForm={openForm} setOpenForm={setOpenForm} />
-      )}
+      {openForm && <CheckoutForm openForm={openForm} setOpenForm={setOpenForm} />}
       {openDeleteModal && (
-        <DeleteFromCartModal
-          gameToDelete={gameToDelete}
-          setOpenDeleteModal={setOpenDeleteModal}
-        />
+        <DeleteFromCartModal gameToDelete={gameToDelete} setOpenDeleteModal={setOpenDeleteModal} />
       )}
     </>
   );

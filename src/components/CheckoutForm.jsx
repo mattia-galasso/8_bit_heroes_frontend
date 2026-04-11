@@ -116,10 +116,7 @@ export default function CheckoutForm({ setOpenForm }) {
       return showNotification("Inserisci la Nazione di spedizione", "warning");
     }
     if (!billing_address.trim()) {
-      return showNotification(
-        "Inserisci l'indirizzo di fatturazione",
-        "warning",
-      );
+      return showNotification("Inserisci l'indirizzo di fatturazione", "warning");
     }
     if (!billing_cap.trim()) {
       return showNotification("Inserisci il CAP di fatturazione", "warning");
@@ -131,10 +128,7 @@ export default function CheckoutForm({ setOpenForm }) {
       return showNotification("Inserisci la citta di fatturazione", "warning");
     }
     if (!billing_country.trim()) {
-      return showNotification(
-        "Inserisci la Nazione di fatturazione",
-        "warning",
-      );
+      return showNotification("Inserisci la Nazione di fatturazione", "warning");
     }
 
     startLoading();
@@ -170,10 +164,7 @@ export default function CheckoutForm({ setOpenForm }) {
         data-bs-theme="dark"
       >
         <div className="modal-dialog modal-lg modal-dialog-centered">
-          <div
-            className="modal-content"
-            style={{ marginTop: "4rem", paddingBottom: "1rem" }}
-          >
+          <div className="modal-content" style={{ marginTop: "4rem", paddingBottom: "1rem" }}>
             <div className="modal-header">
               <button
                 onClick={() => setOpenForm(false)}
@@ -190,10 +181,7 @@ export default function CheckoutForm({ setOpenForm }) {
                     <p>Inserisci i tuoi dati per completare l'ordine</p>
                   </div>
 
-                  <form
-                    onSubmit={(e) => handleSubmit(e)}
-                    className="row g-3 p-2"
-                  >
+                  <form onSubmit={(e) => handleSubmit(e)} className="row g-3 p-2">
                     <div className="col-12 col-sm-6">
                       <label htmlFor="name" className="form-label">
                         Nome
@@ -295,12 +283,8 @@ export default function CheckoutForm({ setOpenForm }) {
                           className="form-check-input"
                           id="sameAddress"
                         />
-                        <label
-                          htmlFor="sameAddress"
-                          className="form-check-label"
-                        >
-                          Indirizzo di spedizione uguale a indirizzo di
-                          fatturazione
+                        <label htmlFor="sameAddress" className="form-check-label">
+                          Indirizzo di spedizione uguale a indirizzo di fatturazione
                         </label>
                       </div>
                     </div>
@@ -308,10 +292,7 @@ export default function CheckoutForm({ setOpenForm }) {
                     {!sameAddress && (
                       <>
                         <div className="col-12 col-sm-6">
-                          <label
-                            htmlFor="billing_address"
-                            className="form-label"
-                          >
+                          <label htmlFor="billing_address" className="form-label">
                             Indirizzo di fatturazione
                           </label>
                           <input
@@ -350,10 +331,7 @@ export default function CheckoutForm({ setOpenForm }) {
                           />
                         </div>
                         <div className="col-12 col-sm-6">
-                          <label
-                            htmlFor="billing_country"
-                            className="form-label"
-                          >
+                          <label htmlFor="billing_country" className="form-label">
                             Nazione di fatturazione
                           </label>
                           <input
@@ -379,10 +357,9 @@ export default function CheckoutForm({ setOpenForm }) {
                 <>
                   <div className="d-flex flex-column gap-4 align-items-center">
                     <h1>
-                      Ordine effettuato con{" "}
-                      <span className="text-warning glow-text">Successo</span>
+                      Ordine effettuato con <span className="text-warning glow-text">Successo</span>
                     </h1>
-                    <i className="bi bi-check-circle-fill text-success fs-1"></i>
+                    <i className="bi bi-check-circle-fill text-success fs-1" />
                     <h2>Grazie per aver acquistato da noi.</h2>
                     <div className="d-flex gap-3">
                       <Link
@@ -409,10 +386,9 @@ export default function CheckoutForm({ setOpenForm }) {
                 <>
                   <div className="d-flex flex-column gap-4 align-items-center">
                     <h1>
-                      Ordine{" "}
-                      <span className="text-warning glow-text">Fallito</span>
+                      Ordine <span className="text-warning glow-text">Fallito</span>
                     </h1>
-                    <i className="bi bi-x-octagon-fill text-danger fs-1"></i>
+                    <i className="bi bi-x-octagon-fill text-danger fs-1" />
                     <h2>Riprova.</h2>
                     <div className="d-flex gap-3">
                       <Link

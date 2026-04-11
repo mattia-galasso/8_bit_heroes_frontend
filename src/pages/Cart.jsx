@@ -40,7 +40,7 @@ export default function Cart() {
           </h1>
           {cart.length > 0 && (
             <button type="button" className="btn btn-outline-danger mt-1" onClick={handleClear}>
-              <i className="bi bi-trash3 me-2"></i>
+              <i className="bi bi-trash3 me-2" />
               Svuota carrello
             </button>
           )}
@@ -107,7 +107,7 @@ export default function Cart() {
                                   type="button"
                                   className="btn btn-light py-0 px-1"
                                 >
-                                  <i className="bi bi-trash text-danger"></i>
+                                  <i className="bi bi-trash text-danger" />
                                 </button>
                               </>
                             ) : (
@@ -116,7 +116,7 @@ export default function Cart() {
                                   onClick={() => removeFromCart(game.id, game.name)}
                                   className="btn btn-light py-0 px-1"
                                 >
-                                  <i className="bi bi-dash"></i>
+                                  <i className="bi bi-dash" />
                                 </button>
                               </>
                             )}
@@ -125,7 +125,7 @@ export default function Cart() {
                               onClick={() => addToCart(game)}
                               className="btn btn-light py-0 px-1"
                             >
-                              <i className="bi bi-plus p-0 m-0"></i>
+                              <i className="bi bi-plus p-0 m-0" />
                             </button>
                           </div>
                           {game.digital_copy ? (
