@@ -40,7 +40,7 @@ export default function GameDetails() {
 
   return (
     <div className="page-container my-5 text-light">
-      <div className="row g-4 justify-content-center">
+      <div className="row g-4 justify-content-center align-items-center">
         {/* banner */}
         <div className="col-12 border-bottom pb-3">
           <img
@@ -58,11 +58,10 @@ export default function GameDetails() {
             className="img-fluid rounded shadow"
           />
         </div>
-
         {/* infos */}
-        <section className="col-11 col-md-7 col-lg-8">
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <h1 className="product-title mt-2 text-warning">{product.name}</h1>
+        <section className="col-11 col-md-7 col-lg-8 mb-2">
+          <div className="d-flex justify-content-between align-items-center">
+            <h1 className="product-title mb-0 text-warning">{product.name}</h1>
             <button type="button" className="btn p-0" onClick={() => toggleFavorite(product)}>
               <i
                 className={`bi ${isFavorite(product.id) ? "bi-heart-fill text-danger" : "bi-heart text-light"} fs-3`}
@@ -70,48 +69,39 @@ export default function GameDetails() {
             </button>
           </div>
 
-          <p>{product.description}</p>
+          <p className="detail-description my-3">{product.description}</p>
 
-          <ul className="list-group list-group-flush mb-3 rounded shadow-sm">
-            {/* Riga PEGI */}
-            <li className="list-group-item bg-dark text-light border-secondary py-2 d-flex align-items-center">
-              <strong className="me-2">PEGI:</strong>
-              <img
-                src={`http://localhost:3000/videogame_pegi/PEGI_${product.pegi}.png`}
-                alt={`PEGI ${product.pegi}`}
-                style={{ width: "40px", height: "auto", display: "block" }}
-                onError={(e) => {
-                  e.target.style.display = "none";
-                }}
-              />
-            </li>
-
-            {/* Riga Copia Digitale */}
-            <li className="list-group-item bg-dark text-light border-secondary py-2">
+          {/* PEGI e Copia Digitale */}
+          <div className="d-flex align-items-center gap-3">
+            <img
+              src={`http://localhost:3000/videogame_pegi/PEGI_${product.pegi}.png`}
+              alt={`PEGI ${product.pegi}`}
+              style={{ width: "50px", height: "auto" }}
+              onError={(e) => (e.target.style.display = "none")}
+            />
+            <div>
               <strong className="me-2">Copia digitale:</strong>
               <span className={product.digital_copy ? "text-success" : "text-danger"}>
                 {product.digital_copy ? "Disponibile" : "Non Disponibile"}
               </span>
-            </li>
-          </ul>
+            </div>
+          </div>
 
           {product.price !== product.final_price ? (
-            <div className="mb-3">
-              <p className="text-decoration-line-through text-danger mb-1">€ {product.price}</p>
+            <div className="my-3">
               <div className="d-flex align-items-center gap-3">
-                <p className="fs-3 fw-bold text-success mb-1">€ {product.final_price}</p>
+                <div className="text-decoration-line-through text-danger">€ {product.price}</div>
                 <span className="badge bg-info fw-semibold">-{product.discount_percentage}%</span>
               </div>
+              <div className="fs-3 fw-bold text-success">€ {product.final_price}</div>
             </div>
           ) : (
-            <p className="fs-3 fw-bold">€ {product.price}</p>
+            <div className="fs-3 fw-bold">€ {product.price}</div>
           )}
-
           <>
             <button className="btn btn-warning btn-lg" onClick={() => addToCart(product)}>
               Aggiungi al carrello
             </button>
-
             {cartItem && (
               <p className="text-success mt-2 mb-0 fw-semibold">
                 {cartItem.quantity > 1

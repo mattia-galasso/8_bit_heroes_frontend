@@ -134,6 +134,10 @@ html,
   .list-card-title {
     max-width: 100%;
   }
+
+  .detail-description {
+    max-width: 90%;
+  }
 }
 
 @media (min-width: 1200px) {
