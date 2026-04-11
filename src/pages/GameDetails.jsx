@@ -96,18 +96,18 @@ export default function GameDetails() {
               <div className="fs-3 fw-bold text-success">€ {product.final_price}</div>
             </div>
           ) : (
-            <div className="fs-3 fw-bold">€ {product.price}</div>
+            <div className="fs-3 fw-bold my-2">€ {product.price}</div>
           )}
           <>
             <button className="btn btn-warning btn-lg" onClick={() => addToCart(product)}>
               Aggiungi al carrello
             </button>
             {cartItem && (
-              <p className="text-success mt-2 mb-0 fw-semibold">
+              <div className="text-success mt-2 fw-semibold">
                 {cartItem.quantity > 1
                   ? `Prodotto nel carrello (${cartItem.quantity})`
                   : "Prodotto nel carrello!"}
-              </p>
+              </div>
             )}
           </>
         </section>
