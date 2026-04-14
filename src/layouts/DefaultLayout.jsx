@@ -1,4 +1,4 @@
-import { Outlet, NavLink, Link } from "react-router";
+import { Outlet } from "react-router";
 import Navbar from "../components/Navbar";
 import OffcanvasCart from "../components/OffcanvasCart";
 import Notification from "../components/Notification";

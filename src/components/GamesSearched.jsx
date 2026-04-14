@@ -83,7 +83,7 @@ export default function GamesSearched() {
 
   useEffect(viewsParams, [searchParams]);
 
-  if (searchGamesList.length === 0) {
+  if (searchGamesList.length === 0)
     return (
       <div className="mt-4 text-center">
         <h2 className="text-warning">Nessun risultato per “{search}”</h2>
@@ -99,7 +99,6 @@ export default function GamesSearched() {
         </div>
       </div>
     );
-  }
 
   const isProductDiscounted = (product) => {
     if (!product.start_date || !product.end_date) return false;

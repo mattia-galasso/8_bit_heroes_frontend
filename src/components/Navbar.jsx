@@ -21,19 +21,14 @@ export default function Navbar() {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const searchQuery = params.get("search");
-    if (searchQuery) {
-      setUserInput(searchQuery);
-    } else {
-      setUserInput("");
-    }
+    if (searchQuery) setUserInput(searchQuery);
+    else setUserInput("");
   }, [location.search]);
 
   useEffect(() => {
     const forceClose = () => setNavOpen(false);
     const handleOutsideInteraction = (event) => {
-      if (navOpen && navRef.current && !navRef.current.contains(event.target)) {
-        forceClose();
-      }
+      if (navOpen && navRef.current && !navRef.current.contains(event.target)) forceClose();
     };
     const handleScroll = () => {
       if (navOpen) forceClose();
@@ -61,18 +56,11 @@ export default function Navbar() {
 
   return (
     <div className="navbar-container" ref={navRef}>
-      <nav
-        className="navbar navbar-expand-lg ps-1 pe-1 pe-lg-4 py-1"
-        data-bs-theme="dark"
-      >
+      <nav className="navbar navbar-expand-lg ps-1 pe-1 pe-lg-4 py-1" data-bs-theme="dark">
         <div className="container-fluid" id="container-navbar">
           <Link to="/" className="navbar-brand m-0 p-0">
             <div className="d-flex gap-1 align-items-center">
-              <img
-                src="/8bit_heroes_logo.png"
-                alt="8bit_heroes_logo"
-                className="avatar"
-              />
+              <img src="/8bit_heroes_logo.png" alt="8bit_heroes_logo" className="avatar" />
               <div className="navbar-division"></div>
             </div>
           </Link>
@@ -107,29 +95,19 @@ export default function Navbar() {
 
           <div
             className={
-              navOpen
-                ? "collapse navbar-collapse show gap-5"
-                : "collapse navbar-collapse gap-5"
+              navOpen ? "collapse navbar-collapse show gap-5" : "collapse navbar-collapse gap-5"
             }
             id="navbarNav"
           >
             <div>
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <NavLink
-                    to="/"
-                    className="nav-link fs-5 fw-bold"
-                    onClick={closeNav}
-                  >
+                  <NavLink to="/" className="nav-link fs-5 fw-bold" onClick={closeNav}>
                     Home
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink
-                    to="/games"
-                    className="nav-link fs-5 fw-bold"
-                    onClick={closeNav}
-                  >
+                  <NavLink to="/games" className="nav-link fs-5 fw-bold" onClick={closeNav}>
                     Videogames
                   </NavLink>
                 </li>
@@ -165,10 +143,7 @@ export default function Navbar() {
             </div>
             <div className="navbar-icons">
               <NavLink to="/wishlist" className="me-1">
-                <button
-                  className="btn btn-outline-light my-3 position-relative"
-                  onClick={closeNav}
-                >
+                <button className="btn btn-outline-light my-3 position-relative" onClick={closeNav}>
                   <div className="nav-link fs-5">
                     <i className=" bi bi-heart" />
                   </div>

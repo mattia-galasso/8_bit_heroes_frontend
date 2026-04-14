@@ -19,8 +19,6 @@ export default function OffcanvasCart() {
 
   return (
     <>
-      {/* RIMUOVERE CLASSE SHOW PRIMA DI UTILIZZARLO E AGGIUNGERE CLASSE offcanvas-end */}
-
       <div
         className="offcanvas offcanvas-end text-bg-dark"
         tabIndex="-1"

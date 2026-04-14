@@ -9,9 +9,7 @@ function FavoritesProvider({ children }) {
     return savedFavorites ? JSON.parse(savedFavorites) : [];
   });
   const { showNotification } = useNotificationContext();
-  useEffect(() => {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [favorites]);
+  useEffect(() => localStorage.setItem("favorites", JSON.stringify(favorites)), [favorites]);
 
   function toggleFavorite(game) {
     const alreadyFavorite = favorites.some((item) => item.id === game.id);

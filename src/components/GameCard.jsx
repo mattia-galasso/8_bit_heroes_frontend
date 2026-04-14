@@ -52,9 +52,7 @@ export default function GameCard({ product, enableHoverOverlay }) {
           />
         </button>
         {isProductDiscounted(product) && (
-          <div className="discount-flag fw-bold py-1 px-2">
-            -{product.percentage}%
-          </div>
+          <div className="discount-flag fw-bold py-1 px-2">-{product.percentage}%</div>
         )}
         <img
           className="img-fluid rounded-2"
@@ -63,9 +61,7 @@ export default function GameCard({ product, enableHoverOverlay }) {
         />
         {isHovered && (
           <div className="card-overlay d-flex flex-column justify-content-center align-items-center text-white text-center text-decoration-none py-1 px-2">
-            <span className="bg-warning fw-semibold rounded-3 py-1 px-2">
-              {product.name}
-            </span>
+            <span className="bg-warning fw-semibold rounded-3 py-1 px-2">{product.name}</span>
             {isProductDiscounted(product) ? (
               <>
                 <div className="d-flex align-items-center gap-1">
@@ -81,9 +77,7 @@ export default function GameCard({ product, enableHoverOverlay }) {
                 </span>
               </>
             ) : (
-              <span className="bg-success badge py-1 px-2">
-                €{product.price}
-              </span>
+              <span className="bg-success badge py-1 px-2">€{product.price}</span>
             )}
           </div>
         )}

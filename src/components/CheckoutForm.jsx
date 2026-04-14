@@ -32,9 +32,7 @@ export default function CheckoutForm({ setOpenForm }) {
   const { startLoading, endLoading } = useLoading();
 
   useEffect(() => {
-    if (sameAddress) {
-      setBillingInfos();
-    }
+    if (sameAddress) setBillingInfos();
   }, [
     sameAddress,
     formData.shipping_address,
@@ -64,9 +62,7 @@ export default function CheckoutForm({ setOpenForm }) {
 
     // controlla che tutti i caratteri siano numeri
     for (let i = 0; i < cap.length; i++) {
-      if (cap[i] < "0" || cap[i] > "9") {
-        return false;
-      }
+      if (cap[i] < "0" || cap[i] > "9") return false;
     }
     return true;
   };
@@ -88,48 +84,42 @@ export default function CheckoutForm({ setOpenForm }) {
       billing_country,
     } = formData;
 
-    if (!name.trim().toLowerCase()) {
-      return showNotification("Compilare il campo Nome.", "warning");
-    }
-    if (!surname.trim().toLowerCase()) {
+    if (!name.trim().toLowerCase()) return showNotification("Compilare il campo Nome.", "warning");
+
+    if (!surname.trim().toLowerCase())
       return showNotification("Compilare il campo Cognome.", "warning");
-    }
-    if (!email.trim()) {
-      return showNotification("Compila il campo Email", "warning");
-    }
-    if (!regex.test(email)) {
-      return showNotification("Email non valida", "warning");
-    }
-    if (!shipping_address.trim()) {
+
+    if (!email.trim()) return showNotification("Compila il campo Email", "warning");
+
+    if (!regex.test(email)) return showNotification("Email non valida", "warning");
+
+    if (!shipping_address.trim())
       return showNotification("Inserisci l'indirizzo di spedizione", "warning");
-    }
-    if (!shipping_cap.trim()) {
-      return showNotification("Inserisci il CAP di spedizione", "warning");
-    }
-    if (isValidCAP(shipping_cap.trim()) === false) {
+
+    if (!shipping_cap.trim()) return showNotification("Inserisci il CAP di spedizione", "warning");
+
+    if (isValidCAP(shipping_cap.trim()) === false)
       return showNotification("il CAP inserito non è valido", "warning");
-    }
-    if (!shipping_city.trim()) {
+
+    if (!shipping_city.trim())
       return showNotification("Inserisci la citta di spedizione", "warning");
-    }
-    if (!shipping_country.trim()) {
+
+    if (!shipping_country.trim())
       return showNotification("Inserisci la Nazione di spedizione", "warning");
-    }
-    if (!billing_address.trim()) {
+
+    if (!billing_address.trim())
       return showNotification("Inserisci l'indirizzo di fatturazione", "warning");
-    }
-    if (!billing_cap.trim()) {
-      return showNotification("Inserisci il CAP di fatturazione", "warning");
-    }
-    if (isValidCAP(billing_cap.trim()) === false) {
+
+    if (!billing_cap.trim()) return showNotification("Inserisci il CAP di fatturazione", "warning");
+
+    if (isValidCAP(billing_cap.trim()) === false)
       return showNotification("il CAP inserito non è valido", "warning");
-    }
-    if (!billing_city.trim()) {
+
+    if (!billing_city.trim())
       return showNotification("Inserisci la citta di fatturazione", "warning");
-    }
-    if (!billing_country.trim()) {
+
+    if (!billing_country.trim())
       return showNotification("Inserisci la Nazione di fatturazione", "warning");
-    }
 
     startLoading();
 
@@ -354,61 +344,57 @@ export default function CheckoutForm({ setOpenForm }) {
               )}
 
               {orderSuccess === true && (
-                <>
-                  <div className="d-flex flex-column gap-4 align-items-center">
-                    <h1>
-                      Ordine effettuato con <span className="text-warning glow-text">Successo</span>
-                    </h1>
-                    <i className="bi bi-check-circle-fill text-success fs-1" />
-                    <h2>Grazie per aver acquistato da noi.</h2>
-                    <div className="d-flex gap-3">
-                      <Link
-                        to="/"
-                        onClick={() => setOpenForm(false)}
-                        className="btn btn-warning fw-bold px-4"
-                      >
-                        🏠 Torna alla Home
-                      </Link>
+                <div className="d-flex flex-column gap-4 align-items-center">
+                  <h1 className="text-center">
+                    Ordine effettuato con <span className="text-warning glow-text">Successo</span>
+                  </h1>
+                  <i className="bi bi-check-circle-fill text-success fs-1" />
+                  <h2>Grazie per aver acquistato da noi.</h2>
+                  <div className="d-flex gap-3">
+                    <Link
+                      to="/"
+                      onClick={() => setOpenForm(false)}
+                      className="btn btn-warning fw-bold px-4"
+                    >
+                      🏠 Torna alla Home
+                    </Link>
 
-                      <Link
-                        to="/games"
-                        onClick={() => setOpenForm(false)}
-                        className="btn btn-outline-warning px-4"
-                      >
-                        🎮 Vai allo Store
-                      </Link>
-                    </div>
+                    <Link
+                      to="/games"
+                      onClick={() => setOpenForm(false)}
+                      className="btn btn-outline-warning px-4"
+                    >
+                      🎮 Vai allo Store
+                    </Link>
                   </div>
-                </>
+                </div>
               )}
 
               {orderSuccess === false && (
-                <>
-                  <div className="d-flex flex-column gap-4 align-items-center">
-                    <h1>
-                      Ordine <span className="text-warning glow-text">Fallito</span>
-                    </h1>
-                    <i className="bi bi-x-octagon-fill text-danger fs-1" />
-                    <h2>Riprova.</h2>
-                    <div className="d-flex gap-3">
-                      <Link
-                        to="/"
-                        onClick={() => setOpenForm(false)}
-                        className="btn btn-warning fw-bold px-4"
-                      >
-                        🏠 Torna alla Home
-                      </Link>
+                <div className="d-flex flex-column gap-4 align-items-center">
+                  <h1>
+                    Ordine <span className="text-warning glow-text">Fallito</span>
+                  </h1>
+                  <i className="bi bi-x-octagon-fill text-danger fs-1" />
+                  <h2>Riprova.</h2>
+                  <div className="d-flex gap-3">
+                    <Link
+                      to="/"
+                      onClick={() => setOpenForm(false)}
+                      className="btn btn-warning fw-bold px-4"
+                    >
+                      🏠 Torna alla Home
+                    </Link>
 
-                      <Link
-                        to="/cart"
-                        onClick={() => setOpenForm(false)}
-                        className="btn btn-outline-warning px-4"
-                      >
-                        🛒 Vai al Carrello
-                      </Link>
-                    </div>
+                    <Link
+                      to="/cart"
+                      onClick={() => setOpenForm(false)}
+                      className="btn btn-outline-warning px-4"
+                    >
+                      🛒 Vai al Carrello
+                    </Link>
                   </div>
-                </>
+                </div>
               )}
             </div>
           </div>

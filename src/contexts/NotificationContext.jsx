@@ -15,20 +15,13 @@ const NotificationContextProvider = ({ children }) => {
   const [notification, setNotification] = useState(notificationInitialState);
   const [timeoutID, setTimeoutID] = useState(null);
 
-  const showNotification = (
-    message,
-    type = "primary",
-    autoHide = true,
-    duration = 5000,
-  ) => {
+  const showNotification = (message, type = "primary", autoHide = true, duration = 5000) => {
     if (timeoutID) clearTimeout(timeoutID);
 
     if (!message) {
       message = "Errore Sconosciuto";
       type = "danger";
-    } else if (!acceptedTypes.includes(type)) {
-      type = "primary";
-    }
+    } else if (!acceptedTypes.includes(type)) type = "primary";
 
     setNotification({
       visible: true,
@@ -56,11 +49,7 @@ const NotificationContextProvider = ({ children }) => {
     showNotification,
     hideNotification,
   };
-  return (
-    <NotificationContext.Provider value={dataValue}>
-      {children}
-    </NotificationContext.Provider>
-  );
+  return <NotificationContext.Provider value={dataValue}>{children}</NotificationContext.Provider>;
 };
 
 const useNotificationContext = () => {
