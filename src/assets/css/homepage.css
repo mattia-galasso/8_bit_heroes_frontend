@@ -43,12 +43,11 @@ body {
 
 .hero-space-image {
   position: absolute;
-  translate: -50% -50%;
   width: 230px;
   top: 50%;
   left: 51%;
   opacity: 0.2;
-  transform: rotate(10deg);
+  transform: translate(-50%, -50%) rotate(10deg);
   z-index: 0;
   filter: blur(0.2rem);
 }
