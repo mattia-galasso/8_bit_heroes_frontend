@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNotificationContext } from "../contexts/NotificationContext";
 import { useLoading } from "../contexts/LoadingContext";
+import { API_URL } from "../config";
 
 export default function WelcomePopUp({ onClose }) {
   const [inputData, setInputData] = useState("");
@@ -29,7 +30,7 @@ export default function WelcomePopUp({ onClose }) {
     startLoading();
 
     axios
-      .post("http://localhost:3000/newsletter", { email: email })
+      .post(`${API_URL}/newsletter`, { email: email })
       .then(() => {
         endLoading();
         setStatus("thanks");

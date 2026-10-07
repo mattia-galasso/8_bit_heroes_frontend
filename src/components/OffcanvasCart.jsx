@@ -5,6 +5,7 @@ import { useNotificationContext } from "../contexts/NotificationContext.jsx";
 import { useState } from "react";
 import CheckoutForm from "./CheckoutForm.jsx";
 import DeleteFromCartModal from "./DeleteFromCartModal.jsx";
+import { API_URL } from "../config";
 
 export default function OffcanvasCart() {
   const [openForm, setOpenForm] = useState(false);
@@ -65,7 +66,7 @@ export default function OffcanvasCart() {
                         <div className="position-relative">
                           <img
                             className="img-fluid rounded-2"
-                            src={`http://localhost:3000/videogame_covers/${game.cover_image}`}
+                            src={`${API_URL}/videogame_covers/${game.cover_image}`}
                             alt={game.name}
                             data-bs-dismiss="offcanvas"
                           />

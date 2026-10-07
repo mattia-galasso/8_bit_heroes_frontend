@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useFavorites } from "../contexts/FavoritesContext";
 import { useNavigate } from "react-router";
 import ClearModal from "../components/ClearModal";
+import { API_URL } from "../config";
 
 export default function Wishlist() {
   const { favorites, toggleFavorite, isFavorite, clearFavorites } = useFavorites();
@@ -67,7 +68,7 @@ export default function Wishlist() {
                         )}
                         <img
                           className="img-fluid rounded-2"
-                          src={`http://localhost:3000/videogame_covers/${game.cover_image}`}
+                          src={`${API_URL}/videogame_covers/${game.cover_image}`}
                           alt={game.name}
                         />
                       </div>

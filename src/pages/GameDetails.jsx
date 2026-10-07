@@ -6,6 +6,7 @@ import GameCard from "../components/GameCard";
 import { useFavorites } from "../contexts/FavoritesContext";
 import { useNotificationContext } from "../contexts/NotificationContext";
 import { useLoading } from "../contexts/LoadingContext";
+import { API_URL } from "../config";
 
 export default function GameDetails() {
   const { slug } = useParams();
@@ -18,7 +19,7 @@ export default function GameDetails() {
   useEffect(() => {
     startLoading();
     axios
-      .get(`http://localhost:3000/products/${slug}`)
+      .get(`${API_URL}/products/${slug}`)
       .then((res) => {
         setProduct(res.data);
         endLoading();
@@ -44,7 +45,7 @@ export default function GameDetails() {
         {/* banner */}
         <div className="col-12 border-bottom pb-3">
           <img
-            src={`http://localhost:3000/videogame_banners/${product.banner_image}`}
+            src={`${API_URL}/videogame_banners/${product.banner_image}`}
             alt={product.name}
             className="img-fluid rounded w-100"
           />
@@ -53,7 +54,7 @@ export default function GameDetails() {
         {/* cover */}
         <div className="col-8 col-md-5 col-lg-4 mt-3">
           <img
-            src={`http://localhost:3000/videogame_covers/${product.cover_image}`}
+            src={`${API_URL}/videogame_covers/${product.cover_image}`}
             alt={product.name}
             className="img-fluid rounded shadow"
           />
@@ -74,7 +75,7 @@ export default function GameDetails() {
           {/* PEGI e Copia Digitale */}
           <div className="d-flex align-items-center gap-3">
             <img
-              src={`http://localhost:3000/videogame_pegi/PEGI_${product.pegi}.png`}
+              src={`${API_URL}/videogame_pegi/PEGI_${product.pegi}.png`}
               alt={`PEGI ${product.pegi}`}
               style={{ width: "50px", height: "auto" }}
               onError={(e) => (e.target.style.display = "none")}

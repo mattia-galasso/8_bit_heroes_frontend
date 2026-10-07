@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import GameCard from "../components/GameCard";
 import { useFavorites } from "../contexts/FavoritesContext";
+import { API_URL } from "../config";
 
 // CONTEXT
 import { useNotificationContext } from "../contexts/NotificationContext";
@@ -22,7 +23,7 @@ export default function VideogamesList() {
   useEffect(() => {
     startLoading();
 
-    let url = "http://localhost:3000/products";
+    let url = `${API_URL}/products`;
 
     if (sortBy === "price_asc") url += "?field=price&order=asc";
 
@@ -219,7 +220,7 @@ export default function VideogamesList() {
                         )}
                         <img
                           className="img-fluid rounded-2"
-                          src={`http://localhost:3000/videogame_covers/${game.cover_image}`}
+                          src={`${API_URL}/videogame_covers/${game.cover_image}`}
                           alt={game.name}
                         />
                       </div>

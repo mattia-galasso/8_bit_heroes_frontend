@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link } from "react-router";
 import { useNotificationContext } from "../contexts/NotificationContext";
 import { useLoading } from "../contexts/LoadingContext";
+import { API_URL } from "../config";
 
 export default function CheckoutForm({ setOpenForm }) {
   // CUSTOM HOOK
@@ -124,7 +125,7 @@ export default function CheckoutForm({ setOpenForm }) {
     startLoading();
 
     axios
-      .post("http://localhost:3000/orders", formData)
+      .post(`${API_URL}/orders`, formData)
       .then((res) => {
         endLoading();
         if (res.data) {

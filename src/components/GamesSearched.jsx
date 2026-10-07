@@ -3,8 +3,9 @@ import GameCard from "./GameCard";
 import { Link, useSearchParams } from "react-router";
 import axios from "axios";
 import { useFavorites } from "../contexts/FavoritesContext";
+import { API_URL } from "../config";
 
-const baseURL = "http://localhost:3000/products/find";
+const baseURL = `${API_URL}/products/find`;
 
 // CONTEXT
 import { useNotificationContext } from "../contexts/NotificationContext";
@@ -234,7 +235,7 @@ export default function GamesSearched() {
                         )}
                         <img
                           className="img-fluid rounded-2"
-                          src={`http://localhost:3000/videogame_covers/${game.cover_image}`}
+                          src={`${API_URL}/videogame_covers/${game.cover_image}`}
                           alt={game.name}
                         />
                       </div>

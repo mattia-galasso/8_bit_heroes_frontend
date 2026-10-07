@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { API_URL } from "../config";
 
 // COMPONENTS
 import GameCard from "../components/GameCard";
@@ -30,7 +31,7 @@ export default function Homepage() {
   useEffect(() => {
     startLoading();
     axios
-      .get("http://localhost:3000/products/discounted")
+      .get(`${API_URL}/products/discounted`)
       .then((res) => {
         setDiscountedProducts(res.data.result);
         endLoading();
@@ -45,7 +46,7 @@ export default function Homepage() {
   // CHIAMATA PIU' VENDUTI
   useEffect(() => {
     axios
-      .get("http://localhost:3000/products/sales")
+      .get(`${API_URL}/products/sales`)
       .then((res) => {
         setMostSoldProducts(res.data.result);
         endLoading();

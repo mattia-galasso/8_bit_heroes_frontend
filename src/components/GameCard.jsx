@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import { useFavorites } from "../contexts/FavoritesContext";
+import { API_URL } from "../config";
 
 export default function GameCard({ product, enableHoverOverlay }) {
   const { toggleFavorite, isFavorite } = useFavorites();
@@ -56,7 +57,7 @@ export default function GameCard({ product, enableHoverOverlay }) {
         )}
         <img
           className="img-fluid rounded-2"
-          src={`http://localhost:3000/videogame_covers/${product.cover_image}`}
+          src={`${API_URL}/videogame_covers/${product.cover_image}`}
           alt={product.name}
         />
         {isHovered && (

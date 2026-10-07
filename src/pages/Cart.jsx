@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import DeleteFromCartModal from "../components/DeleteFromCartModal.jsx";
 import ClearModal from "../components/ClearModal.jsx";
 import { useNotificationContext } from "../contexts/NotificationContext.jsx";
+import { API_URL } from "../config";
 
 export default function Cart() {
   const [openForm, setOpenForm] = useState(false);
@@ -85,7 +86,7 @@ export default function Cart() {
                         <div className="position-relative">
                           <img
                             className="img-fluid rounded-2"
-                            src={`http://localhost:3000/videogame_covers/${game.cover_image}`}
+                            src={`${API_URL}/videogame_covers/${game.cover_image}`}
                             alt={game.name}
                           />
                         </div>
